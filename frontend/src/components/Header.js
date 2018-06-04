@@ -1,10 +1,11 @@
 "use strict";
 
 import React from 'react';
-import {Toolbar, Button} from 'react-md';
 import {withRouter} from 'react-router-dom'
 
 import KebabMenu from './KebabMenu';
+
+import {Nav, Navbar, NavItem} from "react-bootstrap";
 
 
 class Header extends React.Component {
@@ -15,16 +16,22 @@ class Header extends React.Component {
 
     render() {
         return (
-            <Toolbar
-                colored
-                nav={<div style={{display: "inline"}} className="buttons__group">
-                    <Button onClick={() => this.props.history.push('/')} icon>home</Button>
-                    <Button onClick={() => this.props.history.push('/list')} flat>List</Button>
-                </div>
-                }
-                title={this.props.title}
-                actions={<KebabMenu id="toolbar-colored-kebab-menu"/>}>
-            </Toolbar>
+            <Navbar>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="#" onClick={() => this.props.history.push('/')}>{this.props.title}</a>
+                    </Navbar.Brand>
+                </Navbar.Header>
+                <Nav>
+                    <NavItem eventKey={1} onClick={() => this.props.history.push('/')}>
+                        Home
+                    </NavItem>
+                    <NavItem eventKey={2} onClick={() => this.props.history.push('/list')}>
+                        List
+                    </NavItem>
+                   <KebabMenu />
+                </Nav>
+            </Navbar>
         );
     }
 }

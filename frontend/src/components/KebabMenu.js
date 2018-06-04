@@ -1,57 +1,46 @@
 "use strict";
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { MenuButton, ListItem, Avatar, FontIcon } from 'react-md';
-import { withRouter } from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
-import UserService from  '../services/UserService';
+import UserService from '../services/UserService';
+import {MenuItem, NavDropdown} from "react-bootstrap";
 
 
 class KebabMenu extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
-        }
     }
 
-    logout() {
-        UserService.logout();
-        this.state = {
-            user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
-        };
-        if(this.props.location.pathname != '/') {
-            this.props.history.push('/');
-        }
-        else {
-            window.location.reload();
-        }
-    }
 
     render() {
         return (
-            <MenuButton
-                id={this.props.id}
-                icon
-                className={this.props.className}
-                menuItems={this.state.user ? [
-                    <ListItem key={1} leftAvatar={<Avatar icon={<FontIcon>account_circle</FontIcon>}/>} primaryText={this.state.user.username}/>,
-                    <ListItem key={2} leftAvatar={<Avatar icon={<FontIcon>add</FontIcon>}/>} primaryText="Add Movie" onClick={() => this.props.history.push('/add')}/>,
-                    <ListItem key={3} primaryText="Logout" onClick={() => this.logout()}/>
-                ]: [<ListItem key={1} primaryText="Login" onClick={() => this.props.history.push('/login')}/>]}
-            >
-                more_vert
-            </MenuButton>
+            <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+                <MenuItems {...this.props}/>
+            </NavDropdown>
         );
     }
 }
 
-KebabMenu.propTypes = {
-    id: PropTypes.string.isRequired,
-    className: PropTypes.string,
-    menuItems: PropTypes.array
-};
+function MenuItems(props) {
+    function logout() {
+        UserService.logout();
+        if (props.location.pathname !== '/') {
+            props.history.push('/');
+            return;
+        }
+        window.location.reload();
+    }
+
+
+    return UserService.isAuthenticated() ? [
+            <MenuItem key={1}>{UserService.getCurrentUser().username}</MenuItem>,
+            <MenuItem key={2} onClick={() => logout()}>Logout</MenuItem>]
+        :
+        [
+            <MenuItem key={1} onClick={() => props.history.push('/login')}>Login</MenuItem>
+        ];
+}
 
 export default withRouter(KebabMenu);
