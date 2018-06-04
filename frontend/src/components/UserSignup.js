@@ -1,38 +1,31 @@
 "use strict";
 
 import React from 'react';
-import { Card, Button, TextField } from 'react-md';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
-import { AlertMessage } from './AlertMessage';
+import {AlertMessage} from './AlertMessage';
 import Page from './Page';
-
-
-const style = { maxWidth: 500 };
+import {Button, Col, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 
 
 class UserSignup extends React.Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
-            username : '',
-            password : ''
+            username: '',
+            password: '',
+            passwordRepeat: ''
         };
 
-        this.handleChangeUsername = this.handleChangeUsername.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
-
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFormChange = this.handleFormChange.bind(this);
     }
 
-    handleChangeUsername(value) {
-        this.setState(Object.assign({}, this.state, {username: value}));
-    }
-
-    handleChangePassword(value) {
-        this.setState(Object.assign({}, this.state, {password: value}));
+    handleFormChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
     }
 
     handleSubmit(event) {
@@ -40,46 +33,88 @@ class UserSignup extends React.Component {
 
         let user = {
             username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+
         };
 
         this.props.onSubmit(user);
     }
 
+    getValidState(inputName) {
+        return this.getFormValidStates()[inputName];
+    }
+
+    getFormValidStates() {
+        return {
+            username: this.state.username.length < 5 || this.state.username.length > 200 ? 'error' : 'success',
+            password: this.state.password.length < 5 || this.state.password.length > 200 ? 'error' : 'success',
+            passwordRepeat: this.state.password !== this.state.passwordRepeat ? 'error' : 'success'
+        };
+    }
+
+    isFormValid() {
+        for (let state of Object.values(this.getFormValidStates())) {
+            if (state === 'error') return false;
+        }
+        return true;
+    };
+
+
     render() {
         return (
             <Page>
-                <Card style={style} className="md-block-centered">
-                    <form className="md-grid" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
-                        <TextField
-                            label="Username"
-                            id="UsernameField"
-                            type="text"
-                            className="md-row"
-                            required={true}
-                            value={this.state.username}
-                            onChange={this.handleChangeUsername}
-                            errorText="Username is required"/>
-                        <TextField
-                            label="Password"
-                            id="PasswordField"
-                            type="password"
-                            className="md-row"
-                            required={true}
-                            value={this.state.password}
-                            onChange={this.handleChangePassword}
-                            errorText="Password is required"/>
+                <Col lg={4} lgOffset={4}>
+                    <form onSubmit={this.handleSubmit}>
+                        <FormGroup
+                            controlId="username"
+                            validationState={this.getValidState('username')}
+                        >
+                            <ControlLabel>Username</ControlLabel>
+                            <FormControl
+                                type="text"
+                                name="username"
+                                value={this.state.username}
+                                placeholder="Username"
+                                onChange={this.handleFormChange}
+                            />
+                        </FormGroup>
+                        <FormGroup
+                            controlId="password"
+                            validationState={this.getValidState('password')}
+                        >
+                            <ControlLabel>Passowrd</ControlLabel>
+                            <FormControl
+                                name="password"
+                                type="password"
+                                value={this.state.password}
+                                placeholder="Password"
+                                onChange={this.handleFormChange}
+                            />
+                        </FormGroup>
+                        <FormGroup
+                            controlId="passwordRepeat"
+                            validationState={this.getValidState('passwordRepeat')}
+                        >
+                            <ControlLabel>Passowrd repeat</ControlLabel>
+                            <FormControl
+                                name="passwordRepeat"
+                                type="password"
+                                value={this.state.passwordRepeat}
+                                placeholder="Password again"
+                                onChange={this.handleFormChange}
+                            />
+                        </FormGroup>
 
                         <Button id="submit" type="submit"
-                                disabled={this.state.username == undefined || this.state.username == '' || this.state.password == undefined || this.state.password == '' ? true : false}
-                                raised primary className="md-cell md-cell--2">Register</Button>
-                        <Button id="reset" type="reset" raised secondary className="md-cell md-cell--2">Dismiss</Button>
-                        <AlertMessage className="md-row md-full-width" >{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
+                                disabled={!this.isFormValid()}
+                        >Register</Button>
+                        <AlertMessage
+                            className="md-row md-full-width">{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
                     </form>
-                </Card>
+                </Col>
             </Page>
         );
     }
-};
+}
 
 export default withRouter(UserSignup);
