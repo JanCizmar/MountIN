@@ -16,16 +16,10 @@ export default class Page extends React.Component {
         }
     }
 
-    componentDidMount(){
-       this.setState({
-           title: document.title
-       });
-    }
-
     render() {
         return (
             <section>
-                <Header title={this.state.title} />
+                <Header title="MountIn" />
                 {this.props.children}
                 <Footer />
             </section>

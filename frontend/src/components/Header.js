@@ -3,7 +3,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom'
 
-import KebabMenu from './KebabMenu';
+import UserMenu from './UserMenu';
 
 import {Nav, Navbar, NavItem} from "react-bootstrap";
 
@@ -29,7 +29,9 @@ class Header extends React.Component {
                     <NavItem eventKey={2} onClick={() => this.props.history.push('/list')}>
                         List
                     </NavItem>
-                   <KebabMenu />
+                </Nav>
+                <Nav pullRight>
+                    <UserMenu />
                 </Nav>
             </Navbar>
         );

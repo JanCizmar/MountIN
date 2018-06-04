@@ -14,7 +14,7 @@ export default class App extends React.Component {
         super(props);
 
         this.state = {
-            title: 'Movie Example App',
+            title: 'MountIN',
             routes: [
                 {component: UserLoginView, path: '/login'},
                 {component: UserSignupView, path: '/register'},
