@@ -82,7 +82,7 @@ class UserSignup extends React.Component {
                             controlId="password"
                             validationState={this.getValidState('password')}
                         >
-                            <ControlLabel>Passowrd</ControlLabel>
+                            <ControlLabel>Password</ControlLabel>
                             <FormControl
                                 name="password"
                                 type="password"
@@ -95,7 +95,7 @@ class UserSignup extends React.Component {
                             controlId="passwordRepeat"
                             validationState={this.getValidState('passwordRepeat')}
                         >
-                            <ControlLabel>Passowrd repeat</ControlLabel>
+                            <ControlLabel>Repeat Password</ControlLabel>
                             <FormControl
                                 name="passwordRepeat"
                                 type="password"
