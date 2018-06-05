@@ -31,7 +31,7 @@ class CreateTour extends React.Component {
     render() {
         return (
             <Page>
-                <Map waypoints={this.state.wpts} onDirectionsChanged={this.handleOnDirectionsChanged}/>
+                <Map waypoints={this.state.wpts} draggable={true} onDirectionsChanged={this.handleOnDirectionsChanged}/>
             </Page>
         );
     }

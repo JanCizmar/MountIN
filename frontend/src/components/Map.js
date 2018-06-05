@@ -118,13 +118,14 @@ export const Map = compose(
 
             {props.directions &&
             <DirectionsRenderer onDirectionsChanged={directionsChangedHandler} ref={(ref) => dirRen = ref}
-                                options={{draggable: true}}
+                                options={{draggable: props.draggable !== undefined ? props.draggable : false}}
                                 directions={props.directions}/>}
             <FirstMarker lat={props.marker[0]} lng={props.marker[1]}/>
         </GoogleMap>;
     }
 );
 
+/** @return mixed */
 function FirstMarker(props) {
     if (props.lat !== undefined && props.lng !== undefined) {
         return <Marker
