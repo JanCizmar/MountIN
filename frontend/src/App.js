@@ -7,6 +7,7 @@ import {UserLoginView} from "./views/UserLoginView";
 import {UserSignupView} from "./views/UserSignupView";
 
 import {LandingPageView} from "./views/LandingPageView";
+import {CreateTourView} from "./views/CreateTourView";
 
 export default class App extends React.Component {
 
@@ -17,6 +18,7 @@ export default class App extends React.Component {
             title: 'MountIN',
             routes: [
                 {component: UserLoginView, path: '/login'},
+                {component: CreateTourView, path: '/createTour'},
                 {component: UserSignupView, path: '/register'},
                 {component: LandingPageView, path: '/'},
 
