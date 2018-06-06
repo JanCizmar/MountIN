@@ -8,6 +8,7 @@ const middlewares = require('./middlewares');
 
 const auth  = require('./routes/auth');
 const movie = require('./routes/movie');
+const tour = require('./routes/tour');
 
 const api = express();
 
@@ -29,6 +30,7 @@ api.get('/', (req, res) => {
 // API routes
 api.use('/auth'  , auth);
 api.use('/movies', movie);
+api.use('/tours', tour); //todo: use the same name here?
 
 
 
