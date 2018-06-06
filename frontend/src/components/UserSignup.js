@@ -1,11 +1,10 @@
 "use strict";
 
 import React from 'react';
-import {withRouter} from 'react-router-dom';
 
 import {AlertMessage} from './AlertMessage';
 import Page from './Page';
-import {Button, Col, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
+import {Button, Col, ControlLabel, FormControl, FormGroup, Row} from "react-bootstrap";
 
 
 class UserSignup extends React.Component {
@@ -119,4 +118,4 @@ class UserSignup extends React.Component {
     }
 }
 
-export default withRouter(UserSignup);
+export default UserSignup;

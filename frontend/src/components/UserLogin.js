@@ -1,11 +1,11 @@
 "use strict";
 
 import React from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import {AlertMessage} from './AlertMessage';
 import Page from './Page';
-import {Button, Col, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
+import {Button, Col, ControlLabel, FormControl, FormGroup, Row} from "react-bootstrap";
 
 
 class UserLogin extends React.Component {
@@ -88,4 +88,4 @@ class UserLogin extends React.Component {
     }
 }
 
-export default withRouter(UserLogin);
+export default UserLogin;

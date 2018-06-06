@@ -15,7 +15,7 @@ export class UserLoginView extends React.Component {
     }
 
     login(user) {
-        UserService.login(user.username, user.password).then((data) => {
+        UserService.login(user.username, user.password).then(() => {
             this.props.history.push('/');
         }).catch((e) => {
             console.error(e);
@@ -27,7 +27,7 @@ export class UserLoginView extends React.Component {
 
     render() {
         return (
-          <UserLogin onSubmit={(user) => this.login(user)} error={this.state.error}></UserLogin>
+            <UserLogin onSubmit={(user) => this.login(user)} error={this.state.error}/>
         );
     }
 }
