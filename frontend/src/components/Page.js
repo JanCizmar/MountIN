@@ -3,7 +3,8 @@
 import React from 'react';
 
 import Header from './Header';
-import { Footer } from './Footer';
+import {Footer} from './Footer';
+import {Grid} from "react-bootstrap";
 
 
 export default class Page extends React.Component {
@@ -19,9 +20,11 @@ export default class Page extends React.Component {
     render() {
         return (
             <section>
-                <Header title="MountIn" />
-                {this.props.children}
-                <Footer />
+                <Header title="MountIn"/>
+                <Grid>
+                    {this.props.children}
+                </Grid>
+                <Footer/>
             </section>
         );
     }

@@ -63,55 +63,57 @@ class UserSignup extends React.Component {
     render() {
         return (
             <Page>
-                <Col lg={4} lgOffset={4}>
-                    <form onSubmit={this.handleSubmit}>
-                        <FormGroup
-                            controlId="username"
-                            validationState={this.getValidState('username')}
-                        >
-                            <ControlLabel>Username</ControlLabel>
-                            <FormControl
-                                type="text"
-                                name="username"
-                                value={this.state.username}
-                                placeholder="Username"
-                                onChange={this.handleFormChange}
-                            />
-                        </FormGroup>
-                        <FormGroup
-                            controlId="password"
-                            validationState={this.getValidState('password')}
-                        >
-                            <ControlLabel>Password</ControlLabel>
-                            <FormControl
-                                name="password"
-                                type="password"
-                                value={this.state.password}
-                                placeholder="Password"
-                                onChange={this.handleFormChange}
-                            />
-                        </FormGroup>
-                        <FormGroup
-                            controlId="passwordRepeat"
-                            validationState={this.getValidState('passwordRepeat')}
-                        >
-                            <ControlLabel>Repeat Password</ControlLabel>
-                            <FormControl
-                                name="passwordRepeat"
-                                type="password"
-                                value={this.state.passwordRepeat}
-                                placeholder="Password again"
-                                onChange={this.handleFormChange}
-                            />
-                        </FormGroup>
+                <Row>
+                    <Col lg={4} lgOffset={4}>
+                        <form onSubmit={this.handleSubmit}>
+                            <FormGroup
+                                controlId="username"
+                                validationState={this.getValidState('username')}
+                            >
+                                <ControlLabel>Username</ControlLabel>
+                                <FormControl
+                                    type="text"
+                                    name="username"
+                                    value={this.state.username}
+                                    placeholder="Username"
+                                    onChange={this.handleFormChange}
+                                />
+                            </FormGroup>
+                            <FormGroup
+                                controlId="password"
+                                validationState={this.getValidState('password')}
+                            >
+                                <ControlLabel>Password</ControlLabel>
+                                <FormControl
+                                    name="password"
+                                    type="password"
+                                    value={this.state.password}
+                                    placeholder="Password"
+                                    onChange={this.handleFormChange}
+                                />
+                            </FormGroup>
+                            <FormGroup
+                                controlId="passwordRepeat"
+                                validationState={this.getValidState('passwordRepeat')}
+                            >
+                                <ControlLabel>Repeat Password</ControlLabel>
+                                <FormControl
+                                    name="passwordRepeat"
+                                    type="password"
+                                    value={this.state.passwordRepeat}
+                                    placeholder="Password again"
+                                    onChange={this.handleFormChange}
+                                />
+                            </FormGroup>
 
-                        <Button id="submit" type="submit"
-                                disabled={!this.isFormValid()}
-                        >Register</Button>
-                        <AlertMessage
-                            className="md-row md-full-width">{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
-                    </form>
-                </Col>
+                            <Button id="submit" type="submit"
+                                    disabled={!this.isFormValid()}
+                            >Register</Button>
+                            <AlertMessage
+                                className="md-row md-full-width">{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
+                        </form>
+                    </Col>
+                </Row>
             </Page>
         );
     }
