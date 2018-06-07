@@ -1,21 +1,39 @@
 $textGreen: #158a00;
 
-.tour-list-item {
-  min-height: 250px;
-  div.image {
-    height: 130px;
-    background-size: cover
+.tour-list-item-wrapper {
+  //margin-top: 20px;
+  div.tour-list-item {
+    min-height: 250px;
+    div.image {
+      height: 130px;
+      background-size: cover
+    }
+    div.title {
+      color: $textGreen;
+      font-size: 20px;
+    }
+    div.bottom {
+      display: flex;
+      flex-direction: row;
+      div.guided {
+        flex-grow: 1;
+      }
+    }
+
   }
-  div.title {
-    color: $textGreen;
-    font-size: 20px;
-  }
-  div.bottom {
-    display: flex;
-    flex-direction: row;
-    div.guided {
-      flex-grow: 1;
+}
+
+div.filters-wrapper{
+  .location{
+    div.autocomplete-dropdown-container{
+      border-radius: 0 0 3px 3px;
+      border: 1px solid #707070;
+      .suggestion-item{
+        &.active{
+          background-color: #f0f0ff;
+        }
+        padding: 5px 10px;
+      }
     }
   }
-
 }

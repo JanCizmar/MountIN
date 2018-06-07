@@ -6,7 +6,7 @@ import Rating from "../Rating";
 
 export default function TourListItem(props) {
     return (
-        <Col lg={3}>
+        <Col lg={3} className="tour-list-item-wrapper" onClick={props.onClick}>
             <div className="tour-list-item">
                 <div className="image" style={{
                     backgroundImage: "url(" + props.image.thumbnail + ")",

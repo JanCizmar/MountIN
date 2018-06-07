@@ -1,10 +1,10 @@
 "use strict";
 
 import React from 'react';
-import {Map} from './Map';
+import {Map} from './../Map';
 import {withRouter} from 'react-router-dom';
 
-import Page from './Page';
+import Page from './../Page';
 
 
 class CreateTour extends React.Component {
