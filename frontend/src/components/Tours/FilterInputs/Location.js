@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 export const Location = compose(
     withHandlers({
         onSelect: props => address => {
+            props.onValueChange(address);
             if ((props.onLatLngChange) !== undefined) {
                 props.onLatLngLoadingStarts && props.onLatLngLoadingStarts();
-
                 geocodeByAddress(address).then(results => {
                     getLatLng(results[0]).then(res => {
                       props.onLatLngChange(res);
