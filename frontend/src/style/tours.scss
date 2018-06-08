@@ -1,4 +1,6 @@
 $textGreen: #158a00;
+$textGrey: #727272;
+$filter-values-color: $textGrey;
 
 .tour-list-item-wrapper {
   //margin-top: 20px;
@@ -23,17 +25,44 @@ $textGreen: #158a00;
   }
 }
 
-div.filters-wrapper{
-  .location{
-    div.autocomplete-dropdown-container{
+div.filters-wrapper {
+  .location {
+    div.autocomplete-dropdown-container {
       border-radius: 0 0 3px 3px;
       border: 1px solid #707070;
-      .suggestion-item{
-        &.active{
+      .suggestion-item {
+        &.active {
           background-color: #f0f0ff;
         }
         padding: 5px 10px;
       }
     }
   }
+  div.price-wrapper {
+    div.price {
+      padding-top: 12px;
+      display: flex;
+      .value {
+        line-height: 14px;
+        font-size: 16px;
+        color: $filter-values-color;
+        font-weight: 300;
+        &.min {
+          margin: 0 20px 0 2px;
+        }
+
+        &.max {
+          margin: 0 2px 0 20px;
+        }
+      }
+      .rc-slider-track {
+        background-color: $textGreen !important;
+      }
+
+      .rc-slider-handle {
+        border: solid 2px $textGrey !important;
+      }
+    }
+  }
+
 }
