@@ -49,6 +49,7 @@
     "react-bootstrap": "^0.32.1",
     "react-dom": "16.2.0",
     "react-google-maps": "^9.4.5",
+    "react-loading": "^2.0.2",
     "react-md": "1.3.3",
     "react-places-autocomplete": "^7.1.2",
     "react-router-dom": "4.2.2",
