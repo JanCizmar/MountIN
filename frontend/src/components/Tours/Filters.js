@@ -21,7 +21,7 @@ class Filters extends React.Component {
         return (
             <div className="filters-wrapper">
                 <Row>
-                    <Col lg={6}>
+                    <Col md={6}>
                         <Location onValueChange={locationName => this.setState({...this.state, locationName})}
                                   onLatLngChange={console.log}
                                   value={this.state.locationName}
@@ -30,7 +30,7 @@ class Filters extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col lg={3}>
+                    <Col md={3} sm={6}>
                         <FormGroup
                             controlId="dateFrom">
                             <DatePicker
@@ -39,7 +39,7 @@ class Filters extends React.Component {
                             />
                         </FormGroup>
                     </Col>
-                    <Col lg={3}>
+                    <Col md={3} sm={6}>
                         <FormGroup
                             controlId="dateTo">
                             <DatePicker

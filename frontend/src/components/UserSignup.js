@@ -63,7 +63,7 @@ class UserSignup extends React.Component {
         return (
             <Page>
                 <Row>
-                    <Col lg={4} lgOffset={4}>
+                    <Col md={4} sm={6} mdOffset={4} smOffset={3}>
                         <form onSubmit={this.handleSubmit}>
                             <FormGroup
                                 controlId="username"

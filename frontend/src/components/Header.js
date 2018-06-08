@@ -21,18 +21,21 @@ class Header extends React.Component {
                     <Navbar.Brand>
                         <a href="#" onClick={() => this.props.history.push('/')}>{this.props.title}</a>
                     </Navbar.Brand>
+                    <Navbar.Toggle/>
                 </Navbar.Header>
-                <Nav>
-                    <NavItem eventKey={1} onClick={() => this.props.history.push('/')}>
-                        Home
-                    </NavItem>
-                    <NavItem eventKey={2} onClick={() => this.props.history.push('/list')}>
-                        List
-                    </NavItem>
-                </Nav>
-                <Nav pullRight>
-                    <UserMenu />
-                </Nav>
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem eventKey={1} onClick={() => this.props.history.push('/')}>
+                            Home
+                        </NavItem>
+                        <NavItem eventKey={2} onClick={() => this.props.history.push('/list')}>
+                            List
+                        </NavItem>
+                    </Nav>
+                    <Nav pullRight>
+                        <UserMenu/>
+                    </Nav>
+                </Navbar.Collapse>
             </Navbar>
         );
     }
