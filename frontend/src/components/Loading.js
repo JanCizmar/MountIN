@@ -9,7 +9,9 @@ export default function Loading() {
         height: "100%",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginTop: "50px",
+        marginBottom: "50px"
     };
 
     return (<div style={style}><ReactLoading type="spin" color="green"/></div>);

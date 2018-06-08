@@ -12,16 +12,19 @@ export const Location = compose(
                 props.onLatLngLoadingStarts && props.onLatLngLoadingStarts();
                 geocodeByAddress(address).then(results => {
                     getLatLng(results[0]).then(res => {
-                      props.onLatLngChange(res);
-                      props.onLatLngLoadingFinished && props.onLatLngLoadingFinished();
+                        props.onLatLngChange([res.lat, res.lng]);
+                        props.onValueChange(address);
                     });
+                }).catch((error) => {
+                    console.error(error);
+                    props.onLatLngChange([]);
                 });
             }
         }
     })
 )((props) =>
     <FormGroup className="location"
-        controlId="location">
+               controlId="location">
         <PlacesAutocomplete onChange={props.onValueChange} value={props.value} onSelect={props.onSelect}>
             {({getInputProps, suggestions, getSuggestionItemProps}) => (
                 <div>
