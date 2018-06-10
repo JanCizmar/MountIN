@@ -11,7 +11,6 @@ export const Location = compose(
             props.onLatLngLoadingStarts && props.onLatLngLoadingStarts();
             geocodeByAddress(address).then(results => {
                 getLatLng(results[0]).then(res => {
-                    console.log(res);
                     props.onValueChange({name: address, latLng: res});
                 });
             }).catch((error) => {
@@ -30,7 +29,7 @@ export const Location = compose(
                 <div>
                     <FormControl
                         {...getInputProps({
-                            placeholder: 'Search Places ...',
+                            placeholder: 'Location',
                             className: 'location-search-input'
                         })}
                     />

@@ -71,18 +71,18 @@ const list  = (req, res) => {
 const search = (req, res) => {
 
     //res.send(JSON.stringify(req.query));
-    let query =  {};
+    let query = {};
 
-    if(req.query.difficulty !== undefined){
+    if (req.query.difficulty !== undefined) {
         query.difficulty = req.query.difficulty;
     }
-    if(req.query.dateAfter !== undefined){
+    if (req.query.dateAfter !== undefined) {
         query.date = {
             $gte: req.query.dateAfter,
         }
     }
-    if(req.query.dateBefore !== undefined){
-        if(query.date === undefined){
+    if (req.query.dateBefore !== undefined) {
+        if (query.date === undefined) {
             query.date = {};
         }
         query.date.$lte = req.query.dateBefore;
