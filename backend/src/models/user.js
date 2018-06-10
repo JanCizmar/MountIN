@@ -17,7 +17,25 @@ const UserSchema  = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    surname: {
+        type: String,
+        required: true
+    },
+    phone: String,
+    picture: {
+        large: {data: Buffer, imageType: String},
+        thumbnail: {data: Buffer, imageType: String}
+    },
+    certificate: {
+        data: Buffer, imageType: String
+    },
+    isInstructor: Boolean,
+    tours: [{ type: Schema.Types.ObjectId, ref: 'Tour' }]
 });
 
 UserSchema.set('versionKey', false);
