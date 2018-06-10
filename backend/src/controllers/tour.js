@@ -68,6 +68,44 @@ const list  = (req, res) => {
         }));
 };
 
+const search = (req, res) => {
+
+    //res.send(JSON.stringify(req.query));
+    let query =  {};
+
+    if(req.query.difficulty !== undefined){
+        query.difficulty = req.query.difficulty;
+    }
+    if(req.query.dateAfter !== undefined){
+        query.date = {
+            $gte: req.query.dateAfter,
+        }
+    }
+    if(req.query.dateBefore !== undefined){
+        if(query.date === undefined){
+            query.date = {};
+        }
+        query.date.$lte = req.query.dateBefore;
+    }
+
+
+    //res.send(JSON.stringify(query));
+
+    TourModel.find(query).exec()
+        .then(tours => res.status(200).json(tours))
+        .catch(error => res.status(500).json({
+            error: 'Internal server error',
+            message: error.message
+        }));
+
+    // TourModel.findByIdAndUpdate(req.params.id,req.body,{ new: true, runValidators: true}).exec()
+    //     .then(tour => res.status(200).json(tour))
+    //     .catch(error => res.status(500).json({
+    //         error: 'Internal server error',
+    //         message: error.message
+    //     }));
+};
+
 
 
 module.exports = {
@@ -75,5 +113,6 @@ module.exports = {
     read,
     update,
     remove,
-    list
+    list,
+    search
 };
