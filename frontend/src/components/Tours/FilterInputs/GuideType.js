@@ -1,8 +1,8 @@
 import React from 'react';
 import {FormGroup} from "react-bootstrap";
-import Select from "react-select";
 import PropTypes from 'prop-types';
 import {GuideType as Types} from '../../../constantLists/GuideType';
+import {FilterSelect} from "./FilterSelect";
 
 const typeOptions = Object.keys(Types.names).map((key) => {
     return {label: Types.names[key], value: key}
@@ -10,9 +10,11 @@ const typeOptions = Object.keys(Types.names).map((key) => {
 
 export const GuideType = (props) =>
     <FormGroup>
-        <Select isMulti={true} options={typeOptions}
-                onChange={props.onChange}
-                value={props.value}/>
+        <FilterSelect isMulti={true} options={typeOptions}
+                      onChange={props.onChange}
+                      value={props.value}
+                      placeholder='Guide type'
+        />
     </FormGroup>;
 
 GuideType.propTypes = {

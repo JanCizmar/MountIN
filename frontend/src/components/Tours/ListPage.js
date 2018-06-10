@@ -26,12 +26,8 @@ class ListPage extends React.Component {
         }
     };
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
-        this.props.dispatch(actions.fetchTours(this.props.state.filtersValue));
+        this.props.dispatch(actions.fetchTours(this.props.state.filtersValue, 0));
     }
 
     render() {
