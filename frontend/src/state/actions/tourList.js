@@ -7,9 +7,9 @@ export function changeFilters(data) {
     }
 }
 
-export function fetchTours(data) {
+export function fetchTours(data = {}, timeout) {
     return {
         type: 'FETCH_TOURS',
-        payload: TourService.getTours()
+        payload: TourService.getTours(data, timeout)
     }
 }
