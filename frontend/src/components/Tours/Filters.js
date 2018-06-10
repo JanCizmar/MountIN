@@ -20,9 +20,8 @@ export const Filters = compose(
     <div className="filters-wrapper">
         <Row>
             <Col md={6}>
-                <Location onValueChange={props.onChange('locationName')}
-                          onLatLngChange={props.onChange('locationLatLng')}
-                          value={props.value.locationName}
+                <Location onValueChange={props.onChange('location')}
+                          value={props.value.location}
 
                 />
             </Col>
@@ -73,8 +72,10 @@ Filters.propTypes = {
     onLoadingShouldStart: PropTypes.func,
 
     value: PropTypes.shape({
-        locationName: PropTypes.string.isRequired,
-        locationLatLng: PropTypes.array.isRequired,
+        location: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            latLng: PropTypes.object.isRequired,
+        }).isRequired,
         activityTypes: PropTypes.array.isRequired,
         difficulties: PropTypes.array.isRequired,
         guideTypes: PropTypes.array.isRequired,

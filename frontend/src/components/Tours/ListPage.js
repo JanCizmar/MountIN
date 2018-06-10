@@ -6,66 +6,45 @@ import {withRouter} from 'react-router-dom';
 import Page from '../Page';
 
 import List from "./List";
-import TourService from "../../services/TourService";
 import {Filters} from "./Filters";
+import {connect} from "react-redux";
+import * as actions from '../../state/actions/tourList';
 
 class ListPage extends React.Component {
 
     onFilterChange = value => {
-        //save the json string of the previous filtes value avoiding affect of loactionName
-        let prevValue = JSON.stringify({...this.state.filtersValue, locationName: ""});
-        this.setState((prevState) => {
-            return {...prevState, filtersValue: value}
+        let prevValue = JSON.stringify({
+            ...this.props.state.filtersValue,
+            location: {...this.props.state.filtersValue.location, name: ""}
         });
+        this.props.dispatch(actions.changeFilters(value));
         //get string of new value
-        let newValue = JSON.stringify({...value, locationName: ""});
+        let newValue = JSON.stringify({...value, location: {...value.location, name: ""}});
         //if they are different, load data
         if (prevValue !== newValue) {
-            this.loadData();
+            this.props.dispatch(actions.fetchTours(value));
         }
     };
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            loading: true,
-            tours: [],
-            filtersValue: {
-                locationName: "",
-                locationLatLng: [],
-                activityTypes: [],
-                difficulties: [],
-                guideTypes: [],
-                price: [0, 100]
-            }
-        };
-    }
-
-    loadData() {
-        this.setState((prevState) => {
-            return {...prevState, loading: true}
-        });
-        TourService.getTours().then((data) => {
-                this.setState((prevState) => {
-                    return {...prevState, tours: data, loading: false}
-                });
-            }
-        )
     }
 
     componentDidMount() {
-        this.loadData()
+        this.props.dispatch(actions.fetchTours(this.props.state.filtersValue));
     }
-
 
     render() {
         return (
             <Page>
-                <Filters value={this.state.filtersValue} onChange={this.onFilterChange}/>
-                <List tours={this.state.tours} loading={this.state.loading}/>
+                <Filters value={this.props.state.filtersValue} onChange={this.onFilterChange}/>
+                <List tours={this.props.state.tours} loading={this.props.state.loading}/>
             </Page>);
     }
 }
 
-export default withRouter(ListPage);
+export default connect(store => {
+    return {
+        state: store.tourList
+    }
+})(withRouter(ListPage));
