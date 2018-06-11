@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 // Define the user schema
 
@@ -35,7 +36,7 @@ const UserSchema  = new mongoose.Schema({
         data: Buffer, imageType: String
     },
     isInstructor: Boolean,
-    tours: [{ type: Schema.Types.ObjectId, ref: 'Tour' }]
+    tours: [{ type: ObjectId, ref: 'Tour' }]
 });
 
 UserSchema.set('versionKey', false);
