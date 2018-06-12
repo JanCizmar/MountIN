@@ -48,7 +48,8 @@ const TourSchema  = new mongoose.Schema({
         required: false,
         min: 0,
         max: 5
-    }
+    },
+    participants: [{ type: ObjectId, ref: 'User' }]
 });
 
 TourSchema.set('versionKey', false); //this

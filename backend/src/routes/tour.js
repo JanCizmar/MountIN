@@ -11,6 +11,7 @@ router.post('/', TourController.create); // Create a new movie
 router.get('/:id', TourController.read); // Read a movie by Id
 router.put('/:id', TourController.update); // Update a movie by Id
 router.delete('/:id', TourController.remove); // Delete a movie by Id
+router.get('/:id/participants', TourController.getParticipants); // Get participants of a tour
 
 
 module.exports = router;

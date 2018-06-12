@@ -68,6 +68,20 @@ const list  = (req, res) => {
         }));
 };
 
+const getParticipants = (req, res) => {
+    TourModel.findById(req.params.id).populate('participants').exec()
+        .then(tour => {
+
+            if (!tour) return res.status(404).json({
+                error: 'Not Found',
+                message: `Tour not found`
+            });
+
+            res.status(200).json(tour)
+
+        })
+};
+
 
 
 module.exports = {
@@ -75,5 +89,6 @@ module.exports = {
     read,
     update,
     remove,
-    list
+    list,
+    getParticipants
 };
