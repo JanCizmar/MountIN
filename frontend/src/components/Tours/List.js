@@ -14,8 +14,7 @@ export default function List(props) {
 
     return (
         <Row>
-            {props.loading && <Loading/>}
-            {tours}
+            {props.loading && <Loading/> || tours}
         </Row>
     );
 }

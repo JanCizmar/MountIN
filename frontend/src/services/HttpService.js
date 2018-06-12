@@ -136,10 +136,35 @@ export default class HttpService {
     }
 
     static checkIfUnauthorized(res) {
-        if(res.status == 401) {
-            return true;
+        return res.status === 401;
+    }
+
+    static buildQueryString(data) {
+        let queryParams = [];
+        for (let name of Object.keys(data)) {
+            if (!data[name]) {
+                delete data[name]; //delete undefined
+                continue;
+            }
+            if (data[name] instanceof Array && data[name].length > 0) {
+                queryParams.push(name + '=' + data[name].join(','));
+                continue;
+            } else if (data[name].length === 0) {
+                continue;
+            }
+
+            if (typeof data[name] === 'string') {
+                queryParams.push(name + '=' + data[name]);
+                continue;
+            }
+
+            console.error('Key' + name + ' can not be added. Query can be built just from strings and arrays');
         }
-        return false;
+        let queryString = queryParams.join('&');
+        if (queryString !== '') {
+            return '?' + queryString;
+        }
+        return '';
     }
 
 }

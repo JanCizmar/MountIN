@@ -7,27 +7,29 @@ import PropTypes from 'prop-types';
 export const Location = compose(
     withHandlers({
         onSelect: props => address => {
-            props.onValueChange(address);
-            if ((props.onLatLngChange) !== undefined) {
-                props.onLatLngLoadingStarts && props.onLatLngLoadingStarts();
-                geocodeByAddress(address).then(results => {
-                    getLatLng(results[0]).then(res => {
-                      props.onLatLngChange(res);
-                      props.onLatLngLoadingFinished && props.onLatLngLoadingFinished();
-                    });
+            props.onValueChange({...props.value, name: address});
+            props.onLatLngLoadingStarts && props.onLatLngLoadingStarts();
+            geocodeByAddress(address).then(results => {
+                getLatLng(results[0]).then(res => {
+                    props.onValueChange({name: address, latLng: res});
                 });
-            }
+            }).catch((error) => {
+                console.error(error);
+            });
+        },
+        onValueChange: props => address => {
+            props.onValueChange({...props.value, name: address});
         }
     })
 )((props) =>
     <FormGroup className="location"
-        controlId="location">
-        <PlacesAutocomplete onChange={props.onValueChange} value={props.value} onSelect={props.onSelect}>
+               controlId="location">
+        <PlacesAutocomplete onChange={props.onValueChange} value={props.value.name} onSelect={props.onSelect}>
             {({getInputProps, suggestions, getSuggestionItemProps}) => (
                 <div>
                     <FormControl
                         {...getInputProps({
-                            placeholder: 'Search Places ...',
+                            placeholder: 'Location',
                             className: 'location-search-input'
                         })}
                     />
@@ -48,9 +50,7 @@ export const Location = compose(
 );
 
 Location.propTypes = {
-    onLatLngChange: PropTypes.func,
     onValueChange: PropTypes.func.isRequired,
     onLatLngLoadingStarts: PropTypes.func,
-    onLatLngLoadingFinished: PropTypes.func,
-    value: PropTypes.string.isRequired
+    value: PropTypes.object.isRequired
 };
