@@ -73,8 +73,8 @@ const search = (req, res) => {
     //res.send(JSON.stringify(req.query));
     let query = {};
 
-    if (req.query.difficulty !== undefined) {
-        query.difficulty = req.query.difficulty;
+    if(req.query.difficulties !== undefined){
+        query.difficulty = req.query.difficulties;
     }
     if (req.query.dateAfter !== undefined) {
         query.date = {
@@ -87,6 +87,19 @@ const search = (req, res) => {
         }
         query.date.$lte = req.query.dateBefore;
     }
+    if (req.query.activityTypes !== undefined) {
+        query.type = req.query.guideTypes;
+    }
+    if (req.query.guideTypes !== undefined) {
+        if(req.query.guideTypes === 1){
+            query.professional = true;
+        }
+        if(req.query.guideTypes === 0){
+            query.professional = false;
+        }
+    }
+
+    //"lat=11.4505487&lng=48.256156&activityTypes=1,2&difficulties=2,5&guideTypes=0,1&priceMin=100&priceMax=200&dateBefore=...&dateAfter=..."
 
 
     //res.send(JSON.stringify(query));
