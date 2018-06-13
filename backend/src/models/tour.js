@@ -40,7 +40,7 @@ const TourSchema  = new mongoose.Schema({
     creator: user,
     //route: [[{ lat: Number, lon: Number }]],
     route: {
-        type: {type: String},
+        type: {type: String, default: 'MultiPoint'},
         coordinates: [[Number]]
     },
     rating: {

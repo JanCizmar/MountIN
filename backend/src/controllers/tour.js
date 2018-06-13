@@ -9,6 +9,15 @@ const create = (req, res) => {
         message: 'The request body is empty'
     });
 
+    //update the route to GeoJson format
+    if (req.body.route !== undefined && req.body.route.length > 1) {
+        req.body.route = {
+            "type": "MultiPoint",
+            "coordinates": req.body.route.slice()
+        };
+    }
+
+
     TourModel.create(req.body)
         .then(tour => res.status(201).json(tour))
         .catch(error => res.status(500).json({
