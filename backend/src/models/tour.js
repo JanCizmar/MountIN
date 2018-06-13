@@ -44,13 +44,9 @@ const TourSchema  = new mongoose.Schema({
     },
     //route: [[{ lat: Number, lon: Number }]],
     route: {
+        //working version: but hard to create index
         type: { type: String },
-        coordinates: [[Number]]  //below version which creates the index automatically is not working yet
-        // coordinates: {
-        //     type: [[Number]],
-        //     index: { type: '2dsphere', sparse: true},
-        //     required: true
-        // }
+        coordinates: [[Number]]
     },
     //or in the nested way if this way not working! http://mongoosejs.com/docs/schematypes.html
     rating: {
@@ -60,7 +56,7 @@ const TourSchema  = new mongoose.Schema({
         max: 5
     }
 });
-
+TourSchema.index({ "route": "2dsphere" });
 TourSchema.set('versionKey', false); //this
 TourSchema.set('timestamps', true);
 
