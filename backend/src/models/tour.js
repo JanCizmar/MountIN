@@ -5,11 +5,11 @@ const mongoose = require('mongoose');
 // Define the tour schema
 
 const TourSchema  = new mongoose.Schema({
-    id: {
-        type: String, //or int? todo
-        required: true,
-        unique: true
-    },
+    //id: {
+    //    type: String, //or int? todo
+    //    required: true,
+    //    unique: true
+    //},
     name: {
         type: String,
         required: true
