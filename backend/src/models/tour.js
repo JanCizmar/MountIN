@@ -36,9 +36,17 @@ const TourSchema  = new mongoose.Schema({
         min: 0,
         max: 5 //todo maybe change
     },
-    //creator: [{ username: String, professional: Boolean }],
+    //creator: [{ username: String, professional: Boolean }], old version
     creator: user,
-    //route: [[{ lat: Number, lon: Number }]],
+    //creator: {
+    //    username: { type: String},
+        //TODO: code when using the reference when creating a tour
+        //username: { type: mongoose.Schema.Types.ObjectId,
+        //            ref: 'User'},
+    //    professional: { type: Number,
+    //                    min:0,
+    //                    max:1}
+    //},
     route: {
         type: {type: String},
         coordinates: [[Number]]
