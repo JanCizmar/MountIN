@@ -158,6 +158,13 @@ const search = (req, res) => {
             }
         }
     }
+    if (req.query.price !== undefined) {
+        let arrayPrices = req.query.price.split(',');
+        query.cost = {
+            $gte: arrayPrices[0],
+            $lte: arrayPrices[1]
+        }
+    }
 
     //MyCollection._ensureIndex({'data.address.located':'2dsphere'});
 
