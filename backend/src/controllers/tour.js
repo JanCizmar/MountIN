@@ -74,7 +74,29 @@ const search = (req, res) => {
     let query = {};
 
     if(req.query.difficulties !== undefined){
-        query.difficulty = req.query.difficulties;
+        let arrayDifficulties = req.query.difficulties.split(',');
+        //res.send(arrayDifficulties.length)
+        if(arrayDifficulties.length === 2) {
+            query.$or = [
+                    {difficulty : arrayDifficulties[0]},
+                    {difficulty : arrayDifficulties[1]}
+                ]
+            } else if(arrayDifficulties.length === 3) {
+            query.$or = [
+                    {difficulty : arrayDifficulties[0]},
+                    {difficulty : arrayDifficulties[1]},
+                    {difficulty : arrayDifficulties[2]}
+                ]
+            } else if(arrayDifficulties.length === 4) {
+            query.$or = [
+                    {difficulty : arrayDifficulties[0]},
+                    {difficulty : arrayDifficulties[1]},
+                    {difficulty : arrayDifficulties[2]},
+                    {difficulty : arrayDifficulties[3]}
+                ]
+            } else {
+            query.difficulty = req.query.difficulties;
+        }
     }
     if (req.query.dateAfter !== undefined) {
         query.date = {
@@ -88,18 +110,63 @@ const search = (req, res) => {
         query.date.$lte = req.query.dateBefore;
     }
     if (req.query.activityTypes !== undefined) {
-        query.type = req.query.guideTypes;
-    }
-    if (req.query.guideTypes !== undefined) {
-        if(req.query.guideTypes === 1){
-            query.professional = true;
+        let arrayActivityTypes = req.query.activityTypes.split(',');
+        //res.send(arrayDifficulties.length)
+        if (arrayActivityTypes.length === 2) {
+            query.$or = [
+                {type: arrayActivityTypes[0]},
+                {type: arrayActivityTypes[1]}
+            ]
+        } else if (arrayActivityTypes.length === 3) {
+            query.$or = [
+                {type: arrayActivityTypes[0]},
+                {type: arrayActivityTypes[1]},
+                {type: arrayActivityTypes[2]}
+            ]
+        } else if (arrayActivityTypes.length === 4) {
+            query.$or = [
+                {type: arrayActivityTypes[0]},
+                {type: arrayActivityTypes[1]},
+                {type: arrayActivityTypes[2]},
+                {type: arrayActivityTypes[3]}
+            ]
+        } else {
+            query.type = req.query.activityTypes;
         }
-        if(req.query.guideTypes === 0){
-            query.professional = false;
+    }
+    // not able to create a nested search TODO: create it
+    // if (req.query.guideTypes !== undefined) {
+    //     let arrayGuideTypes = req.query.guideTypes.split(',')
+    //     if(arrayGuideTypes.length === 2) {
+    //         query.$or = [
+    //             {professional : arrayGuideTypes[0]},
+    //             {professional : arrayGuideTypes[1]} ]
+    //     } else {
+    //         query.creator = {
+    //             //name : { $regex: '/^The/', $options: 's' },
+    //             name : 'TheUser'//,
+    //             //professional: arrayGuideTypes[0]
+    //         };
+    //     }
+    // }
+    if (req.query.distance !== undefined && req.query.lat !== undefined && req.query.lng !== undefined) {
+        query.route = {
+            $nearSphere : {
+                $geometry : {
+                    type : 'Point',
+                    coordinates : [req.query.lat,req.query.lng]
+                },
+                $maxDistance : req.query.distance * 1000
+            }
         }
     }
 
+    //MyCollection._ensureIndex({'data.address.located':'2dsphere'});
+
     //"lat=11.4505487&lng=48.256156&activityTypes=1,2&difficulties=2,5&guideTypes=0,1&priceMin=100&priceMax=200&dateBefore=...&dateAfter=..."
+    // var METERS_PER_MILE = 1609.34
+    // db.restaurants.find({ location: { $nearSphere: { $geometry: { type: "Point", coordinates: [ -73.93414657, 40.82302903 ] }, $maxDistance: 5 * METERS_PER_MILE } } })
+
 
 
     //res.send(JSON.stringify(query));

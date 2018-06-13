@@ -38,10 +38,20 @@ const TourSchema  = new mongoose.Schema({
     //creator: [{ username: String, professional: Boolean }],
     creator: {
         username: { type: String },
-        professional: { type: Boolean}
+        professional: { type: Number,
+        min:0,
+        max:1}
     },
     //route: [[{ lat: Number, lon: Number }]],
-    route: [[[Number]]],
+    route: {
+        type: { type: String },
+        coordinates: [[Number]]  //below version which creates the index automatically is not working yet
+        // coordinates: {
+        //     type: [[Number]],
+        //     index: { type: '2dsphere', sparse: true},
+        //     required: true
+        // }
+    },
     //or in the nested way if this way not working! http://mongoosejs.com/docs/schematypes.html
     rating: {
         type: Number,
