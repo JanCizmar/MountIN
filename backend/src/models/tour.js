@@ -35,20 +35,17 @@ const TourSchema  = new mongoose.Schema({
         min: 0,
         max: 5 //todo maybe change
     },
-    //creator: [{ username: String, professional: Boolean }],
+    //creator: [{ username: String, professional: Boolean }], old version
     creator: {
         username: { type: String },
         professional: { type: Number,
         min:0,
         max:1}
     },
-    //route: [[{ lat: Number, lon: Number }]],
     route: {
-        //working version: but hard to create index
         type: { type: String },
         coordinates: [[Number]]
     },
-    //or in the nested way if this way not working! http://mongoosejs.com/docs/schematypes.html
     rating: {
         type: Number,
         required: false,
