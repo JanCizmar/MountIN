@@ -1,10 +1,11 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const user = require('./user').schema;
 
 // Define the tour schema
 
-const TourSchema  = new mongoose.Schema({
+const TourSchema = new mongoose.Schema({
     id: {
         type: String, //or int? todo
         required: true,
@@ -17,8 +18,8 @@ const TourSchema  = new mongoose.Schema({
     description: String,
     //image: [{ large: String, thumbnail: String }],
     image: {
-        large: { type: String },
-        thumbnail: { type: String}
+        large: {type: String},
+        thumbnail: {type: String}
     },
     date: {
         type: Date,
@@ -36,15 +37,10 @@ const TourSchema  = new mongoose.Schema({
         max: 5 //todo maybe change
     },
     //creator: [{ username: String, professional: Boolean }],
-    creator: {
-        username: { type: String },
-        professional: { type: Number,
-        min:0,
-        max:1}
-    },
+    creator: user,
     //route: [[{ lat: Number, lon: Number }]],
     route: {
-        type: { type: String },
+        type: {type: String},
         coordinates: [[Number]]  //below version which creates the index automatically is not working yet
         // coordinates: {
         //     type: [[Number]],

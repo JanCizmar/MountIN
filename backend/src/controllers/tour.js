@@ -17,7 +17,7 @@ const create = (req, res) => {
         }));
 };
 
-const read   = (req, res) => {
+const read = (req, res) => {
     TourModel.findById(req.params.id).exec()
         .then(tour => {
 
@@ -42,7 +42,7 @@ const update = (req, res) => {
         message: 'The request body is empty'
     });
 
-    TourModel.findByIdAndUpdate(req.params.id,req.body,{ new: true, runValidators: true}).exec()
+    TourModel.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true}).exec()
         .then(tour => res.status(200).json(tour))
         .catch(error => res.status(500).json({
             error: 'Internal server error',
@@ -59,7 +59,7 @@ const remove = (req, res) => {
         }));
 };
 
-const list  = (req, res) => {
+const list = (req, res) => {
     TourModel.find({}).exec()
         .then(tours => res.status(200).json(tours))
         .catch(error => res.status(500).json({
@@ -73,28 +73,28 @@ const search = (req, res) => {
     //res.send(JSON.stringify(req.query));
     let query = {};
 
-    if(req.query.difficulties !== undefined){
+    if (req.query.difficulties !== undefined) {
         let arrayDifficulties = req.query.difficulties.split(',');
         //res.send(arrayDifficulties.length)
-        if(arrayDifficulties.length === 2) {
+        if (arrayDifficulties.length === 2) {
             query.$or = [
-                    {difficulty : arrayDifficulties[0]},
-                    {difficulty : arrayDifficulties[1]}
-                ]
-            } else if(arrayDifficulties.length === 3) {
+                {difficulty: arrayDifficulties[0]},
+                {difficulty: arrayDifficulties[1]}
+            ]
+        } else if (arrayDifficulties.length === 3) {
             query.$or = [
-                    {difficulty : arrayDifficulties[0]},
-                    {difficulty : arrayDifficulties[1]},
-                    {difficulty : arrayDifficulties[2]}
-                ]
-            } else if(arrayDifficulties.length === 4) {
+                {difficulty: arrayDifficulties[0]},
+                {difficulty: arrayDifficulties[1]},
+                {difficulty: arrayDifficulties[2]}
+            ]
+        } else if (arrayDifficulties.length === 4) {
             query.$or = [
-                    {difficulty : arrayDifficulties[0]},
-                    {difficulty : arrayDifficulties[1]},
-                    {difficulty : arrayDifficulties[2]},
-                    {difficulty : arrayDifficulties[3]}
-                ]
-            } else {
+                {difficulty: arrayDifficulties[0]},
+                {difficulty: arrayDifficulties[1]},
+                {difficulty: arrayDifficulties[2]},
+                {difficulty: arrayDifficulties[3]}
+            ]
+        } else {
             query.difficulty = req.query.difficulties;
         }
     }
@@ -134,29 +134,27 @@ const search = (req, res) => {
             query.type = req.query.activityTypes;
         }
     }
-    // not able to create a nested search TODO: create it
-    // if (req.query.guideTypes !== undefined) {
-    //     let arrayGuideTypes = req.query.guideTypes.split(',')
-    //     if(arrayGuideTypes.length === 2) {
-    //         query.$or = [
-    //             {professional : arrayGuideTypes[0]},
-    //             {professional : arrayGuideTypes[1]} ]
-    //     } else {
-    //         query.creator = {
-    //             //name : { $regex: '/^The/', $options: 's' },
-    //             name : 'TheUser'//,
-    //             //professional: arrayGuideTypes[0]
-    //         };
-    //     }
-    // }
+    if (req.query.guideTypes !== undefined) {
+        let arrayGuideTypes = req.query.guideTypes.split(',');
+
+        if (arrayGuideTypes.length === 1) {
+            query.$or = [
+                {
+                    creator: {
+                        professional: arrayGuideTypes[0] === 1
+                    }
+                }]
+        }
+    }
+
     if (req.query.distance !== undefined && req.query.lat !== undefined && req.query.lng !== undefined) {
         query.route = {
-            $nearSphere : {
-                $geometry : {
-                    type : 'Point',
-                    coordinates : [req.query.lat,req.query.lng]
+            $nearSphere: {
+                $geometry: {
+                    type: 'Point',
+                    coordinates: [req.query.lat, req.query.lng]
                 },
-                $maxDistance : req.query.distance * 1000
+                $maxDistance: req.query.distance * 1000
             }
         }
     }
@@ -166,7 +164,6 @@ const search = (req, res) => {
     //"lat=11.4505487&lng=48.256156&activityTypes=1,2&difficulties=2,5&guideTypes=0,1&priceMin=100&priceMax=200&dateBefore=...&dateAfter=..."
     // var METERS_PER_MILE = 1609.34
     // db.restaurants.find({ location: { $nearSphere: { $geometry: { type: "Point", coordinates: [ -73.93414657, 40.82302903 ] }, $maxDistance: 5 * METERS_PER_MILE } } })
-
 
 
     //res.send(JSON.stringify(query));
@@ -185,7 +182,6 @@ const search = (req, res) => {
     //         message: error.message
     //     }));
 };
-
 
 
 module.exports = {
