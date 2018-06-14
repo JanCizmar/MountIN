@@ -128,7 +128,6 @@ module.exports = {
     update,
     remove,
     list,
-    search
-    list,
+    search,
     getParticipants
 };

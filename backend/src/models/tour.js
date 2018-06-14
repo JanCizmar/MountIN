@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 // Define the tour schema
 
