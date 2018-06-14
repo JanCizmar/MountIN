@@ -35,15 +35,12 @@ const UserSchema  = new mongoose.Schema({
     certificate: {
         data: Buffer, imageType: String
     },
-    isInstructor: Boolean,
-    tours: [{ type: ObjectId, ref: 'Tour' }]
-        unique: false
-    },
     professional: {
         type: Boolean,
         required: false,
         unique: false
-    }
+    },
+    tours: [{type: ObjectId, ref: 'Tour'}]
 });
 
 UserSchema.set('versionKey', false);

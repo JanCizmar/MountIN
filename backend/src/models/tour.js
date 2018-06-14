@@ -53,7 +53,6 @@ const TourSchema  = new mongoose.Schema({
         coordinates: [[Number]]
     },
     //route: [[{ lat: Number, lon: Number }]],
-    route: [[[Number]]],
     //or in the nested way if this way not working! http://mongoosejs.com/docs/schematypes.html
     rating: {
         type: Number,
