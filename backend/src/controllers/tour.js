@@ -143,15 +143,15 @@ const search = (req, res) => {
             query.type = req.query.activityTypes;
         }
     }
+
     if (req.query.guideTypes !== undefined) {
         let arrayGuideTypes = req.query.guideTypes.split(',');
 
         if (arrayGuideTypes.length === 1) {
+            console.log(typeof arrayGuideTypes[0]);
             query.$or = [
                 {
-                    creator: {
-                        professional: arrayGuideTypes[0] === 1
-                    }
+                    'creator.professional': arrayGuideTypes[0] === '1'
                 }]
         }
     }
