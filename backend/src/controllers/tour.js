@@ -139,7 +139,7 @@ const search = (req, res) => {
         }
     }
 
-    if (req.query.price !== undefined) {
+    if (req.query.price !== undefined && req.query.price.length > 2) {
         let arrayPrices = req.query.price.split(',');
         query.cost = {
             $gte: arrayPrices[0],
