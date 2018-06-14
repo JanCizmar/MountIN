@@ -17,7 +17,7 @@ const create = (req, res) => {
         }));
 };
 
-const read   = (req, res) => {
+const read = (req, res) => {
     MovieModel.findById(req.params.id).exec()
         .then(movie => {
 
@@ -42,7 +42,7 @@ const update = (req, res) => {
         message: 'The request body is empty'
     });
 
-    MovieModel.findByIdAndUpdate(req.params.id,req.body,{ new: true, runValidators: true}).exec()
+    MovieModel.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true}).exec()
         .then(movie => res.status(200).json(movie))
         .catch(error => res.status(500).json({
             error: 'Internal server error',
@@ -59,7 +59,7 @@ const remove = (req, res) => {
         }));
 };
 
-const list  = (req, res) => {
+const list = (req, res) => {
     MovieModel.find({}).exec()
         .then(movies => res.status(200).json(movies))
         .catch(error => res.status(500).json({
@@ -67,7 +67,6 @@ const list  = (req, res) => {
             message: error.message
         }));
 };
-
 
 
 module.exports = {
