@@ -10,8 +10,8 @@ const RentalAgency  = new mongoose.Schema({
         required: true
     },
     location: {
-        type: String,
-        required: true
+        type: {type: String, default: 'Point'},
+        coordinates: [Number]
     },
     website: {
         type: String,
