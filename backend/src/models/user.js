@@ -37,6 +37,13 @@ const UserSchema  = new mongoose.Schema({
     },
     isInstructor: Boolean,
     tours: [{ type: ObjectId, ref: 'Tour' }]
+        unique: false
+    },
+    professional: {
+        type: Boolean,
+        required: false,
+        unique: false
+    }
 });
 
 UserSchema.set('versionKey', false);
