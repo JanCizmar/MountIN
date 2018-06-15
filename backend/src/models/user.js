@@ -29,8 +29,8 @@ const UserSchema  = new mongoose.Schema({
     },
     phone: String,
     picture: {
-        large: {data: Buffer, imageType: String},
-        thumbnail: {data: Buffer, imageType: String}
+        large: {type: String},
+        thumbnail: {type: String}
     },
     certificate: {
         data: Buffer, imageType: String
