@@ -37,17 +37,9 @@ const TourSchema  = new mongoose.Schema({
         min: 0,
         max: 5 //todo maybe change
     },
-    //creator: [{ username: String, professional: Boolean }], old version
-    creator: user,
-    //creator: {
-    //    username: { type: String},
-        //TODO: code when using the reference when creating a tour
-        //username: { type: mongoose.Schema.Types.ObjectId,
-        //            ref: 'User'},
-    //    professional: { type: Number,
-    //                    min:0,
-    //                    max:1}
-    //},
+
+    creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+
     route: {
         type: {type: String, default: 'MultiPoint'},
         coordinates: [[Number]]
@@ -62,6 +54,7 @@ const TourSchema  = new mongoose.Schema({
     },
     participants: [{ type: ObjectId, ref: 'User' }]
 });
+
 TourSchema.index({ "route": "2dsphere" });
 TourSchema.set('versionKey', false); //this
 TourSchema.set('timestamps', true);

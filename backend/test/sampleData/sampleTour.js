@@ -46,11 +46,5 @@ module.exports = {
     "difficulty": 1,
     "type": 1,
     "cost": 0,
-    "creator": {
-        "username": "TheUser",
-        "email": "kokos@mail.com",
-        "password": "jebat",
-        "professional": true,
-    },
     "rating": 5,
 };
