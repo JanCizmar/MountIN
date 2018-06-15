@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const user = require('./user').schema;
 
 // Define the tour schema
@@ -51,12 +52,15 @@ const TourSchema  = new mongoose.Schema({
         type: {type: String, default: 'MultiPoint'},
         coordinates: [[Number]]
     },
+    //route: [[{ lat: Number, lon: Number }]],
+    //or in the nested way if this way not working! http://mongoosejs.com/docs/schematypes.html
     rating: {
         type: Number,
         required: false,
         min: 0,
         max: 5
-    }
+    },
+    participants: [{ type: ObjectId, ref: 'User' }]
 });
 TourSchema.index({ "route": "2dsphere" });
 TourSchema.set('versionKey', false); //this

@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 // Define the user schema
 
@@ -16,13 +17,30 @@ const UserSchema  = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        unique: false
+        unique: true
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    surname: {
+        type: String,
+        required: true
+    },
+    phone: String,
+    picture: {
+        large: {type: String},
+        thumbnail: {type: String}
+    },
+    certificate: {
+        data: Buffer, imageType: String
     },
     professional: {
         type: Boolean,
         required: false,
         unique: false
-    }
+    },
+    tours: [{type: ObjectId, ref: 'Tour'}]
 });
 
 UserSchema.set('versionKey', false);

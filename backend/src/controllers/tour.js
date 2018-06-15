@@ -155,6 +155,22 @@ const search = (req, res) => {
         }));
 };
 
+const getParticipants = (req, res) => {
+    TourModel.findById(req.params.id).populate('participants').select('participants').exec()
+        .then(participants => {
+
+            if (!participants) return res.status(404).json({
+                error: 'Not Found',
+                message: `Specified tour not found`
+            });
+
+            res.status(200).json(participants)
+        })
+        .catch(error => res.status(500).json({
+            error: 'Internal server error',
+            message: error.message
+    }));
+};
 
 module.exports = {
     create,
@@ -162,5 +178,6 @@ module.exports = {
     update,
     remove,
     list,
-    search
+    search,
+    getParticipants
 };
