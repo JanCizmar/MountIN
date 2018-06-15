@@ -14,7 +14,11 @@ class UserSignup extends React.Component {
         this.state = {
             username: '',
             password: '',
-            passwordRepeat: ''
+            passwordRepeat: '',
+            email: '',
+            firstName: '',
+            surname: '',
+            phone: ''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,6 +37,10 @@ class UserSignup extends React.Component {
         let user = {
             username: this.state.username,
             password: this.state.password,
+            email: this.state.email,
+            firstName: this.state.firstName,
+            surname: this.state.surname,
+            phone: this.state.phone
 
         };
 
@@ -42,12 +50,16 @@ class UserSignup extends React.Component {
     getValidState(inputName) {
         return this.getFormValidStates()[inputName];
     }
-
+    //Form checking:
     getFormValidStates() {
         return {
             username: this.state.username.length < 5 || this.state.username.length > 200 ? 'error' : 'success',
             password: this.state.password.length < 5 || this.state.password.length > 200 ? 'error' : 'success',
-            passwordRepeat: this.state.password !== this.state.passwordRepeat ? 'error' : 'success'
+            passwordRepeat: this.state.password !== this.state.passwordRepeat || this.state.passwordRepeat.length < 5 ? 'error' : 'success',
+            email: this.state.email.indexOf('@') < 1 || this.state.email.indexOf('.') < 3 ? 'error' : 'success',
+            firstName: this.state.firstName.length < 3 || this.state.firstName.length > 200 ? 'error' : 'success',
+            surname: this.state.surname.length < 3 || this.state.surname.length > 200 ? 'error' : 'success',
+            phone: this.state.phone.match('[^+0-9]') ? 'error' : 'success'
         };
     }
 
@@ -101,6 +113,58 @@ class UserSignup extends React.Component {
                                     type="password"
                                     value={this.state.passwordRepeat}
                                     placeholder="Password again"
+                                    onChange={this.handleFormChange}
+                                />
+                            </FormGroup>
+                            <FormGroup
+                                controlId="email"
+                                validationState={this.getValidState('email')}
+                            >
+                                <ControlLabel>E-Mail</ControlLabel>
+                                <FormControl
+                                    name="email"
+                                    type="text"
+                                    value={this.state.email}
+                                    placeholder="Email"
+                                    onChange={this.handleFormChange}
+                                />
+                            </FormGroup>
+                            <FormGroup
+                                controlId="firstName"
+                                validationState={this.getValidState('firstName')}
+                            >
+                                <ControlLabel>First Name</ControlLabel>
+                                <FormControl
+                                    name="firstName"
+                                    type="text"
+                                    value={this.state.firstName}
+                                    placeholder="First Name"
+                                    onChange={this.handleFormChange}
+                                />
+                            </FormGroup>
+                            <FormGroup
+                                controlId="surname"
+                                validationState={this.getValidState('surname')}
+                            >
+                                <ControlLabel>Surname</ControlLabel>
+                                <FormControl
+                                    name="surname"
+                                    type="text"
+                                    value={this.state.surname}
+                                    placeholder="Surname"
+                                    onChange={this.handleFormChange}
+                                />
+                            </FormGroup>
+                            <FormGroup
+                                controlId="phone"
+                                validationState={this.getValidState('phone')}
+                            >
+                                <ControlLabel>Phone</ControlLabel>
+                                <FormControl
+                                    name="phone"
+                                    type="text"
+                                    value={this.state.phone}
+                                    placeholder="Phone Number"
                                     onChange={this.handleFormChange}
                                 />
                             </FormGroup>
