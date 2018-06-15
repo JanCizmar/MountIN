@@ -9,12 +9,9 @@ export default class UserService {
 
     static baseURL() {return "http://localhost:3000/auth"; }
 
-    static register(user, pass) {
+    static register(user) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${UserService.baseURL()}/register`, {
-                username: user,
-                password: pass
-            }, function(data) {
+            HttpService.post(`${UserService.baseURL()}/register`, user, function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);
