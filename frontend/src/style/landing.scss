@@ -1,0 +1,29 @@
+$blue: #3248b4;
+$green: #397c29;
+
+.landing-page {
+  padding-bottom: 4em;
+
+  .landing-cover-image {
+    background: url("../images/landing.jpg") 50% no-repeat, #1aa1d6;
+    height: 100%;
+    text-align: center
+  }
+
+  .landing-title-section{
+    background: $blue;
+  }
+
+  .landing-title{
+    background: $green;
+    p {
+      text-align: left;
+      color: #fff;
+    }
+  }
+
+  .landing-header {
+    background: white;
+    padding-top: 10px;
+  }
+}
