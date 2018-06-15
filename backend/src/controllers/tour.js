@@ -1,6 +1,7 @@
 "use strict";
 
 const TourModel = require('../models/tour');
+const UserModel = require('../models/user');
 
 
 const create = (req, res) => {
@@ -17,13 +18,26 @@ const create = (req, res) => {
         };
     }
 
+    UserModel.findById(req.body.creator).then(creator => {
+        if (creator !== null) {
+            TourModel.create(req.body)
+                .then(tour => res.status(201).json(tour))
+                .catch(error => res.status(500).json({
+                    error: 'Internal server error',
+                    message: error.message
+                }));
+        } else {
+            res.status(400).json({
+                error: 'Bad request',
+                message: 'Creator does not exist'
+            });
+        }
+    }).catch(error => res.status(500).json({
+        error: 'Internal server error',
+        message: error
+    }));
 
-    TourModel.create(req.body)
-        .then(tour => res.status(201).json(tour))
-        .catch(error => res.status(500).json({
-            error: 'Internal server error',
-            message: error.message
-        }));
+
 };
 
 const read = (req, res) => {
@@ -147,6 +161,10 @@ const search = (req, res) => {
         }
     }
 
+    if (query.$and.length === 0) {
+        delete query.$and;
+    }
+
     TourModel.find(query).exec()
         .then(tours => res.status(200).json(tours))
         .catch(error => res.status(500).json({
@@ -169,7 +187,7 @@ const getParticipants = (req, res) => {
         .catch(error => res.status(500).json({
             error: 'Internal server error',
             message: error.message
-    }));
+        }));
 };
 
 module.exports = {

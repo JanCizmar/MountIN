@@ -9,7 +9,7 @@ export default function reducer(state = {
         activityTypes: [],
         difficulties: [],
         guideTypes: [],
-        price: [0, 100]
+        price: [0, 500]
     }
 }, action) {
     switch (action.type) {

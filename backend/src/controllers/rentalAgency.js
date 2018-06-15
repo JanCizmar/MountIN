@@ -31,4 +31,4 @@ const findNearbyAgencies = (req, res) => {
         }));
 };
 
-module.exports = findNearbyAgencies;
+module.exports = {findNearbyAgencies};

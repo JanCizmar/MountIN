@@ -9,7 +9,7 @@ import Loading from "../Loading";
 
 export default function List(props) {
     let tours = props.tours.map((tour) => {
-        return <TourListItem key={tour.id} {...tour}/>
+        return <TourListItem key={tour._id} {...tour}/>
     });
 
     return (
