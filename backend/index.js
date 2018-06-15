@@ -32,3 +32,5 @@ server.on('error', (err) => {
     console.log('Error in the server', err.message);
     process.exit(err.statusCode);
 });
+
+module.exports = server;
