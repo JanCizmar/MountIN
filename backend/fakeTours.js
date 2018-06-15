@@ -4,7 +4,26 @@ const mongoose = require('mongoose');
 
 const config = require('./src/config');
 const TourModel = require('./src/models/tour');
+const UserModel = require('./src/models/user');
+const faker = require('faker');
+const fetch = require('node-fetch');
+const USERS_COUNT = 20;
+const TOUR_COUNT = 50;
 
+const fakeRoute = () => {
+    let route = [];
+    let initPiont = [parseFloat(faker.address.latitude()), parseFloat(faker.address.longitude())];
+    //Produce some random points around
+    for (let i = 0; i < faker.random.number({min: 1, max: 20}); i++) {
+        let pointNear = [(initPiont[1] + Math.random() * 0.009).toString(), (initPiont[0] + Math.random() * 0.009).toString()];
+        route.push(pointNear)
+    }
+    return route;
+};
+
+const fakeImage = () => fetch('https://loremflickr.com/1024/768/nature').then(resp => {
+    return resp.url;
+});
 
 //Connect to the MongoDB database; then start the server
 mongoose
@@ -18,67 +37,57 @@ mongoose
         process.exit(err.statusCode);
     });
 
-function mongoConnected() {
-    let tour = {
-        "name": "Englisher garten fancy tour",
-        "description": "Klar, der Chinesische Turm mit seinem Biergarten ist im Sommer und Herbst die ideale Möglichkeit einzukehren, aber auch davor lohnt es sich schon vorbeizuschauen: Sobald das Wetter mitspielt, ist die Stimmung hier immer gut - und die Jahreszeit wurscht.",
-        "image": {
-            "large": "https://muenchen-res.cloudinary.com/.imaging/stk/responsive/image300/dms/th/bg/fruehling/bildergalerien/fruehling-im-englischen-garten-2014/02-fruehling-im-e-garten/document/02-fruehling-im-e-garten.jpg",
-            "thumbnail": "https://muenchen-res.cloudinary.com/.imaging/stk/responsive/image300/dms/th/bg/fruehling/bildergalerien/fruehling-im-englischen-garten-2014/02-fruehling-im-e-garten/document/02-fruehling-im-e-garten.jpg"
-        },
-        "date": "2018-06-25 15:30:15",
-        "difficulty": 1,
-        "type": 1,
-        "cost": 0,
-        "creator": {
-            "username": "TheUser",
-            "professional": true
-        },
-        "route": [
-            [
-                [
-                    48.1832805,
-                    11.627528100000063
-                ],
-                [
-                    48.1553265,
-                    11.599204999999984
-                ],
-                [
-                    48.15050249999999,
-                    11.591269600000032
-                ],
-                [
-                    48.1442772,
-                    11.58956360000002
-                ],
-                [
-                    48.1455281,
-                    11.585220299999946
-                ],
-                [
-                    48.1527438,
-                    11.589502100000004
-                ],
-                [
-                    48.15850931971225,
-                    11.593022672111715
-                ],
-                [
-                    48.1735935,
-                    11.611018599999966
-                ]
-            ]
-        ],
-        "rating": 5
-    };
+async function mongoConnected() {
 
-    TourModel.create(tour)
-        .then(tour => {
+    let toursCounter = 0;
+
+    function exit() {
+        console.log('Created ' + toursCounter + ' for ' + USERS_COUNT + ' users.');
+        process.exit();
+    }
+
+    for (let i = 1; i <= USERS_COUNT; i++) {
+        let user = {
+            "username": faker.internet.userName(),
+            "firstName": faker.name.firstName(),
+            "surname": faker.name.lastName(),
+            "email": faker.internet.email(),
+            "password": faker.internet.password(),
+            "professional": faker.random.boolean(),
+        };
+
+        user = await UserModel.create(user);
+        console.log('Created user: ' + user.username);
+        let tourCount = Math.ceil(Math.random() * (TOUR_COUNT - toursCounter) * 2 / (USERS_COUNT - (i - 1)));
+
+        for (let j = 0; j < tourCount; j++) {
+            let fakedImageUrl = await fakeImage();
+            let tour = {
+                "name": faker.lorem.words(),
+                "description": faker.lorem.paragraphs(),
+                "image": {
+                    "large": fakedImageUrl,
+                    "thumbnail": fakedImageUrl
+                },
+                "date": faker.random.boolean() ? faker.date.past() : faker.date.future(),
+                "difficulty": faker.random.number({min: 1, max: 3}),
+                "type": faker.random.number({min: 1, max: 4}),
+                "cost": faker.random.boolean() ? faker.random.number({min: 1, max: 350}) : 0,
+                "route": fakeRoute(),
+                "rating": faker.random.number({min: 1, max: 5})
+            };
+            tour.creator = user.id;
+            tour.route = {
+                "type": "MultiPoint",
+                "coordinates": tour.route
+            };
+            tour = await TourModel.create(tour);
             console.log('Created: ' + tour.name);
-            process.exit();
-
-        })
-        .catch(error => console.log('Error: ' + error));
+            toursCounter++;
+            if (toursCounter === 50) exit();
+        }
+        console.log('Created ' + tourCount + ' tours for user ' + user.username);
+    }
+    exit();
 }
 

@@ -18,9 +18,13 @@ export default class TourService {
         return new Promise((resolve, reject) => {
             this.timer = setTimeout(() => {
                 let query = JSON.parse(JSON.stringify(filters)); //clone the filters object
-                query.latLng = query.location.latLng.lat ? [query.location.latLng.lat, query.location.latLng.lng] : undefined; //add just latLng, because don't need name
-                delete query.location;
+                query.lat = query.location.latLng.lat ? query.location.latLng.lat.toString() : undefined; //add just latLng, because don't need name
+                query.lng = query.location.latLng.lng ? query.location.latLng.lng.toString() : undefined; //add just latLng, because don't need name
+                query.distance = "50";
 
+                console.log(query);
+
+                delete query.location;
 
                 let queryString = HttpService.buildQueryString(query);
 

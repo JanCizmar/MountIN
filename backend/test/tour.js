@@ -11,7 +11,6 @@ let chaiHttp = require('chai-http');
 let server = require('../index');
 let sampleUser = require('./sampleData/sampleUser');
 let sample = require('./sampleData/sampleTour');
-let should = chai.should();
 let assert = chai.assert;
 chai.use(chaiHttp);
 //Our parent block
@@ -31,8 +30,8 @@ let tourWithUserSample;
 
 describe('Tours', () => {
     beforeEach((done) => { //Before each test we empty the database
-        Tour.remove({}, (err) => {
-            User.remove({}, (err) => {
+        Tour.remove({}, () => {
+            User.remove({}, () => {
                 getSampleWithUser(sample).then(tour => {
                     tourWithUserSample = tour;
                     done();
@@ -56,7 +55,7 @@ describe('Tours', () => {
         });
 
         it('it should GET non empty tours array', (done) => {
-            Tour.create(tourWithUserSample, (err) => {
+            Tour.create(tourWithUserSample, () => {
                 chai.request(server)
                     .get('/tours')
                     .end((err, res) => {
@@ -116,7 +115,7 @@ describe('Tours', () => {
     describe('it should find tour with difficulty every condition passed', () => {
         it('it should find a tour', (done) => {
             let searchString = 'difficulties=1,2,3&guideTypes=1,2&dateAfter=2018-05-25T13:30:15&dateBefore=2018-06-30T13:30:15&activityTypes=1,2,3,4&lat=48.1832805&lng=11.627528100000063&distance=10';
-            Tour.create(tourWithUserSample, (err) => {
+            Tour.create(tourWithUserSample, () => {
                 chai.request(server)
                     .get('/tours/search?' + searchString)
                     .end((err, res) => {
@@ -133,7 +132,7 @@ describe('Tours', () => {
     describe('it should not find tour when difficulty 1 is missing', () => {
         it('it should find a tour', (done) => {
             let searchString = 'difficulties=2,3&guideTypes=1,2&dateAfter=2018-05-25T13:30:15&dateBefore=2018-06-30T13:30:15&activityTypes=1,2,3,4&lat=48.1832805&lng=11.627528100000063&distance=10';
-            Tour.create(tourWithUserSample, (err) => {
+            Tour.create(tourWithUserSample, () => {
                 chai.request(server)
                     .get('/tours/search?' + searchString)
                     .end((err, res) => {
@@ -150,7 +149,7 @@ describe('Tours', () => {
     describe('it should not find tour when guide type 1 is missing', () => {
         it('it should find a tour', (done) => {
             let searchString = 'difficulties=1,2,3&guideTypes=2&dateAfter=2018-05-25T13:30:15&dateBefore=2018-06-30T13:30:15&activityTypes=1,2,3,4&lat=48.1832805&lng=11.627528100000063&distance=10';
-            Tour.create(tourWithUserSample, (err) => {
+            Tour.create(tourWithUserSample, () => {
                 chai.request(server)
                     .get('/tours/search?' + searchString)
                     .end((err, res) => {
@@ -167,7 +166,7 @@ describe('Tours', () => {
     describe('it should not find tour when dates are out of rande', () => {
         it('it should find a tour', (done) => {
             let searchString = 'difficulties=1,2,3&guideTypes=1,2&dateAfter=2018-06-30T13:30:15&dateBefore=2018-07-30T13:30:15&activityTypes=1,2,3,4&lat=48.1832805&lng=11.627528100000063&distance=10';
-            Tour.create(tourWithUserSample, (err) => {
+            Tour.create(tourWithUserSample, () => {
                 chai.request(server)
                     .get('/tours/search?' + searchString)
                     .end((err, res) => {
@@ -184,7 +183,7 @@ describe('Tours', () => {
     describe('it should not find tour when activityType 1 is missing', () => {
         it('it should find a tour', (done) => {
             let searchString = 'difficulties=1,2,3&guideTypes=1,2&dateAfter=2018-03-30T13:30:15&dateBefore=2018-07-30T13:30:15&activityTypes=2,3,4&lat=48.1832805&lng=11.627528100000063&distance=10';
-            Tour.create(tourWithUserSample, (err) => {
+            Tour.create(tourWithUserSample, () => {
                 chai.request(server)
                     .get('/tours/search?' + searchString)
                     .end((err, res) => {
@@ -201,7 +200,7 @@ describe('Tours', () => {
     describe('it should not find tour when tour is too far from location', () => {
         it('it should find a tour', (done) => {
             let searchString = 'difficulties=1,2,3&guideTypes=1,2&dateAfter=2018-03-30T13:30:15&dateBefore=2018-07-30T13:30:15&activityTypes=1,2,3,4&lat=44.1832805&lng=11.627528100000063&distance=1';
-            Tour.create(tourWithUserSample, (err) => {
+            Tour.create(tourWithUserSample, () => {
                 chai.request(server)
                     .get('/tours/search?' + searchString)
                     .end((err, res) => {
@@ -214,4 +213,21 @@ describe('Tours', () => {
             });
         });
     });
+
+    describe('it should work with no condition', () => {
+        it('it should find a tour', (done) => {
+            Tour.create(tourWithUserSample, () => {
+                chai.request(server)
+                    .get('/tours/search')
+                    .end((err, res) => {
+                        assert(err == null, 'there is an error');
+                        res.should.have.status(200);
+                        res.body.should.be.a('array');
+                        res.body.length.should.be.eql(1);
+                        done();
+                    });
+            });
+        });
+    });
+
 });

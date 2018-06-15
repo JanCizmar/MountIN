@@ -2,8 +2,6 @@
 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
-const user = require('./user').schema;
-
 // Define the tour schema
 
 const TourSchema  = new mongoose.Schema({

@@ -161,6 +161,10 @@ const search = (req, res) => {
         }
     }
 
+    if (query.$and.length === 0) {
+        delete query.$and;
+    }
+
     TourModel.find(query).exec()
         .then(tours => res.status(200).json(tours))
         .catch(error => res.status(500).json({
