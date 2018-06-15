@@ -39,6 +39,10 @@ mongoose
 
 async function mongoConnected() {
 
+    await TourModel.remove({});
+    await UserModel.remove({});
+
+
     let toursCounter = 0;
 
     function exit() {

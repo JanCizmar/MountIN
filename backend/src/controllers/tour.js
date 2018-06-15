@@ -165,7 +165,7 @@ const search = (req, res) => {
         delete query.$and;
     }
 
-    TourModel.find(query).exec()
+    TourModel.find(query).skip(parseInt(req.query.skip)).limit(28).exec()
         .then(tours => res.status(200).json(tours))
         .catch(error => res.status(500).json({
             error: 'Internal server error',

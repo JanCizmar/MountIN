@@ -13,6 +13,8 @@ let sampleUser = require('./sampleData/sampleUser');
 let sample = require('./sampleData/sampleTour');
 let assert = chai.assert;
 chai.use(chaiHttp);
+chai.should();
+
 //Our parent block
 
 let getSampleWithUser = (tourSample) => new Promise((resolve, reject) => {
