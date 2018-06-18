@@ -9,6 +9,8 @@ import List from "./List";
 import {Filters} from "./Filters";
 import {connect} from "react-redux";
 import * as actions from '../../state/actions/tourList';
+import ListMap from "./ListMap";
+import Grid from "react-bootstrap/es/Grid";
 
 class ListPage extends React.Component {
 
@@ -27,15 +29,17 @@ class ListPage extends React.Component {
     };
 
     componentDidMount() {
+        //Fetch some tours on beginning
         this.props.dispatch(actions.fetchTours(this.props.state.filtersValue, 0, 0));
     }
 
     componentWillUnmount() {
+        //this is going to clear list of tours, when user leave the list page
         this.props.dispatch(actions.clearTours());
     }
 
     loadMore() {
-        console.log('load more');
+        //this is going to load more results from backend
         this.props.dispatch(actions.fetchTours(this.props.state.filtersValue, this.props.state.tours.length))
     }
 
@@ -43,8 +47,11 @@ class ListPage extends React.Component {
         return (
             <Page>
                 <Filters value={this.props.state.filtersValue} onChange={this.onFilterChange}/>
-                <List tours={this.props.state.tours} loading={this.props.state.loading}
-                      loadMore={this.loadMore.bind(this)} hasMore={this.props.state.hasMore}/>
+                <Grid>
+                    <List tours={this.props.state.tours} loading={this.props.state.loading}
+                          loadMore={this.loadMore.bind(this)} hasMore={this.props.state.hasMore}/>
+                    <ListMap/>
+                </Grid>
             </Page>);
     }
 }

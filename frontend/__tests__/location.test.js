@@ -16,7 +16,7 @@ window.google = {
 
 it('renders correctly', () => {
     const tree = renderer
-        .create(<Location value={"Hi"} onValueChange={() => {
+        .create(<Location value={{}} onValueChange={() => {
         }}/>)
         .toJSON();
     expect(tree).toMatchSnapshot();

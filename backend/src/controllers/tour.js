@@ -141,15 +141,17 @@ const search = (req, res) => {
         }
     }
 
-    if (req.query.distance !== undefined && req.query.lat !== undefined && req.query.lng !== undefined) {
+    if (req.query.lat !== undefined && req.query.lng !== undefined) {
         query.route = {
             $nearSphere: {
                 $geometry: {
                     type: 'Point',
                     coordinates: [req.query.lat, req.query.lng]
                 },
-                $maxDistance: req.query.distance * 1000
             }
+        };
+        if (req.query.distance !== undefined) {
+            query.route.$nearSphere.$maxDistance = req.query.distance * 1000;
         }
     }
 
