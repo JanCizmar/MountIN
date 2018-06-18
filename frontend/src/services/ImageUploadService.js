@@ -1,27 +1,31 @@
 "use strict";
 
 import HttpService from "./HttpService";
-import UserService from "./UserService";
 
 export default class ImageUploadService {
 
     constructor() {
     }
 
-    static baseURL() {
-        return "http://localhost:3000/filesave";
-    }
+    static uploadedImagesBaseUrl = HttpService.apiURL() + "/uploaded/images/";
+
+    static baseURL = HttpService.apiURL() + "/upload";
+
 
     static uploadImage(file) {
         return new Promise((resolve, reject) => {
             const formData = new FormData();
-            formData.append('sampleFile', file);
-            HttpService.postWithFile(`${ImageUploadService.baseURL()}/upload`,formData,
+            formData.append('image', file);
+            HttpService.postWithFile(`${ImageUploadService.baseURL}` + '/image', formData,
                 function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);
             });
         });
+    }
+
+    static getImageURL(filename) {
+        return ImageUploadService.uploadedImagesBaseUrl + "/" + filename;
     }
 }

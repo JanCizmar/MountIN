@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 // Define the movie schema
 
-const fileSaveSchema  = new mongoose.Schema({
+const FileSchema = new mongoose.Schema({
 
     file_name: {
         type: String,
@@ -18,4 +18,4 @@ const fileSaveSchema  = new mongoose.Schema({
 
 
 // Export the Movie model
-module.exports = mongoose.model('fileSave', fileSaveSchema);
+module.exports = mongoose.model('file', FileSchema);

@@ -1,30 +1,28 @@
 import React from 'react';
-import ImageUpload from '../components/ImageUploader'
-import ImageUploadService from "../services/ImageUploadService";
+import ImageUpload from '../components/ImageUpload'
+import {connect} from "react-redux";
+import * as imageUploadActions from '../state/actions/imageUpload';
+import Page from "../components/Page";
+import Grid from "react-bootstrap/es/Grid";
 
-export class ExampleView extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            imageUpload: {
-                file: '',
-                imagePreviewUrl: ''
-            }
-        };
-    }
-
-    onFileUploadSubmit = () => {
-        ImageUploadService.uploadImage(this.state.imageUpload.file)
-            .then(console.log)
-            .catch(console.log)
+const ExampleView = (props) => {
+    const onFileUploadSubmit = () => {
+        props.dispatch(imageUploadActions.uploadImage(props.state.imageUpload.file));
     };
 
+    return (
+        <Page>
+            <Grid>
+                <ImageUpload {...props.state.imageUpload} onSubmit={onFileUploadSubmit}
+                             onChange={(val) => props.dispatch(imageUploadActions.changeImage(val))}/>
+            </Grid>
+        </Page>
+    );
+};
 
-    render() {
-        return (
-            <ImageUpload {...this.state.imageUpload} onSubmit={this.onFileUploadSubmit.bind(this)}
-                         onImageChange={(res) => this.setState({...this.state, imageUpload: res})}/>
-        );
+export default connect(store => {
+    return {
+        state: store.example
     }
-}
+})(ExampleView);

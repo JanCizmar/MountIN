@@ -1,10 +1,9 @@
 "use strict";
 
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { form,Button,Grid,FormControl,FormGroup,Col } from 'react-bootstrap'
+import {withRouter} from 'react-router-dom';
+import {Button, Col, form, FormControl, FormGroup, Grid} from 'react-bootstrap'
 import Page from './Page';
-
 
 
 const style = { maxWidth: 500 };
@@ -54,8 +53,8 @@ class LandingPage extends React.Component {
 
                                 <Col xs={1}  sm={1} md={1} lg={1}>
                                     <Button className="searchButton" type="submit"
-                                            disabled={this.state.search === ''}><i
-                                        className="search-glyphicon glyphicon glyphicon-search"></i></Button>
+                                            disabled={this.state.search === ''}>
+                                        <i className="search-glyphicon glyphicon glyphicon-search"></i></Button>
                                 </Col>
                             </Col>
                         </FormGroup>
