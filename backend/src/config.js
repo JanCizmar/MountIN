@@ -1,12 +1,33 @@
 "use strict";
+const env = process.env.NODE_ENV || 'development';
 
-//Configuration variables
-const port      = process.env.PORT        || '3000';
-const mongoURI  = process.env.MONGODB_URI || 'mongodb://localhost:27017/moviedb';
-const JwtSecret = process.env.JWT_SECRET  ||'very secret secret';
-
-module.exports = {
-    port,
-    mongoURI,
-    JwtSecret,
+const test = {
+    app: {
+        port: 3333,
+        jwtSecret: process.env.JWT_SECRET  || 'very secret secret'
+    },
+    db: {
+        name: 'testdb',
+        host:'localhost',
+        port: 27017
+    }
 };
+
+const development = {
+    app: {
+        port: 3000,
+        jwtSecret: process.env.JWT_SECRET  || 'very secret secret'
+    },
+    db: {
+        name: 'tourdb',
+        host:'localhost',
+        port: 27017
+    }
+};
+
+const config = {
+    test,
+    development
+};
+
+module.exports = config[env];

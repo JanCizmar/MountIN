@@ -7,7 +7,7 @@ export const Price = (props) =>
     <div className="price-wrapper">
         <FormGroup className="price">
             <div className="value min">{props.value[0] ? props.value[0] : 'Free'}</div>
-            <Range min={0} max={100} value={props.value} onChange={props.onChange}/>
+            <Range min={0} max={500} value={props.value} onChange={props.onChange}/>
             <div className="value max">{props.value[1]}&nbsp;€</div>
         </FormGroup>
     </div>;
