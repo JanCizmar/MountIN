@@ -9,7 +9,8 @@ import {UserSignupView} from "./views/UserSignupView";
 import {LandingPageView} from "./views/LandingPageView";
 import {CreateTourView} from "./views/CreateTourView";
 import {ListPageView} from "./views/ListPageView";
-import {ImageUploadView} from "./views/ImageUploadView"
+import {ExampleView} from "./views/ExampleView";
+import {ExampleFileUploaderView} from "./views/ExampleFileUploaderView";
 
 export default class App extends React.Component {
 
@@ -23,7 +24,8 @@ export default class App extends React.Component {
                 {component: CreateTourView, path: '/createTour'},
                 {component: UserSignupView, path: '/register'},
                 {component: ListPageView, path: '/list'},
-                {component: ImageUploadView, path: '/uploadImage'},
+                {component: ExampleView, path: '/uploadImage'},
+                {component: ExampleFileUploaderView, path: '/uploadFile'},
                 {component: LandingPageView, path: '/'}
 
             ]

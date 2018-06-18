@@ -1,14 +1,23 @@
 $blue: #3248b4;
 $green: #397c29;
+$white: #ffffff;
+$black: #000000;
+$gray: #a2a3a8;
 
 .landing-page {
   padding-bottom: 4em;
-
-  .landing-cover-image {
-    background: url("../images/landing.jpg") 50% no-repeat, #1aa1d6;
+   background: url("../images/landing.jpg") 50% no-repeat, #adb5c4 fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+   background-size: cover;
     height: 100%;
-    text-align: center
-  }
+    text-align: center;
+  /*  .landing-cover-image {
+      background: url("../images/landing.old.jpg") 50% no-repeat, #1aa1d6;
+      height: 100%;
+      text-align: center
+    }*/
 
   .landing-title-section{
     background: $blue;
@@ -25,5 +34,53 @@ $green: #397c29;
   .landing-header {
     background: white;
     padding-top: 10px;
+  }
+
+}
+.testt{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  height: 80vh;
+
+}
+.landing-form {
+  width: 100%;
+  .form-control {
+    width: 100%;
+    height: 36px;
+    border-radius: 0px;
+  }
+}
+
+.searchButton {
+  background: $black;
+  border: none;
+  border-radius: 0px;
+  margin-left: -30px;
+  &:hover {
+    background: $black;
+    border: none;
+    border-radius: 0px;
+    margin-left: -30px;}
+  .search-glyphicon{
+    font-size: 20px;
+    color:$white;
+  }
+  &.btn-default[disabled]:hover{
+    background-color: $black !important;
+    border: none !important;
+    border-radius: 0px !important;
+    margin-left: -30px!important;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .landing-page{
+    background: url("../images/landing.jpg") 50% no-repeat, #adb5c4;
+    height: 100%;
+    text-align: center;
   }
 }
