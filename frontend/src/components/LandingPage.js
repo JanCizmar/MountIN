@@ -1,9 +1,8 @@
 "use strict";
 
 import React from 'react';
-import { Card, Button, TextField } from 'react-md';
-import { withRouter } from 'react-router-dom';
-
+import {withRouter} from 'react-router-dom';
+import {Button, Col, form, FormControl, FormGroup, Grid} from 'react-bootstrap'
 import Page from './Page';
 
 
@@ -26,29 +25,46 @@ class LandingPage extends React.Component {
         this.setState({...this.state, search: value});
     }
 
+    getValidationState() {
+        const length = this.state.search.length;
+        if (length == 0) return 'error';
+        return null;
+    }
+
+
     render() {
         return (
-            <Page>
-                <Card style={style} className="md-block-centered">
-                    <form className="md-grid" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
-                        <TextField
-                            label="Search"
-                            id="search"
-                            type="text"
-                            className="md-row"
-                            required={true}
-                            value={this.state.search}
-                            onChange={this.handleSearchChanged}
-                            errorText="Please set text"/>
+            <Page className="landing-page">
+                <Grid>
+                    <div className="testt">
+                    <form className="landing-form" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
+                        <FormGroup
+                            validationState={this.getValidationState()}
+                        >
+                            <Col xs={10} sm={10} md={8} lg={8} xsOffset={1} smOffset={1} mdOffset={2} lgOffset={2}>
+                                <Col xs={11}  sm={11} md={11} lg={11} >
+                                    <FormControl
+                                        type="text"
+                                        placeholder="Enter a location to begin your adventure"
+                                        id="search"
+                                        onChange={this.handleSearchChanged}
+                                    />
+                                </Col>
 
-                        <Button id="submit" type="submit"
-                                disabled={this.state.search === ''}
-                                raised primary className="md-cell md-cell--2">Search</Button>
+                                <Col xs={1}  sm={1} md={1} lg={1}>
+                                    <Button className="searchButton" type="submit"
+                                            disabled={this.state.search === ''}>
+                                        <i className="search-glyphicon glyphicon glyphicon-search"></i></Button>
+                                </Col>
+                            </Col>
+                        </FormGroup>
                     </form>
-                </Card>
+                    </div>
+                </Grid>
             </Page>
         );
     }
 }
 
 export default withRouter(LandingPage);
+

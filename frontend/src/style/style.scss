@@ -1,2 +1,10 @@
-@import "tours";
+
 @import '../../node_modules/rc-slider/assets/index.css';
+@import "tours";
+@import "landing";
+@import "imageUploader";
+@import "header";
+
+html, body, #app, #app>div {
+  height: 100%;
+}

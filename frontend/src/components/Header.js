@@ -16,12 +16,12 @@ class Header extends React.Component {
 
     render() {
         return (
-            <Navbar>
-                <Navbar.Header>
-                    <Navbar.Brand>
+            <Navbar className="customNavbar">
+                <Navbar.Header className="customNavbarHeading">
+                    <Navbar.Brand className="customNavbarBrand" >
                         <a href="#" onClick={() => this.props.history.push('/')}>{this.props.title}</a>
                     </Navbar.Brand>
-                    <Navbar.Toggle/>
+                    <Navbar.Toggle className="burger-menu"/>
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
