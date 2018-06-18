@@ -6,9 +6,7 @@ const defaultDistanceKilometer = 20;
 
 const findNearbyAgencies = (req, res) => {
     let distance;
-    console.log(req.query.lat);
-    console.log(req.query.lng);
-    console.log(req.query.distance);
+
     if (req.query.lat === undefined || req.query.lng === undefined)
         return res.status(400).json({
             error: 'Bad request',

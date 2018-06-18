@@ -30,7 +30,7 @@ const checkAuthentication = (req, res, next) => {
         });
 
     // verifies secret and checks exp
-    jwt.verify(token, config.JwtSecret, (err, decoded) => {
+    jwt.verify(token, config.app.jwtSecret, (err, decoded) => {
         if (err) return res.status(401).send({
             error: 'Unauthorized',
             message: 'Failed to authenticate token.'
