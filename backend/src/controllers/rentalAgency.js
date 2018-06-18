@@ -7,22 +7,22 @@ const defaultDistanceKilometer = 20;
 const findNearbyAgencies = (req, res) => {
     let distance;
 
-    if (req.body.lat === undefined || req.body.lng === undefined)
+    if (req.query.lat === undefined || req.query.lng === undefined)
         return res.status(400).json({
             error: 'Bad request',
             message: 'Latitude or longitude not specified'
         });
 
-    if (req.body.distance === undefined)
+    if (req.query.distance === undefined)
         distance = defaultDistanceKilometer;
     else
-        distance = req.body.distance;
+        distance = req.query.distance;
 
     RentalAgencyModel.find().where('location').near({
-        center: [req.body.lat, req.body.lng],
-        maxDistance: distance,
-        spherical: true
-        }
+        center: {
+            coordinates: [req.query.lat, req.query.lng], type: 'Point' },
+        maxDistance: distance * 1000,
+        spherical: true}
     ).exec()
         .then(agencies => res.status(200).json(agencies))
         .catch(error => res.status(500).json({

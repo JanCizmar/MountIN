@@ -1,21 +1,16 @@
-//During the test the env variable is set to test
-process.env.NODE_ENV = 'test';
-
-//let mongoose = require("mongoose");
 let Tour = require('../src/models/tour');
 let User = require('../src/models/user');
 
 //Require the dev-dependencies
 let chai = require('chai');
+let should = require('chai').should();
 let chaiHttp = require('chai-http');
 let server = require('../index');
 let sampleUser = require('./sampleData/sampleUser');
 let sample = require('./sampleData/sampleTour');
 let assert = chai.assert;
 chai.use(chaiHttp);
-chai.should();
 
-//Our parent block
 
 let getSampleWithUser = (tourSample) => new Promise((resolve, reject) => {
     User.create(sampleUser, (err, user) => {
