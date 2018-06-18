@@ -29,7 +29,7 @@ module.exports = [
         "name": "Hiking Gods",
         "location": {
             "type": 'Point',
-            "coordinates": [48.146076, 11.564215] // 1.16 km away from reference point
+            "coordinates": [48.139239, 11.558239] // 1.10 km away from reference point
         },
         "website": "https://www.hikingGods.com",
         "contact": {

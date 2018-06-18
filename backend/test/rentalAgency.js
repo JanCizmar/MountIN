@@ -1,22 +1,18 @@
-//During the test the env variable is set to test
-process.env.NODE_ENV = 'test';
+let RentalAgency = require('../src/models/rentalAgency');
 
-const RentalAgency = require('../src/models/rentalAgency');
-
-//Require the dev-dependencies
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const server = require('../index');
-const rentalAgenciesSample = require('./sampleData/sampleRentalAgency');
+let chai = require('chai');
+let should = require('chai').should();
+let chaiHttp = require('chai-http');
+let server = require('../index');
+let rentalAgenciesSample = require('./sampleData/sampleRentalAgency');
 
 chai.use(chaiHttp);
 
 describe('User tests', function() {
     beforeEach(function(done) {
-        setTimeout(
         RentalAgency.remove({}, function() {
             done();
-        }), 10000)
+        });
     });
 
     describe('/GET rentalAgency', function() {
@@ -24,9 +20,8 @@ describe('User tests', function() {
             chai.request(server)
                 .get('/rentalAgency')
                 .end(function (err, res) {
-                    err.should.be.null;
+                    should.not.exist(err);
                     res.should.have.status(400);
-                    res.should.be.json;
                     res.body.should.have.keys('error', 'message');
                     res.body.error.should.eql('Bad request');
                     res.body.message.should.eql('Latitude or longitude not specified');
@@ -38,7 +33,7 @@ describe('User tests', function() {
                 .get('/rentalAgency')
                 .query({lat: 0, lng: 0})
                 .end(function (err, res) {
-                    err.should.be.null;
+                    should.not.exist(err);
                     res.should.have.status(200);
                     res.body.should.be.an('array');
                     res.body.length.should.eql(0);
@@ -53,7 +48,7 @@ describe('User tests', function() {
                 .get('/rentalAgency')
                 .query({lat: 48.146076, lng: 11.564215})
                 .end(function (err, res) {
-                    err.should.be.null;
+                    should.not.exist(err);
                     res.should.have.status(200);
                     res.body.should.be.an('array');
                     res.body.length.should.eql(3);
@@ -68,7 +63,7 @@ describe('User tests', function() {
                 .get('/rentalAgency')
                 .query({lat: 48.146076, lng: 11.564215, distance: 1})
                 .end(function (err, res) {
-                    err.should.be.null;
+                    should.not.exist(err);
                     res.should.have.status(200);
                     res.body.should.be.an('array');
                     res.body.length.should.eql(2);
