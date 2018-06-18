@@ -1,6 +1,7 @@
 export default function reducer(state = {
     loading: true,
     tours: [],
+    hasMore: true,
     filtersValue: {
         location: {
             name: "",
@@ -17,12 +18,16 @@ export default function reducer(state = {
             return {...state, filtersValue: action.payload};
         }
         case ('FETCH_TOURS_FULFILLED'): {
-            return {...state, tours: action.payload, loading: false};
+            let tours = state.tours;
+            tours = action.payload.skip > 0 ? tours.concat(action.payload.data) : action.payload.data;
+            return {...state, tours: tours, loading: false, hasMore: action.payload.data.length > 0};
         }
         case ('FETCH_TOURS_PENDING'): {
             return {...state, loading: true};
         }
+        case ('CLEAR_TOURS'): {
+            return {...state, tours: []};
+        }
     }
-
     return {...state};
 };
