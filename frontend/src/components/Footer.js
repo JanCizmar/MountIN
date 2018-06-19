@@ -13,7 +13,6 @@ class PlainFooter extends React.Component {
     render() {
         return (
             <div className={this.props.className}>
-                <hr/>
                 <p>© {new Date().getFullYear()} sebis. All rights reserved.</p>
             </div>
         );
@@ -22,13 +21,13 @@ class PlainFooter extends React.Component {
 
 export const Footer = Styled(PlainFooter)`
     max-height: 35px;
-    bottom: 0;
+    bottom: 20px;
     left: 0;
     right: 0;
     position: fixed;
-    background: white;
+    color:white;
     > p {
         text-align: center;
-        margin-top: 4px;
+        margin-top: 0px;
     }
 `;

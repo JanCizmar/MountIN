@@ -1,5 +1,6 @@
 "use strict";
 
+
 const TourModel = require('../models/tour');
 const UserModel = require('../models/user');
 

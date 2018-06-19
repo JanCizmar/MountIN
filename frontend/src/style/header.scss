@@ -1,0 +1,26 @@
+$white:#ffffff;
+$grey: rgba(132, 133, 137, 0.53);
+
+.customNavbar{
+  background-color: $grey;
+  border:0px;
+  border-radius: 0px;
+
+    .customNavbarHeading {
+      .customNavbarBrand {
+        color: $white;
+      }
+    }
+    .navbar-nav>li>a
+    {
+      color: $white;
+    }
+  .burger-menu {
+    border:none
+  }
+  .navbar-default .navbar-toggle .icon-bar {
+    background-color: $white;
+  }
+
+
+}
