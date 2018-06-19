@@ -79,10 +79,41 @@ class UserSignup extends React.Component {
 
     render() {
         return (
-            <Page>
+            <Page className="signup-page">
                 <Row>
-                    <Col md={4} sm={6} mdOffset={4} smOffset={3}>
+                    <Col className="signup-container" xs={10} md={4} sm={6} lg={4} xsOffset={1} mdOffset={4} smOffset={3} lgOffset={4}>
                         <form onSubmit={this.handleSubmit}>
+                            <Col md={6} sm={6}>
+                            <FormGroup
+                                controlId="firstName"
+                                validationState={this.getValidState('firstName')}
+                            >
+                                <ControlLabel>First Name</ControlLabel>
+                                <FormControl
+                                    name="firstName"
+                                    type="text"
+                                    value={this.state.firstName}
+                                    placeholder="First Name"
+                                    onChange={this.handleFormChange}
+                                />
+                            </FormGroup>
+                            </Col>
+                            <Col md={6} sm={6}>
+                            <FormGroup
+                                md={6} sm={6}
+                                controlId="surname"
+                                validationState={this.getValidState('surname')}
+                            >
+                                <ControlLabel>Surname</ControlLabel>
+                                <FormControl
+                                    name="surname"
+                                    type="text"
+                                    value={this.state.surname}
+                                    placeholder="Surname"
+                                    onChange={this.handleFormChange}
+                                />
+                            </FormGroup>
+                            </Col>
                             <FormGroup
                                 controlId="username"
                                 validationState={this.getValidState('username')}
@@ -135,32 +166,7 @@ class UserSignup extends React.Component {
                                     onChange={this.handleFormChange}
                                 />
                             </FormGroup>
-                            <FormGroup
-                                controlId="firstName"
-                                validationState={this.getValidState('firstName')}
-                            >
-                                <ControlLabel>First Name</ControlLabel>
-                                <FormControl
-                                    name="firstName"
-                                    type="text"
-                                    value={this.state.firstName}
-                                    placeholder="First Name"
-                                    onChange={this.handleFormChange}
-                                />
-                            </FormGroup>
-                            <FormGroup
-                                controlId="surname"
-                                validationState={this.getValidState('surname')}
-                            >
-                                <ControlLabel>Surname</ControlLabel>
-                                <FormControl
-                                    name="surname"
-                                    type="text"
-                                    value={this.state.surname}
-                                    placeholder="Surname"
-                                    onChange={this.handleFormChange}
-                                />
-                            </FormGroup>
+
                             <FormGroup
                                 controlId="phone"
                                 validationState={this.getValidState('phone')}
@@ -183,8 +189,6 @@ class UserSignup extends React.Component {
                             <div>
                                 <div>TODO: Here will be the certificate upload!</div>
                             </div>}
-
-
 
 
                             <Button id="submit" type="submit"
