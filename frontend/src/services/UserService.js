@@ -1,19 +1,22 @@
 "use strict";
 
 import HttpService from "./HttpService";
+import TourService from "./TourService";
 
 export default class UserService {
 
     constructor() {
     }
 
-    static baseURL() {return "http://localhost:3000/auth"; }
+    static baseURL() {
+        return "http://localhost:3000/auth";
+    }
 
     static register(user) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${UserService.baseURL()}/register`, user, function(data) {
+            HttpService.post(`${UserService.baseURL()}/register`, user, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -24,15 +27,15 @@ export default class UserService {
             HttpService.post(`${UserService.baseURL()}/login`, {
                 username: user,
                 password: pass
-            }, function(data) {
+            }, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
     }
 
-    static logout(){
+    static logout() {
         window.localStorage.removeItem('jwtToken');
     }
 
@@ -42,11 +45,21 @@ export default class UserService {
 
         let base64Url = token.split('.')[1];
         let base64 = base64Url.replace('-', '+').replace('_', '/');
+        //console.log(JSON.parse(window.atob(base64)).id)
         return {
-            id : JSON.parse(window.atob(base64)).id,
+            id: JSON.parse(window.atob(base64)).id,
             username: JSON.parse(window.atob(base64)).username
         };
     }
+
+    static getUserDetails(user_id) {
+        return new Promise((resolve, reject) => {
+            console.log(user_id);
+
+            return HttpService.get(`${UserService.baseURL()}/profile/` + user_id, resolve, reject)
+        });
+    }
+
 
     static isAuthenticated() {
         return !!window.localStorage['jwtToken'];

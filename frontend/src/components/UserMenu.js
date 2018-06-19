@@ -27,6 +27,7 @@ class UserMenu extends React.Component {
         if (UserService.isAuthenticated())
             return (
                 <NavDropdown title={UserService.getCurrentUser().username} id="basic-nav-dropdown">
+                    <MenuItem onClick={() => this.props.history.push('/profile')}>Profile</MenuItem>
                     <MenuItem onClick={() => this.logout()}>Logout</MenuItem>
                 </NavDropdown>
             );
