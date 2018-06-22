@@ -26,7 +26,8 @@ class UserLogin extends React.Component {
 
     handleFormChange(event) {
         this.setState({
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
+            changed: true
         });
     }
 
@@ -50,7 +51,7 @@ class UserLogin extends React.Component {
                         <form onSubmit={this.handleSubmit}>
                             <FormGroup
                                 controlId="username"
-                                validationState={this.state.username.length < 5 || this.state.username.length > 200 ? 'error' : 'success'}
+                                validationState={this.state.changed && this.state.username.length ? this.state.username.length < 5 || this.state.username.length > 200 ? 'error' : 'success' : null}
                             >
                                 <ControlLabel>Username</ControlLabel>
                                 <FormControl
@@ -63,7 +64,7 @@ class UserLogin extends React.Component {
                             </FormGroup>
                             <FormGroup
                                 controlId="password"
-                                validationState={this.state.password.length < 5 || this.state.password.length > 200 ? 'error' : 'success'}
+                                validationState={this.state.changed && this.state.password.length ? this.state.password.length < 5 || this.state.password.length > 200 ? 'error' : 'success':null}
                             >
                                 <ControlLabel>Password</ControlLabel>
                                 <FormControl

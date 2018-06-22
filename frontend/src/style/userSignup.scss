@@ -12,13 +12,13 @@ $white: #ffffff;
     margin-top: 20px;
     box-shadow: 0 12px 48px 12px rgba(0,0,0,0.11)
   }
-  .login-heading{
-    padding-bottom: 10%;
+  .signup-heading{
+    padding-bottom: 4%;
     font-size: 20px;
     display: flex;
     justify-content: center;
   }
-  .login-button{
+  .signup-button{
     display: flex;
     justify-content: center;
     margin: auto;
@@ -34,7 +34,10 @@ $white: #ffffff;
     border: 3px solid $grey;
     color: $grey;
   }
-
+  .name{
+    padding-right: 0;
+    padding: 1px;
+  }
   input{
     border:none;
     border-bottom: 2px solid $grey;
