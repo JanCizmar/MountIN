@@ -28,6 +28,6 @@ export const Footer = Styled(PlainFooter)`
     color:white;
     > p {
         text-align: center;
-        margin-top: 0px;
+        margin: 0 0 -20px;
     }
 `;

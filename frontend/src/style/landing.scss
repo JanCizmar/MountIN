@@ -6,13 +6,14 @@ $gray: #a2a3a8;
 
 .landing-page {
   padding-bottom: 4em;
-   background: url("../images/landing.jpg") 50% no-repeat, #adb5c4 fixed;
+  background: url("../images/landing.jpg") 50% no-repeat, #adb5c4 fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-   background-size: cover;
-    height: 100%;
-    text-align: center;
+  background-size: cover;
+  height: 100%;
+  min-height:450px;
+  text-align: center;
   /*  .landing-cover-image {
       background: url("../images/landing.old.jpg") 50% no-repeat, #1aa1d6;
       height: 100%;

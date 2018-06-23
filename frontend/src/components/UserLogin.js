@@ -26,7 +26,8 @@ class UserLogin extends React.Component {
 
     handleFormChange(event) {
         this.setState({
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
+            changed: true
         });
     }
 
@@ -43,13 +44,14 @@ class UserLogin extends React.Component {
 
     render() {
         return (
-            <Page>
+            <Page  className="login-page">
                 <Row>
-                    <Col md={4} sm={6} mdOffset={4} smOffset={3}>
+                    <Col className="login-container" xs={10} md={4} sm={6} lg={4} xsOffset={1} mdOffset={4} smOffset={3} lgOffset={4}>
+                        <div className="login-heading">LOGIN </div>
                         <form onSubmit={this.handleSubmit}>
                             <FormGroup
                                 controlId="username"
-                                validationState={this.state.username.length < 5 || this.state.username.length > 200 ? 'error' : 'success'}
+                                validationState={this.state.changed && this.state.username.length ? this.state.username.length < 5 || this.state.username.length > 200 ? 'error' : 'success' : null}
                             >
                                 <ControlLabel>Username</ControlLabel>
                                 <FormControl
@@ -62,9 +64,9 @@ class UserLogin extends React.Component {
                             </FormGroup>
                             <FormGroup
                                 controlId="password"
-                                validationState={this.state.password.length < 5 || this.state.password.length > 200 ? 'error' : 'success'}
+                                validationState={this.state.changed && this.state.password.length ? this.state.password.length < 5 || this.state.password.length > 200 ? 'error' : 'success':null}
                             >
-                                <ControlLabel>Passowrd</ControlLabel>
+                                <ControlLabel>Password</ControlLabel>
                                 <FormControl
                                     name="password"
                                     type="password"
@@ -74,13 +76,16 @@ class UserLogin extends React.Component {
                                 />
                             </FormGroup>
 
-                            <Button id="submit" type="submit"
+                            <Button className="login-button" id="submit" type="submit"
                                     disabled={this.state.username === undefined || this.state.username === '' || this.state.password === undefined || this.state.password === ''}
                             >Login</Button>
-                            <Link to={'/register'} className="md-cell">Not registered yet?</Link>
+
                             <AlertMessage
                                 className="md-row md-full-width">{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
                         </form>
+                        <div className="register-link">
+                            Not registered yet?<br/><Link to={'/register'} className=""> &nbsp;Click Here&nbsp;</Link> to Register!
+                        </div>
                     </Col>
                 </Row>
             </Page>
