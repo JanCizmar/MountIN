@@ -105,6 +105,39 @@ export default class HttpService {
             onError(e.message);
         });
     }
+    static postWithFile(url, data, onSuccess, onError) {
+        let token = window.localStorage['jwtToken'];
+        let header = new Headers();
+        if(token) {
+            header.append('Authorization', `JWT ${token}`);
+        }
+        //header.append('Content-Type', 'application/json');
+
+        fetch(url, {
+            method: 'POST',
+            headers: header,
+            body: data
+        }).then((resp) => {
+            if(resp.ok) {
+                return resp.json();
+            }
+            else if(this.checkIfUnauthorized(resp)) {
+                window.location = "/#login";
+            }
+            else {
+                resp.json().then((json) => {
+                    onError(json.error);
+                });
+            }
+        }).then((resp) => {
+            if(resp.hasOwnProperty('token')) {
+                window.localStorage['jwtToken'] = resp.token;
+            }
+            onSuccess(resp);
+        }).catch((e) => {
+            onError(e.message);
+        });
+    }
 
     static remove(url, onSuccess, onError) {
         let token = window.localStorage['jwtToken'];

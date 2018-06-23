@@ -25,6 +25,7 @@ const RentalAgency  = new mongoose.Schema({
 });
 
 RentalAgency.set('timestamps', true);
+RentalAgency.index({'location': '2dsphere'});
 
 // Export the Movie model
 module.exports = mongoose.model('RentalAgency', RentalAgency);

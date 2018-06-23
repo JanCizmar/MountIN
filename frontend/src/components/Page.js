@@ -19,7 +19,7 @@ export default class Page extends React.Component {
 
     render() {
         return (
-            <section>
+            <section className={this.props.className}>
                 <Header title="MountIn"/>
                 <Grid>
                     {this.props.children}

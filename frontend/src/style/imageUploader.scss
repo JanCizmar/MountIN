@@ -1,0 +1,50 @@
+$lightgray: #aeafb4;
+$gray: #7a7873;
+$white: #ffffff;
+
+.imageUpload {
+  h3 {
+    margin-left: 15px
+  }
+  .fileInput {
+    border: 1px solid $lightgray;
+    padding: 10px;
+    margin: 15px;
+  }
+
+  .imgPreview {
+    text-align: center;
+    margin: 5px 15px;
+    max-height: 300px;
+    max-width: 200px;
+    border: 1px solid $gray;
+    img{
+      max-height: 300px;
+      max-width: 200px;
+    }
+
+  }
+  .image-thumbnail {
+    width: 100%;
+    height: 100%;
+  }
+
+  .previewText {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .submitButton {
+    padding: 12px;
+    margin-left: 10px;
+    background: $white;
+    border: 4px solid $lightgray;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .centerText {
+    text-align: center;
+    width: 500px
+  }
+}

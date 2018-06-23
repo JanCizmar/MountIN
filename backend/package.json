@@ -15,7 +15,7 @@
   },
   "homepage": "ttps://github.com/sebischair/sebamaster-movie-backend.git#readme",
   "scripts": {
-    "test": "PORT=3123 DB_NAME=tour_tests mocha --timeout 10000 --exit",
+    "test": "set NODE_ENV=test&& mocha --timeout 100000 --exit",
     "start": "node ./index.js",
     "devstart": "nodemon ./index.js",
     "fake-tours": "node ./fakeTours.js"
@@ -28,6 +28,9 @@
     "helmet": "3.11.0",
     "jsonwebtoken": "8.1.1",
     "mongoose": "5.0.7",
+    "express-fileupload": "^0.4.0",
+    "uniqid": "^5.0.3",
+    "jimp": "^0.2.28",
     "node-fetch": "^2.1.2",
     "socket.io": "^2.1.1"
   },
