@@ -5,7 +5,7 @@ const mongoose   = require('mongoose');
 
 const api        = require('./src/api');
 const config     = require('./src/config');
-
+const socket = require('./src/socket');
 
 // Set the port to the API.
 api.set('port', config.port);
@@ -13,6 +13,8 @@ api.set('port', config.port);
 //Create a http server based on Express
 const server = http.createServer(api);
 
+//Set up websocket and handle events
+socket.handleSocketConnection(server);
 
 //Connect to the MongoDB database; then start the server
 mongoose

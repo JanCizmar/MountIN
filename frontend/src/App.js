@@ -18,6 +18,7 @@ export default class App extends React.Component {
         this.state = {
             title: 'MountIN',
             routes: [
+                {component: MessageBoardView, path: '/messageBoard'},
                 {component: UserLoginView, path: '/login'},
                 {component: CreateTourView, path: '/createTour'},
                 {component: UserSignupView, path: '/register'},
