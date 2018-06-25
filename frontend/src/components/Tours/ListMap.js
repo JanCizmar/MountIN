@@ -1,5 +1,7 @@
 import React from 'react';
 import {Marker} from "react-google-maps";
+import {InfoBox} from "react-google-maps/lib/components/addons/InfoBox";
+import TourListItem from "./TourListItem";
 
 const {compose, withProps, lifecycle} = require("recompose");
 const {
@@ -24,21 +26,38 @@ const ListMap = compose(
             defaultZoom={9}
             defaultCenter={new google.maps.LatLng(48.150040, 11.545055)}
         >
-            <Markers {...props.tours}/>
+            <Markers tours={props.tours}/>
         </GoogleMap>;
     }
 );
 
 export default ListMap;
 
-/** @return mixed */
+/** @return array|null */
 function Markers(props) {
+    console.log(props);
+    const markers = [];
+    //if (props.lat !== undefined && props.lng !== undefined) {
+    for (let tour of props.tours) {
+        console.log(tour.route[0]);
+        if (tour.route[0] && tour.route[0][0] && tour.route[0][0])
+            markers.push(<Marker key={tour._id}
+                                 position={{lat: tour.route[0][0], lng: tour.route[0][1]}}
+            >
+                <InfoBox style={{width: "100%"}}
+                    //onCloseClick={props.onToggleOpen}
+                         options={{closeBoxURL: ``, enableEventPropagation: true, border: '1px solid black'}}
+                >
+                    <div style={{backgroundColor: 'white', width: '100%'}}>
+                        <TourListItem {...tour}/>
 
 
-    if (props.lat !== undefined && props.lng !== undefined) {
-        return <Marker
-            position={{lat: 12, lng: 15}}
-        />
+                    </div>
+                </InfoBox>
+            </Marker>);
     }
-    return null;
+    return markers;
+
+    //}
+    //return null;
 }

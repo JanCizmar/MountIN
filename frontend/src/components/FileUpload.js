@@ -17,15 +17,15 @@ export const FileUpload = (props) => {
         reader.readAsDataURL(file)
     };
     return (
-            <div className="FileUpload">
-                {props.uploading && <Loading/> ||
-                <input className="fileInput"
-                       type="file"
-                       onChange={handleFileChange}/>}
-                <Button onClick={props.onSubmit}>Upload Certificate</Button>
-                {props.error !== '' && <p>{props.error}</p>}
-                {props.success !== '' && <p>{props.success}</p>}
-            </div>
+        <div className="FileUpload">
+            {props.uploading && <Loading/> ||
+            <input className="fileInput"
+                   type="file"
+                   onChange={handleFileChange}/>}
+            <Button onClick={props.onSubmit}>Upload Certificate</Button>
+            {props.error !== '' && <p>{props.error}</p>}
+            {props.success !== '' && <p>{props.success}</p>}
+        </div>
     )
 };
 

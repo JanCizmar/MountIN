@@ -50,7 +50,7 @@ class ListPage extends React.Component {
                 <Grid>
                     <List tours={this.props.state.tours} loading={this.props.state.loading}
                           loadMore={this.loadMore.bind(this)} hasMore={this.props.state.hasMore}/>
-                    <ListMap/>
+                    <ListMap tours={this.props.state.tours}/>
                 </Grid>
             </Page>);
     }
