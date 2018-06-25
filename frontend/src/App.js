@@ -5,7 +5,6 @@ import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 
 import {UserLoginView} from "./views/UserLoginView";
 import {UserSignupView} from "./views/UserSignupView";
-import {UserDetailView} from "./views/UserDetailView";
 
 import {LandingPageView} from "./views/LandingPageView";
 import {CreateTourView} from "./views/CreateTourView";
@@ -27,6 +26,7 @@ export default class App extends React.Component {
                 {component: UserDetailView, path: '/profile'},
                 {component: ExampleView, path: '/example'},
                 {component: LandingPageView, path: '/'}
+
 
             ]
         };
