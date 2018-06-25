@@ -1,64 +1,85 @@
 "use strict";
 
 import React from 'react';
-import Message from './Message'
-import {bindActionCreators} from 'react-redux'
+import {withRouter} from 'react-router-dom';
+
+import Message from './Message';
+import MessageInput from './MessageInput';
 import * as messageActions from "../../state/actions/messageBoard";
+import {connect} from "react-redux";
+import io from "../../services/SocketService";
+
 
 class MessageBoard extends React.Component {
     constructor(props) {
         super(props);
-        this.props.socket.on('addMessage', message => {
-            this.props.actions.updateMessages(message)
+        this.state = {
+            socketAPI: io(),
+            socket: io().getSocket()
+        };
+        console.log(this.state);
+        this.listenToAddMessage = this.listenToAddMessage.bind(this);
+    }
+
+    listenToAddMessage() {
+        console.log('Listening for addMessage');
+        this.state.socketAPI.listenForMessage(this.state.socket, function(payload) {
+           this.props.updateMessages(payload);
         });
     }
 
     componentDidMount() {
-        // Connect to server websocket
-        this.props.actions.connectToSocket();
-        // Get message history over REST
-        this.props.actions.fetchMessageHistory(this.props.tourId);
+        // Register listener to receive messages
+        this.listenToAddMessage(this.state.socket);
     }
 
     componentWillUnmount() {
-        // Disconnect and delete message state
-    }
-
-    getMessages() {
-        this.props.messages.map((message) => {
-            return <Message key={message._id} {...message}/>
-        });
+        // Clear messages from store
+        this.props.clearMessages();
+        // Disconnect socket
+        this.state.socket.disconnect();
     }
 
     render() {
+        let messages = this.props.messages.map((message, index) => {
+            return <Message key={index}{...message}/>
+        });
+
         return (
             <div className={this.props.className}>
-                <div className='message-list'>
-                    {this.getMessages()}
-                </div>
-                <div className='message-input'>
-                    <MessageInput onMessageSubmit={this.props.sendMessage}/>
-                </div>
+                {messages}
+                <MessageInput socket={this.state.socket} onMessageSubmit={this.props.sendMessage}/>
             </div>
         );
     }
 
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = store => {
     return {
-        messages: state.messageBoard.messages,
-        socket: state.messageBoard.socket
+        messages: store.messageBoard.messages,
+        fetchState: store.messageBoard.fetchState
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(messageActions, dispatch)
+        sendMessage: (socket, message) => {
+            dispatch(messageActions.sendMessage(socket, message))
+        },
+        fetchMessageHistory: (tourId) => {
+            dispatch(messageActions.fetchMessageHistory(tourId))
+        },
+        updateMessages: (message) => {
+            dispatch(messageActions.updateMessages(message))
+        },
+        clearMessages: () => {
+            dispatch(messageActions.clearMessages())
+        }
     }
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(MessageBoard)
+)(withRouter(MessageBoard));

@@ -1,37 +1,49 @@
 import {
-    SEND_MESSAGE, UPDATE_MESSAGES, FETCH_ALL_MESSAGES, CONNECT_TO_SOCKET
+    FETCH_HISTORY_SUCCESS, FETCH_HISTORY_REQUEST, UPDATE_MESSAGES, FETCH_HISTORY_ERROR, CLEAR_MESSAGES
 } from "../actions/messageBoard";
 import {combineReducers} from "redux";
 
 function messages(messages = [], action) {
     switch(action.type) {
-        case FETCH_ALL_MESSAGES:
+        case FETCH_HISTORY_SUCCESS:
             return action.messages;
-        case SEND_MESSAGE:
-           return [
-               ...messages,
-               action.message
-           ];
         case UPDATE_MESSAGES:
             return [
                 ...messages,
                 action.message
             ];
+        case CLEAR_MESSAGES:
+            return [];
         default:
             return messages;
     }
 }
 
-function socket(socket = null, action) {
+function fetchState(fetchState = {}, action) {
     switch(action.type) {
-        case CONNECT_TO_SOCKET:
-            return action.socket;
+        case FETCH_HISTORY_SUCCESS:
+            return {
+                isLoading: false,
+                error: false,
+            };
+        case FETCH_HISTORY_ERROR:
+            return {
+                isLoading: false,
+                error: true,
+            };
+        case FETCH_HISTORY_REQUEST:
+            return {
+                isLoading: true,
+                error: null,
+            };
         default:
-            return socket;
+            return fetchState;
     }
 }
 
-export default messageBoard = combineReducers({
+export default combineReducers({
     messages,
-    socket
+    fetchState
 });
+
+

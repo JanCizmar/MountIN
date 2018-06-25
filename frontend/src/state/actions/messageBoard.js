@@ -1,26 +1,52 @@
 import MessageService from "../../services/MessageService";
+import SocketService from "../../services/SocketService";
 
-
-export const SEND_MESSAGE = 'SEND_MESSAGE';
-export const FETCH_ALL_MESSAGES = 'FETCH_ALL_MESSAGES';
 export const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
-export const CONNECT_TO_SOCKET = 'CONNECT_TO_SOCKET';
+export const FETCH_HISTORY_REQUEST = "FETCH_MESSAGE_HISTORY_REQUEST";
+export const FETCH_HISTORY_SUCCESS = "FETCH_MESSAGE_HISTORY_SUCCESS";
+export const FETCH_HISTORY_ERROR = "FETCH_MESSAGE_HISTORY_ERROR";
+export const CLEAR_MESSAGES = "CLEAR_MESSAGES";
 
-export function sendMessage(messageData) {
-    MessageService.sendMessage(messageData).then(() => {
-        return {
-            type: SEND_MESSAGE,
-            message: messageData
-        }
-    });
+
+export function sendMessage(socket, message) {
+    return (dispatch) => {
+        SocketService().sendMessage(socket, message);
+        dispatch(updateMessages(message));
+    }
 }
 
 export function fetchMessageHistory(tourId, timeout) {
-    return {
-        type: FETCH_ALL_MESSAGES,
-        messages: MessageService.getMessageHistory(tourId, timeout).then(messages => {
-            return messages
+    return (dispatch) => {
+        dispatch(fetchHistoryRequest());
+        return MessageService.getMessageHistory(tourId, timeout).then((resp) => {
+            console.log(resp);
+            if (resp.hasOwnProperty('error')) {
+
+                dispatch(fetchHistoryError(resp))
+            }
+            else {
+                dispatch(fetchHistorySuccess(resp))
+            }
         })
+    }
+}
+
+function fetchHistoryRequest(){
+    return {
+        type: FETCH_HISTORY_REQUEST
+    }
+}
+
+function fetchHistorySuccess(messages) {
+    return {
+        type: FETCH_HISTORY_SUCCESS,
+        messages: messages
+    }
+}
+
+function fetchHistoryError() {
+    return {
+        type: FETCH_HISTORY_ERROR
     }
 }
 
@@ -31,9 +57,8 @@ export function updateMessages(message) {
     }
 }
 
-export function connectToSocket(tourId, timeout) {
+export function clearMessages() {
     return {
-        type: CONNECT_TO_SOCKET,
-        socket: MessageService.getSocket()
+        type: CLEAR_MESSAGES,
     }
 }

@@ -1,10 +1,18 @@
 "use strict";
 
+import React from 'react';
+import {Col, Row} from "react-bootstrap";
+
 export default function Message(props) {
+    console.log(props);
     return (
-        <div className="message">
-            <div className="message-username">{props.username}</div>
-            <div className="message-data">{props.data}</div>
-        </div>
+        <Row>
+            <Col md={3} sm={6}>>
+                <div className="message-username">{props.creator}</div>
+            </Col>
+            <Col md={3} sm={6}>>
+                <div className="message-data">{props.data}</div>
+            </Col>
+        </Row>
     );
 }

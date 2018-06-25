@@ -16,7 +16,7 @@ const getTourMessageHistory = (req, res) => {
 };
 
 const createMessage = (payload) => {
-    MessageModel.create(payload);
+    return MessageModel.create(payload);
 };
 
 module.exports = {

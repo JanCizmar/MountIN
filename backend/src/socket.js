@@ -11,20 +11,27 @@ const handleSocketConnection = (server) => {
 
     io.on('connection', function(socket){
         console.log('a user connected');
+        io.clients((error, clients) => {
+            if (error) throw error;
+            console.log(clients);
+        });
 
-        io.on('createMessage', function(payload){
+        socket.on('sendMessage', function(payload){
+            console.log('Server received message');
+            console.log(payload);
             // Save the message
             MessageBoardController.createMessage(payload)
                 .then(message => {
                     // Broadcast message
-                    socket.broadcast.emit('addMessage', message);
+                    console.log('Broadcasting the message after create');
+                    socket.broadcast.emit('receiveMessage', message);
                 })
                 .catch(err => {
                     console.log('Error saving message', err.message);
                 });
         });
 
-        io.on('disconnect', function(){
+        socket.on('disconnect', function(){
             console.log('user disconnected');
         });
     });

@@ -1,9 +1,10 @@
 "use strict";
 
 import React from 'react';
-import MessageBoard from '../components/MessageBoard/MessageBoard'
+import Page from "../components/Page";
+import MessageBoard from "../components/MessageBoard/MessageBoard";
 
-export class CreateTourView extends React.Component {
+export class MessageBoardView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -12,7 +13,9 @@ export class CreateTourView extends React.Component {
 
     render() {
         return (
-            <MessageBoard/>
+            <Page>
+                <MessageBoard/>
+            </Page>
         );
     }
 }

@@ -1,7 +1,6 @@
 "use strict";
 
 import HttpService from "./HttpService";
-const io = require('socket.io-client');
 
 export default class MessageService {
 
@@ -10,16 +9,8 @@ export default class MessageService {
 
     timer = 0;
 
-    static getSocket() {
-        return io();
-    }
-
-    static sendMessage(socket, message) {
-        socket.emit('createMessage', message);
-    }
-
     static baseURL() {
-        return "http://localhost:3000/messageBoard";
+        return "http://localhost:3000/messageBoard/";
     }
 
     static getMessageHistory(tourId, timeout = 1000) {

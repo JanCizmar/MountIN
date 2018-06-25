@@ -10,6 +10,7 @@ import {LandingPageView} from "./views/LandingPageView";
 import {CreateTourView} from "./views/CreateTourView";
 import {ListPageView} from "./views/ListPageView";
 import ExampleView from "./views/ExampleView";
+import {MessageBoardView} from "./views/MessageBoardView"
 
 export default class App extends React.Component {
 

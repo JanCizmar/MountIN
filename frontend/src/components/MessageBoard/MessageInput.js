@@ -1,5 +1,8 @@
 "use strict";
 
+import React from 'react';
+import {FormGroup, FormControl, Button} from "react-bootstrap";
+
 class MessageInput extends React.Component {
     constructor(props) {
         super(props);
@@ -7,6 +10,7 @@ class MessageInput extends React.Component {
             message: ''
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event) {
@@ -16,7 +20,8 @@ class MessageInput extends React.Component {
             creator: '971nidn81',
             data: this.state.message
         };
-        this.props.onMessageSubmit(message);
+        this.props.onMessageSubmit(this.props.socket, message);
+        this.setState({message: ''});
     }
 
     handleChange(event) {
@@ -44,3 +49,5 @@ class MessageInput extends React.Component {
         );
     }
 }
+
+export default MessageInput;
