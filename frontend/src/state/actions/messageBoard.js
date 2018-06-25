@@ -10,7 +10,7 @@ export const CLEAR_MESSAGES = "CLEAR_MESSAGES";
 
 export function sendMessage(socket, message) {
     return (dispatch) => {
-        SocketService().sendMessage(socket, message);
+        SocketService.sendMessage(socket, message);
         dispatch(updateMessages(message));
     }
 }

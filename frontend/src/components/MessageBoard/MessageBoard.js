@@ -7,37 +7,36 @@ import Message from './Message';
 import MessageInput from './MessageInput';
 import * as messageActions from "../../state/actions/messageBoard";
 import {connect} from "react-redux";
-import io from "../../services/SocketService";
+import SocketService from "../../services/SocketService";
 
 
 class MessageBoard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            socketAPI: io(),
-            socket: io().getSocket()
+            socket: SocketService.getSocket()
         };
-        console.log(this.state);
-        this.listenToAddMessage = this.listenToAddMessage.bind(this);
+    }
+
+    onAddMessage(message) {
+        this.props.updateMessages(message);
     }
 
     listenToAddMessage() {
         console.log('Listening for addMessage');
-        this.state.socketAPI.listenForMessage(this.state.socket, function(payload) {
-           this.props.updateMessages(payload);
-        });
+        SocketService.listenForMessage(this.state.socket, message => this.onAddMessage(message));
     }
 
     componentDidMount() {
         // Register listener to receive messages
-        this.listenToAddMessage(this.state.socket);
+        this.listenToAddMessage();
     }
 
     componentWillUnmount() {
         // Clear messages from store
         this.props.clearMessages();
         // Disconnect socket
-        this.state.socket.disconnect();
+        SocketService.disconnect(this.state.socket);
     }
 
     render() {
