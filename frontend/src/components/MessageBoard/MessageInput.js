@@ -13,14 +13,14 @@ class MessageInput extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event) {
-        //mocked tourId and userId
+    handleSubmit() {
+        // Build the message
         let message = {
-            tourId: 1111,
-            creator: '971nidn81',
+            tourId: this.props.tourId,
+            creator: this.props.userId,
             data: this.state.message
         };
-        this.props.onMessageSubmit(this.props.socket, message);
+        this.props.submitMessage(this.props.socket, message);
         this.setState({message: ''});
     }
 

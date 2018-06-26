@@ -11,8 +11,6 @@ import {CreateTourView} from "./views/CreateTourView";
 import {ListPageView} from "./views/ListPageView";
 import {UserDetailView} from "./views/UserDetailView";
 import ExampleView from "./views/ExampleView";
-import {MessageBoardView} from "./views/MessageBoardView"
-import FileUploadExampleView from "./views/FileUploadExampleView";
 import {TourDetailPageView} from "./views/TourDetailView";
 
 export default class App extends React.Component {
@@ -23,7 +21,6 @@ export default class App extends React.Component {
         this.state = {
             title: 'MountIN',
             routes: [
-                {component: MessageBoardView, path: '/messageBoard'},
                 {component: UserLoginView, path: '/login'},
                 {component: CreateTourView, path: '/createTour'},
                 {component: UserSignupView, path: '/register'},

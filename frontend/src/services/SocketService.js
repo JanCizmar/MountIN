@@ -12,6 +12,12 @@ export default class SocketService {
         socket.on('receiveMessage', handler);
     }
 
+    static joinTourRoom(socket, tourId) {
+        socket.on('connect', () => {
+            socket.emit('joinRoom', tourId);
+        })
+    }
+
     static sendMessage(socket, message) {
         socket.emit('sendMessage', message);
     }

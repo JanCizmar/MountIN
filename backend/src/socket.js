@@ -11,24 +11,30 @@ const handleSocketConnection = (server) => {
 
     io.on('connection', function(socket){
         console.log('a user connected');
+
         io.clients((error, clients) => {
             if (error) throw error;
             console.log(clients);
         });
 
-        socket.on('sendMessage', function(payload){
+        socket.on('joinRoom', function(tourId){
+            console.log('Join room: ', tourId);
+            socket.join(tourId);
+        });
+
+        socket.on('sendMessage', function(message){
             console.log('Server received message');
-            console.log(payload);
+            console.log(message);
             // Save the message
-            MessageBoardController.createMessage(payload)
-                .then(message => {
+            //MessageBoardController.createMessage(payload)
+                //.then(message => {
                     // Broadcast message
                     console.log('Broadcasting the message after create');
-                    socket.broadcast.emit('receiveMessage', message);
-                })
-                .catch(err => {
-                    console.log('Error saving message', err.message);
-                });
+                    socket.broadcast.to(message.tourId).emit('receiveMessage', message);
+                //})
+                //.catch(err => {
+                  //  console.log('Error saving message', err.message);
+                //});
         });
 
         socket.on('disconnect', function(){

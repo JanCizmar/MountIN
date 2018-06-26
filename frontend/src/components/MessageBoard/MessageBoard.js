@@ -27,9 +27,16 @@ class MessageBoard extends React.Component {
         SocketService.listenForMessage(this.state.socket, message => this.onAddMessage(message));
     }
 
+    joinTourRoom() {
+        console.log('Joining tour room ', this.props.tourId);
+        SocketService.joinTourRoom(this.state.socket, this.props.tourId);
+    }
+
     componentDidMount() {
         // Register listener to receive messages
         this.listenToAddMessage();
+        // Joining the tour socket room
+        this.joinTourRoom();
     }
 
     componentWillUnmount() {
@@ -47,7 +54,8 @@ class MessageBoard extends React.Component {
         return (
             <div className={this.props.className}>
                 {messages}
-                <MessageInput socket={this.state.socket} onMessageSubmit={this.props.sendMessage}/>
+                <MessageInput socket={this.state.socket} userId={this.props.userId}
+                              tourId={this.props.tourId} submitMessage={this.props.sendMessage}/>
             </div>
         );
     }
