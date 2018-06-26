@@ -9,6 +9,7 @@ const middlewares = require('./middlewares');
 const auth  = require('./routes/auth');
 const tour = require('./routes/tour');
 const rentalAgency = require('./routes/rentalAgency');
+const messageBoard = require('./routes/messageBoard');
 const upload = require('./routes/upload');
 
 const api = express();
@@ -29,9 +30,10 @@ api.get('/', (req, res) => {
 });
 
 // API routes
-api.use('/auth'  , auth);
+api.use('/auth', auth);
 api.use('/tours', tour); //todo: use the same name here?
 api.use('/rentalAgency', rentalAgency);
+api.use('/messageBoard', messageBoard);
 api.use('/upload', upload);
 api.use('/uploaded', express.static('upload'));
 
