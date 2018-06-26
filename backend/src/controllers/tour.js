@@ -15,7 +15,7 @@ const create = (req, res) => {
     if (req.body.route !== undefined && req.body.route.length > 1) {
         req.body.route = {
             "type": "MultiPoint",
-            "coordinates": req.body.route.slice()
+            "coordinates": req.body.route.map(point => [point[1], point[0]])
         };
     }
 
@@ -44,7 +44,7 @@ const create = (req, res) => {
 const read = (req, res) => {
     TourModel.findById(req.params.id).exec()
         .then(tour => {
-
+            tour.route = tour.route.map(point => [point[1], point[0]]);
             if (!tour) return res.status(404).json({
                 error: 'Not Found',
                 message: `Tour not found`
@@ -66,6 +66,13 @@ const update = (req, res) => {
         message: 'The request body is empty'
     });
 
+    if (req.body.route !== undefined && req.body.route.length > 1) {
+        req.body.route = {
+            "type": "MultiPoint",
+            "coordinates": req.body.route.map(point => [point[1], point[0]])
+        };
+    }
+
     TourModel.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true}).exec()
         .then(tour => res.status(200).json(tour))
         .catch(error => res.status(500).json({
@@ -85,7 +92,10 @@ const remove = (req, res) => {
 
 const list = (req, res) => {
     TourModel.find({}).exec()
-        .then(tours => res.status(200).json(tours))
+        .then(tours => {
+
+            return res.status(200).json(tours)
+        })
         .catch(error => res.status(500).json({
             error: 'Internal server error',
             message: error.message
@@ -174,7 +184,8 @@ const search = (req, res) => {
             if (tour.route && tour.route.coordinates) {
                 //it is not gonna change the route without this line
                 tour = JSON.parse(JSON.stringify(tour));
-                tour.route = tour.route.coordinates;
+                //swaping the order of coordinates because of mongoDB
+                tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
             }
             return tour;
         })))
