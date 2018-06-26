@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import * as fileUploadActions from '../state/actions/fileUpload';
 import Page from "../components/Page";
 import Grid from "react-bootstrap/es/Grid";
-import fileUploadExample from "../state/reducers/fileUpload";
 
 
 const FileUploadExampleView = (props) => {
@@ -16,7 +15,7 @@ const FileUploadExampleView = (props) => {
         <Page>
             <Grid>
                 <FileUpload {...props.state.fileUpload} onSubmit={onFileUploadSubmit}
-                             onChange={(val) => props.dispatch(fileUploadActions.changeFile(val))}/>
+                            onChange={(val) => props.dispatch(fileUploadActions.changeFile(val))}/>
             </Grid>
         </Page>
     );

@@ -11,7 +11,8 @@ export default function reducer(state = {
         difficulties: [],
         guideTypes: [],
         price: [0, 500]
-    }
+    },
+    openInfobox: undefined
 }, action) {
     switch (action.type) {
         case ('FILTERS_CHANGED'): {
@@ -27,6 +28,9 @@ export default function reducer(state = {
         }
         case ('CLEAR_TOURS'): {
             return {...state, tours: []};
+        }
+        case ('TOUR_LIST_TOGGLE_INFOBOX'): {
+            return {...state, openInfobox: state.openInfobox === action.payload ? undefined : action.payload};
         }
     }
     return {...state};

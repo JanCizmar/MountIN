@@ -33,7 +33,7 @@ const image = (req, res) => {
         }))
 };
 
-const file= (req,res)=>  {
+const file = (req, res) => {
     if (!req.files) return res.status(400).json({
         error: 'Bad Request',
         message: 'No file was chosen.'
@@ -41,13 +41,13 @@ const file= (req,res)=>  {
     let file = req.files.file;
     let uniqid = require('uniqid');
     let fileExtension = require('file-extension');
-    let ext=fileExtension(file.name);
-    let newFileName = uniqid()+"."+ext ;
+    let ext = fileExtension(file.name);
+    let newFileName = uniqid() + "." + ext;
     let body = {
         file_name: file.name,
         sys_file_name: newFileName
     };
-    file.mv('./upload/files/'+ newFileName)
+    file.mv('./upload/files/' + newFileName)
         .then(fileModel.create(body)
             .then(file => res.status(201).json(file))
             .catch(error => res.status(500).json({

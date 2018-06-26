@@ -108,10 +108,31 @@ const logout = (req, res) => {
     res.status(200).send({ token: null });
 };
 
+const read = (req, res) => {
+    UserModel.findById(req.params.id).populate('tours toursAttending').exec()
+        .then(user => {
+            delete user.password;
+
+            if (!user) return res.status(404).json({
+                error: 'Not Found',
+                message: `User not found`
+            });
+
+            res.status(200).json(user)
+
+        })
+        .catch(error => res.status(500).json({
+            error: 'Internal Server Error',
+            message: error.message
+        }));
+
+};
+
 
 module.exports = {
     login,
     register,
     logout,
-    me
+    me,
+    read
 };
