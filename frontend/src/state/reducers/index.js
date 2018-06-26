@@ -7,7 +7,6 @@ import fileUploadExample from "./fileUpload";
 export default combineReducers({
     tourList,
     messageBoard,
-    example
     example,
     fileUploadExample
 });
