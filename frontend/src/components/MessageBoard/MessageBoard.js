@@ -8,14 +8,15 @@ import MessageInput from './MessageInput';
 import * as messageActions from "../../state/actions/messageBoard";
 import {connect} from "react-redux";
 import SocketService from "../../services/SocketService";
+const io = SocketService.getSocket();
 
 
 class MessageBoard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            socket: SocketService.getSocket()
-        };
+        console.log(props.currentMessage);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     onAddMessage(message) {
@@ -24,12 +25,26 @@ class MessageBoard extends React.Component {
 
     listenToAddMessage() {
         console.log('Listening for addMessage');
-        SocketService.listenForMessage(this.state.socket, message => this.onAddMessage(message));
+        SocketService.listenForMessage(io, message => this.onAddMessage(message));
     }
 
     joinTourRoom() {
         console.log('Joining tour room ', this.props.tourId);
-        SocketService.joinTourRoom(this.state.socket, this.props.tourId);
+        SocketService.joinTourRoom(io, this.props.tourId);
+    }
+
+    handleInputChange(event) {
+        this.props.updateCurrentMessage(event.target.value);
+    }
+
+    handleSubmit() {
+        // Build the message
+        let message = {
+            tourId: this.props.tourId,
+            creator: this.props.userId,
+            data: this.props.currentMessage
+        };
+        this.props.sendMessage(io, message);
     }
 
     componentDidMount() {
@@ -43,7 +58,7 @@ class MessageBoard extends React.Component {
         // Clear messages from store
         this.props.clearMessages();
         // Disconnect socket
-        SocketService.disconnect(this.state.socket);
+        SocketService.disconnect(io);
     }
 
     render() {
@@ -54,8 +69,8 @@ class MessageBoard extends React.Component {
         return (
             <div className={this.props.className}>
                 {messages}
-                <MessageInput socket={this.state.socket} userId={this.props.userId}
-                              tourId={this.props.tourId} submitMessage={this.props.sendMessage}/>
+                <MessageInput message={this.props.currentMessage} onSubmit={this.handleSubmit}
+                              onInputChange={this.handleInputChange}/>
             </div>
         );
     }
@@ -65,6 +80,7 @@ class MessageBoard extends React.Component {
 const mapStateToProps = store => {
     return {
         messages: store.messageBoard.messages,
+        currentMessage: store.messageBoard.currentMessage,
         fetchState: store.messageBoard.fetchState
     }
 };
@@ -82,6 +98,9 @@ const mapDispatchToProps = dispatch => {
         },
         clearMessages: () => {
             dispatch(messageActions.clearMessages())
+        },
+        updateCurrentMessage: () => {
+            dispatch(messageActions.updateCurrentMessage())
         }
     }
 };

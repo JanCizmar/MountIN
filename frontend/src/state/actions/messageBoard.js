@@ -6,12 +6,15 @@ export const FETCH_HISTORY_REQUEST = "FETCH_MESSAGE_HISTORY_REQUEST";
 export const FETCH_HISTORY_SUCCESS = "FETCH_MESSAGE_HISTORY_SUCCESS";
 export const FETCH_HISTORY_ERROR = "FETCH_MESSAGE_HISTORY_ERROR";
 export const CLEAR_MESSAGES = "CLEAR_MESSAGES";
+export const CLEAR_CURRENT_MESSAGE = "CLEAR_CURRENT_MESSAGE";
+export const UPDATE_CURRENT_MESSAGE = "UPDATE_CURRENT_MESSAGE";
 
 
 export function sendMessage(socket, message) {
     return (dispatch) => {
         SocketService.sendMessage(socket, message);
         dispatch(updateMessages(message));
+        dispatch(clearCurrentMessage());
     }
 }
 
@@ -60,5 +63,18 @@ export function updateMessages(message) {
 export function clearMessages() {
     return {
         type: CLEAR_MESSAGES,
+    }
+}
+
+export function clearCurrentMessage() {
+    return {
+        type: CLEAR_CURRENT_MESSAGE
+    }
+}
+
+export function updateCurrentMessage(message) {
+    return {
+        type: UPDATE_CURRENT_MESSAGE,
+        message: message
     }
 }
