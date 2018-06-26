@@ -42,7 +42,8 @@ const UserSchema  = new mongoose.Schema({
         required: false,
         unique: false
     },
-    tours: [{type: ObjectId, ref: 'Tour'}]
+    tours: [{type: ObjectId, ref: 'Tour'}],
+    toursAttending: [{type: ObjectId, ref: 'Tour'}]
 });
 
 UserSchema.set('versionKey', false);

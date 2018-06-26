@@ -12,7 +12,10 @@ export class UserDetailView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: {}};
+            value: {
+                tours: [],
+                toursAttending: []
+            }};
     }
 
     getuserdetails(){

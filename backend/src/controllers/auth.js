@@ -109,7 +109,7 @@ const logout = (req, res) => {
 };
 
 const read = (req, res) => {
-    UserModel.findById(req.params.id).exec()
+    UserModel.findById(req.params.id).populate('tours toursAttending').exec()
         .then(user => {
             delete user.password;
 

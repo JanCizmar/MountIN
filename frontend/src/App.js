@@ -9,6 +9,7 @@ import {UserSignupView} from "./views/UserSignupView";
 import {LandingPageView} from "./views/LandingPageView";
 import {CreateTourView} from "./views/CreateTourView";
 import {ListPageView} from "./views/ListPageView";
+import {UserDetailView} from "./views/UserDetailView";
 import ExampleView from "./views/ExampleView";
 
 export default class App extends React.Component {
