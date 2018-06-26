@@ -19,6 +19,8 @@ const create = (req, res) => {
         };
     }
 
+    console.log(req.userId);
+    req.body.creator = req.userId;
     UserModel.findById(req.body.creator).then(creator => {
         if (creator !== null) {
             TourModel.create(req.body)

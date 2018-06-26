@@ -23,6 +23,8 @@ const checkAuthentication = (req, res, next) => {
     // check header or url parameters or post parameters for token
     const token = req.headers['x-access-token'];
 
+    console.log(req.headers)
+
     if (!token)
         return res.status(401).send({
             error: 'Unauthorized',

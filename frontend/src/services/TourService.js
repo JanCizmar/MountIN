@@ -1,7 +1,6 @@
 "use strict";
 
 import HttpService from "./HttpService";
-
 export default class TourService {
 
     constructor() {
@@ -11,6 +10,29 @@ export default class TourService {
 
     static baseURL() {
         return "http://localhost:3000/tours";
+    }
+
+    static createTour(tour){
+
+        let inputs={
+                "date":tour.date,
+                "description":tour.description,
+                "difficulty":parseInt(tour.difficulty),
+                "type":parseInt(tour.activityType),
+                "name":tour.name,
+                "price":tour.price,
+                "route":tour.route
+                };
+        console.log(inputs);
+        return new Promise((resolve, reject) => {
+            HttpService.post(`${this.baseURL()}/`, inputs, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+
+
     }
 
     static getTours(filters, skip = 0, timeout = 1000) {
