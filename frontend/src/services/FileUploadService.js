@@ -4,22 +4,20 @@ import HttpService from "./HttpService";
 
 export default class FileUploadService {
 
-    constructor() {
-    }
-
     static uploadedFilesBaseUrl = HttpService.apiURL() + "/uploaded/files/";
-
     static baseURL = HttpService.apiURL() + "/upload";
 
+    constructor() {
+    }
 
     static uploadFile(file) {
         return new Promise((resolve, reject) => {
             const formData = new FormData();
             formData.append('file', file);
             HttpService.postWithFile(`${FileUploadService.baseURL}` + '/file', formData,
-                function(data) {
+                function (data) {
                     resolve(data);
-                }, function(textStatus) {
+                }, function (textStatus) {
                     reject(textStatus);
                 });
         });

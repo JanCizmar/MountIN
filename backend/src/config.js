@@ -10,7 +10,7 @@ const test = {
         name: 'testdb',
         host:'localhost',
         port: 27017
-    }
+    },
 };
 
 const development = {
@@ -22,7 +22,7 @@ const development = {
         name: 'tourdb',
         host:'localhost',
         port: 27017
-    }
+    },
 };
 
 const config = {
@@ -30,4 +30,6 @@ const config = {
     development
 };
 
-module.exports = config[env];
+exports = config[env];
+exports.mongoURI = 'mongodb://' + exports.db.host + ':' + exports.db.port + '/' + exports.db.name;
+module.exports = exports;

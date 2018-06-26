@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="location form-group"
+>
+  <div>
+    <input
+      aria-activedescendant={null}
+      aria-autocomplete="list"
+      aria-expanded={false}
+      autoComplete="off"
+      className="location-search-input form-control"
+      disabled={false}
+      id="location"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Location"
+      role="combobox"
+      type="text"
+    />
+    <div
+      className={0}
+    />
+  </div>
+</div>
+`;

@@ -5,7 +5,6 @@ import React from 'react';
 import {AlertMessage} from './AlertMessage';
 import Page from './Page';
 import {Button, Checkbox, Col, ControlLabel, FormControl, FormGroup, Row} from "react-bootstrap";
-import {FileUpload} from "./FileUpload";
 
 
 class UserSignup extends React.Component {
@@ -31,7 +30,7 @@ class UserSignup extends React.Component {
     handleFormChange(event) {
         this.setState({
             [event.target.name]: event.target.value,
-            changed:true
+            changed: true
         });
     }
 
@@ -57,13 +56,13 @@ class UserSignup extends React.Component {
     //Form checking: TODO when time - change feedback: https://react-bootstrap.github.io/components/forms/
     getFormValidStates() {
         return {
-            username: this.state.changed && this.state.username.length  ? this.state.username.length < 5 || this.state.username.length > 200 ? 'error' : 'success':null,
-            password: (this.state.changed && this.state.password.length  )? this.state.password.length < 5 || this.state.password.length > 200 ? 'error' : 'success':null,
-            passwordRepeat: this.state.changed && this.state.passwordRepeat.length  ? this.state.password !== this.state.passwordRepeat || this.state.passwordRepeat.length < 5 ? 'error' : 'success' :null,
-            email: this.state.changed && this.state.email.length   ? this.state.email.indexOf('@') < 1 || this.state.email.indexOf('.') < 3 ? 'error' : 'success': null,
-            firstName:  this.state.changed && this.state.firstName.length   ? this.state.firstName.length < 3 || this.state.firstName.length > 200 ? 'error' : 'success' :null,
-            surname:  this.state.changed && this.state.surname.length   ? this.state.surname.length < 3 || this.state.surname.length > 200 ? 'error' : 'success' :null,
-            phone:  this.state.changed && this.state.phone.length   ? this.state.phone.match('[^+0-9]') ? 'error' : 'success' : null
+            username: this.state.changed && this.state.username.length ? this.state.username.length < 5 || this.state.username.length > 200 ? 'error' : 'success' : null,
+            password: (this.state.changed && this.state.password.length) ? this.state.password.length < 5 || this.state.password.length > 200 ? 'error' : 'success' : null,
+            passwordRepeat: this.state.changed && this.state.passwordRepeat.length ? this.state.password !== this.state.passwordRepeat || this.state.passwordRepeat.length < 5 ? 'error' : 'success' : null,
+            email: this.state.changed && this.state.email.length ? this.state.email.indexOf('@') < 1 || this.state.email.indexOf('.') < 3 ? 'error' : 'success' : null,
+            firstName: this.state.changed && this.state.firstName.length ? this.state.firstName.length < 3 || this.state.firstName.length > 200 ? 'error' : 'success' : null,
+            surname: this.state.changed && this.state.surname.length ? this.state.surname.length < 3 || this.state.surname.length > 200 ? 'error' : 'success' : null,
+            phone: this.state.changed && this.state.phone.length ? this.state.phone.match('[^+0-9]') ? 'error' : 'success' : null
         };
     }
 
@@ -85,39 +84,40 @@ class UserSignup extends React.Component {
         return (
             <Page className="signup-page">
                 <Row>
-                    <Col className="signup-container" xs={10} md={6} sm={8} lg={6} xsOffset={1} mdOffset={3} smOffset={2} lgOffset={3}>
-                        <div className="signup-heading">SIGN UP </div>
+                    <Col className="signup-container" xs={10} md={6} sm={8} lg={6} xsOffset={1} mdOffset={3}
+                         smOffset={2} lgOffset={3}>
+                        <div className="signup-heading">SIGN UP</div>
                         <form onSubmit={this.handleSubmit}>
                             <Col className="name" md={6} sm={6}>
-                            <FormGroup
-                                controlId="firstName"
-                                validationState={this.getValidState('firstName')}
-                            >
-                                <ControlLabel>First Name</ControlLabel>
-                                <FormControl
-                                    name="firstName"
-                                    type="text"
-                                    value={this.state.firstName}
-                                    placeholder="First Name"
-                                    onChange={this.handleFormChange}
-                                />
-                            </FormGroup>
+                                <FormGroup
+                                    controlId="firstName"
+                                    validationState={this.getValidState('firstName')}
+                                >
+                                    <ControlLabel>First Name</ControlLabel>
+                                    <FormControl
+                                        name="firstName"
+                                        type="text"
+                                        value={this.state.firstName}
+                                        placeholder="First Name"
+                                        onChange={this.handleFormChange}
+                                    />
+                                </FormGroup>
                             </Col>
-                            <Col className="name"  md={6} sm={6}>
-                            <FormGroup
-                                md={6} sm={6}
-                                controlId="surname"
-                                validationState={this.getValidState('surname')}
-                            >
-                                <ControlLabel>Surname</ControlLabel>
-                                <FormControl
-                                    name="surname"
-                                    type="text"
-                                    value={this.state.surname}
-                                    placeholder="Surname"
-                                    onChange={this.handleFormChange}
-                                />
-                            </FormGroup>
+                            <Col className="name" md={6} sm={6}>
+                                <FormGroup
+                                    md={6} sm={6}
+                                    controlId="surname"
+                                    validationState={this.getValidState('surname')}
+                                >
+                                    <ControlLabel>Surname</ControlLabel>
+                                    <FormControl
+                                        name="surname"
+                                        type="text"
+                                        value={this.state.surname}
+                                        placeholder="Surname"
+                                        onChange={this.handleFormChange}
+                                    />
+                                </FormGroup>
                             </Col>
                             <FormGroup
                                 controlId="username"

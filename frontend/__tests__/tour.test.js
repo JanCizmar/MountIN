@@ -6,7 +6,7 @@ import data from "../src/sampleData/tours";
 
 it('renders correctly', () => {
     const tree = renderer
-        .create(<TourListItem {...data[0]}/>)
+        .create(<TourListItem {...data}/>)
         .toJSON();
     expect(tree).toMatchSnapshot();
 });
