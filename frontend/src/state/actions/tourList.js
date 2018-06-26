@@ -21,3 +21,11 @@ export function clearTours() {
         type: 'CLEAR_TOURS',
     }
 }
+
+export function toggleInfobox(id) {
+    return {
+        type: 'TOUR_LIST_TOGGLE_INFOBOX',
+        payload: id
+    }
+}
+

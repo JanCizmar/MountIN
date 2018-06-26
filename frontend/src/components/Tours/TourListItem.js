@@ -7,7 +7,8 @@ import Link from "react-router-dom/es/Link";
 
 export default function TourListItem(props) {
     return (
-        <Col md={3} sm={6} className="tour-list-item-wrapper" onClick={props.onClick}>
+        <Col xs={props.xs || 12} sm={props.sm || 6} md={props.md || 3} lg={props.lg || 3}
+             className="tour-list-item-wrapper" onClick={props.onClick}>
             <Link to={'/tours/detail/' + props._id} className="">
                 <div className="tour-list-item">
                     <div className="image" style={{

@@ -13,7 +13,6 @@ import ListMap from "./ListMap";
 import Grid from "react-bootstrap/es/Grid";
 
 class ListPage extends React.Component {
-
     onFilterChange = value => {
         let prevValue = JSON.stringify({
             ...this.props.state.filtersValue,
@@ -26,6 +25,10 @@ class ListPage extends React.Component {
         if (prevValue !== newValue) {
             this.props.dispatch(actions.fetchTours(value));
         }
+    };
+
+    onMarkerClick = (tourId) => {
+        this.props.dispatch(actions.toggleInfobox(tourId));
     };
 
     componentDidMount() {
@@ -50,7 +53,8 @@ class ListPage extends React.Component {
                 <Grid>
                     <List tours={this.props.state.tours} loading={this.props.state.loading}
                           loadMore={this.loadMore.bind(this)} hasMore={this.props.state.hasMore}/>
-                    <ListMap tours={this.props.state.tours}/>
+                    <ListMap tours={this.props.state.tours} onMarkerClick={this.onMarkerClick}
+                             openInfobox={this.props.state.openInfobox}/>
                 </Grid>
             </Page>);
     }
