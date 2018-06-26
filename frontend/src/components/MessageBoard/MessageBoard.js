@@ -8,6 +8,7 @@ import MessageInput from './MessageInput';
 import * as messageActions from "../../state/actions/messageBoard";
 import {connect} from "react-redux";
 import SocketService from "../../services/SocketService";
+
 const io = SocketService.getSocket();
 
 
@@ -99,8 +100,8 @@ const mapDispatchToProps = dispatch => {
         clearMessages: () => {
             dispatch(messageActions.clearMessages())
         },
-        updateCurrentMessage: () => {
-            dispatch(messageActions.updateCurrentMessage())
+        updateCurrentMessage: (message) => {
+            dispatch(messageActions.updateCurrentMessage(message))
         }
     }
 };
