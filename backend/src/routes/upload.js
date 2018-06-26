@@ -9,5 +9,6 @@ const UploadController = require('../controllers/upload');
 router.use(fileUpload({ preserveExtension: true }));
 
 router.post('/image', UploadController.image); // Create a new movie
+router.post('/file', UploadController.file);
 
 module.exports = router;
