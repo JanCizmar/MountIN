@@ -12,8 +12,8 @@ const TourSchema  = new mongoose.Schema({
     description: String,
     //image: [{ large: String, thumbnail: String }],
     image: {
-        large: {type: String},
-        thumbnail: {type: String}
+        large: {type: mongoose.Schema.Types.ObjectId, ref: 'File', required: false},
+        thumbnail: {type: mongoose.Schema.Types.ObjectId, ref: 'File', required: false}
     },
     date: {
         type: Date,
