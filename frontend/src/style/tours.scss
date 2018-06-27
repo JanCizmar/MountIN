@@ -7,7 +7,13 @@ $filter-values-color: $textGrey;
   div.tour-list-item {
     min-height: 250px;
     div.image {
+      margin-top: 15px;
       height: 130px;
+      background-size: cover
+    }
+    .def-image{
+      background: url("../images/tour.jpg") 50% no-repeat, #adb5c4 fixed;
+      height:130px;
       background-size: cover
     }
     div.title {

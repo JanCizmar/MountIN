@@ -11,10 +11,14 @@ export default function TourListItem(props) {
              className="tour-list-item-wrapper" onClick={props.onClick}>
             <Link to={'/tours/detail/' + props._id} className="">
                 <div className="tour-list-item">
+                    {props.image &&
                     <div className="image" style={{
                         backgroundImage: "url(" + props.image.thumbnail + ")",
                     }}>
-                    </div>
+                    </div>}
+                    {!props.image &&
+                    <div className="image def-image">
+                    </div>}
                     <div className="title">{props.name}</div>
                     <div className="date">{props.date}</div>
                     <div className="price">{props.cost > 0 ? props.cost : "Free"}</div>
