@@ -1,7 +1,6 @@
 "use strict";
 
 import HttpService from "./HttpService";
-import TourService from "./TourService";
 
 export default class UserService {
 

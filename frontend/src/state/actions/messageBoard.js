@@ -34,7 +34,7 @@ export function fetchMessageHistory(tourId, timeout) {
     }
 }
 
-function fetchHistoryRequest(){
+function fetchHistoryRequest() {
     return {
         type: FETCH_HISTORY_REQUEST
     }

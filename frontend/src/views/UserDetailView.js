@@ -15,22 +15,23 @@ export class UserDetailView extends React.Component {
             value: {
                 tours: [],
                 toursAttending: []
-            }};
+            }
+        };
     }
 
-    getuserdetails(){
-            UserService.getUserDetails(UserService.getCurrentUser().id).then((data) => {
-                //this.value.username = 'sdfg'
-                this.setState({...this.state, value: data});
-            }).catch((e) => {
-                console.error(e);
-                this.setState({
-                    error: e
-                });
+    getuserdetails() {
+        UserService.getUserDetails(UserService.getCurrentUser().id).then((data) => {
+            //this.value.username = 'sdfg'
+            this.setState({...this.state, value: data});
+        }).catch((e) => {
+            console.error(e);
+            this.setState({
+                error: e
             });
+        });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getuserdetails();
     }
 
