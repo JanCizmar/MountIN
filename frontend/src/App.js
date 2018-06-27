@@ -30,7 +30,6 @@ export default class App extends React.Component {
                 {component: TourDetailPageView, path: '/tours/detail/:id'},
                 {component: LandingPageView, path: '/'}
 
-
             ]
         };
     }
