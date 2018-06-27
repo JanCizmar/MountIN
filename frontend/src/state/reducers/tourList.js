@@ -12,7 +12,9 @@ export default function reducer(state = {
         guideTypes: [],
         price: [0, 500]
     },
-    openInfobox: undefined
+    openInfobox: undefined,
+    mapView:true,
+    listView:false
 }, action) {
     switch (action.type) {
         case ('FILTERS_CHANGED'): {
@@ -31,6 +33,15 @@ export default function reducer(state = {
         }
         case ('TOUR_LIST_TOGGLE_INFOBOX'): {
             return {...state, openInfobox: state.openInfobox === action.payload ? undefined : action.payload};
+        }
+        case ('MAP_VIEW_TOGGLE'): {
+            return {...state, mapView:true, listView:false};
+        }
+        case ('LIST_VIEW_TOGGLE'): {
+            return {...state, mapView:false, listView:true};
+        }
+        case ('BOTH_VIEWS_TOGGLE'): {
+            return {...state, mapView:true, listView:true};
         }
     }
     return {...state};

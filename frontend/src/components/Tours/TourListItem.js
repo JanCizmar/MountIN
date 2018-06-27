@@ -7,7 +7,8 @@ import Link from "react-router-dom/es/Link";
 
 export default function TourListItem(props) {
     return (
-        <Col xs={props.xs || 12} sm={props.sm || 6} md={props.md || 3} lg={props.lg || 3}
+        <Col xs={12} sm={6} md={3} lg={3}>
+        <Col xs={props.xs || 12} sm={props.sm || 12} md={props.md || 12} lg={props.lg || 12}
              className="tour-list-item-wrapper" onClick={props.onClick}>
             <Link to={'/tours/detail/' + props._id} className="">
                 <div className="tour-list-item">
@@ -29,6 +30,7 @@ export default function TourListItem(props) {
                     </div>
                 </div>
             </Link>
+        </Col>
         </Col>
     );
 }
