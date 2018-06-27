@@ -12,6 +12,8 @@ import * as actions from "../../state/actions/createTour";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import Page from '../Page';
+import * as imageUploadActions from "../../state/actions/imageUpload";
+import ImageUpload from "../ImageUpload";
 
 
 export const CreateTour = compose(
@@ -60,10 +62,12 @@ export const CreateTour = compose(
                     }
                 }
             },
-
             submit: props => event=>{
                 event.preventDefault();
                 props.dispatch(actions.createTours(props.state.toursInput));
+            },
+            onFileUploadSubmit: props => () => {
+                props.dispatch(imageUploadActions.uploadImage(props.state.imageUpload.file));
             }
          }
     ))(props =>
@@ -109,11 +113,10 @@ export const CreateTour = compose(
                                 onChange={props.onChange('date')}
                                 value={props.state.toursInput.date}
                                 placeholder="Date"
-                                minDate={new Date()}
+                                minDate={(new Date())}
                             />
                         </FormGroup>
                     </Col>
-
                 </Row>
                 <Row>
                     <Col md={3}>
@@ -138,16 +141,18 @@ export const CreateTour = compose(
                     </Col>
                     <Col md={3}>
                         {props.state.toursInput.guideType===2 &&
-                        <TourPrice clname="hidden" onChange={props.onChange('price')}
-                                   value={props.state.toursInput.price=0}/>}
+                        <TourPrice clname="hidden" onChange={props.onChange('cost')}
+                                   value={props.state.toursInput.cost = 0}/>}
                     </Col>
                 </Row>
+                <ImageUpload {...props.state.imageUpload} onSubmit={props.onFileUploadSubmit}
+                             onChange={(val) => props.dispatch(imageUploadActions.changeImage(val))}/>
                 <Row>
                     <Map waypoints={props.state.toursInput.route} draggable={true} onDirectionsChanged={props.onChange('route')}/>
                 </Row>
 
             </div>
-            <Button className="create-tour-button" id="submit" type="submit"
+            <Button className="create-tour-button" type="submit"
                     disabled={props.getValidState()}
             >Register</Button>
             <Col className="name" md={12} sm={12}>

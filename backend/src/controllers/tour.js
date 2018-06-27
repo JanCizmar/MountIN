@@ -154,12 +154,13 @@ const search = (req, res) => {
         }
     }
 
+
     if (req.query.lat !== undefined && req.query.lng !== undefined) {
         query.route = {
             $nearSphere: {
                 $geometry: {
                     type: 'Point',
-                    coordinates: [req.query.lat, req.query.lng]
+                    coordinates: [req.query.lng, req.query.lat]
                 },
             }
         };
@@ -179,6 +180,8 @@ const search = (req, res) => {
     if (query.$and.length === 0) {
         delete query.$and;
     }
+
+    //console.log(query.route.$nearSphere);
 
     TourModel.find(query).skip(parseInt(req.query.skip)).limit(28).exec()
         .then(tours => res.status(200).json(tours.map(tour => {

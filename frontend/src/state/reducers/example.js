@@ -23,7 +23,7 @@ export default function reducer(state = {
                 imageUpload: {
                     file: {},
                     imagePreviewUrl: '',
-                    uploadedUrl: ImageUploadService.getImageURL(action.payload.sys_file_name),
+                    uploadedUrl: ImageUploadService.getImageURL(action.payload.large),
                     uploading: false,
                     error: ''
                 }
