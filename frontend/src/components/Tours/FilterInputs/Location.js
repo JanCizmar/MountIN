@@ -24,7 +24,7 @@ export const Location = compose(
 )((props) =>
     <FormGroup className="location"
                controlId="location">
-        <PlacesAutocomplete onChange={props.onValueChange} value={props.value.name} onSelect={props.onSelect}>
+        <PlacesAutocomplete onChange={props.onValueChange} value={props.value.name || ''} onSelect={props.onSelect}>
             {({getInputProps, suggestions, getSuggestionItemProps}) => (
                 <div>
                     <FormControl

@@ -30,10 +30,13 @@ export default function reducer(state = {
             };
         }
         case ('FILE_UPLOAD_PENDING'): {
-            return {...state, fileUpload: {...state.fileUpload, uploading: true,  success: ''}};
+            return {...state, fileUpload: {...state.fileUpload, uploading: true, success: ''}};
         }
         case ('FILE_UPLOAD_REJECTED'): {
-            return {...state, fileUpload: {...state.fileUpload, uploading: false, success: '', error: 'Something went wrong :('}};
+            return {
+                ...state,
+                fileUpload: {...state.fileUpload, uploading: false, success: '', error: 'Something went wrong :('}
+            };
         }
     }
     return {...state};

@@ -15,7 +15,7 @@ const create = (req, res) => {
     if (req.body.route !== undefined && req.body.route.length > 1) {
         req.body.route = {
             "type": "MultiPoint",
-            "coordinates": req.body.route.slice()
+            "coordinates": req.body.route.map(point => [point[1], point[0]])
         };
     }
 
@@ -46,7 +46,7 @@ const create = (req, res) => {
 const read = (req, res) => {
     TourModel.findById(req.params.id).exec()
         .then(tour => {
-
+            tour.route = tour.route.map(point => [point[1], point[0]]);
             if (!tour) return res.status(404).json({
                 error: 'Not Found',
                 message: `Tour not found`
@@ -68,6 +68,13 @@ const update = (req, res) => {
         message: 'The request body is empty'
     });
 
+    if (req.body.route !== undefined && req.body.route.length > 1) {
+        req.body.route = {
+            "type": "MultiPoint",
+            "coordinates": req.body.route.map(point => [point[1], point[0]])
+        };
+    }
+
     TourModel.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true}).exec()
         .then(tour => res.status(200).json(tour))
         .catch(error => res.status(500).json({
@@ -87,7 +94,10 @@ const remove = (req, res) => {
 
 const list = (req, res) => {
     TourModel.find({}).exec()
-        .then(tours => res.status(200).json(tours))
+        .then(tours => {
+
+            return res.status(200).json(tours)
+        })
         .catch(error => res.status(500).json({
             error: 'Internal server error',
             message: error.message
@@ -144,15 +154,17 @@ const search = (req, res) => {
         }
     }
 
-    if (req.query.distance !== undefined && req.query.lat !== undefined && req.query.lng !== undefined) {
+    if (req.query.lat !== undefined && req.query.lng !== undefined) {
         query.route = {
             $nearSphere: {
                 $geometry: {
                     type: 'Point',
                     coordinates: [req.query.lat, req.query.lng]
                 },
-                $maxDistance: req.query.distance * 1000
             }
+        };
+        if (req.query.distance !== undefined) {
+            query.route.$nearSphere.$maxDistance = req.query.distance * 1000;
         }
     }
 
@@ -169,7 +181,16 @@ const search = (req, res) => {
     }
 
     TourModel.find(query).skip(parseInt(req.query.skip)).limit(28).exec()
-        .then(tours => res.status(200).json(tours))
+        .then(tours => res.status(200).json(tours.map(tour => {
+            //we dont need the type of GEO object, so the tour is just coordinates
+            if (tour.route && tour.route.coordinates) {
+                //it is not gonna change the route without this line
+                tour = JSON.parse(JSON.stringify(tour));
+                //swaping the order of coordinates because of mongoDB
+                tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
+            }
+            return tour;
+        })))
         .catch(error => res.status(500).json({
             error: 'Internal server error',
             message: error.message
@@ -179,12 +200,10 @@ const search = (req, res) => {
 const getParticipants = (req, res) => {
     TourModel.findById(req.params.id).populate('participants').select('participants').exec()
         .then(participants => {
-
             if (!participants) return res.status(404).json({
                 error: 'Not Found',
                 message: `Specified tour not found`
             });
-
             res.status(200).json(participants)
         })
         .catch(error => res.status(500).json({

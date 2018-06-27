@@ -5,12 +5,16 @@ const mongoose   = require('mongoose');
 
 const api        = require('./src/api');
 const config     = require('./src/config');
+const socket = require('./src/socket');
 
 // Set the port to the API.
 api.set('port', config.app.port);
 
 //Create a http server based on Express
 const server = http.createServer(api);
+
+//Set up websocket and handle events
+socket.handleSocketConnection(server);
 
 //Create MongoURI
 const mongoURI = 'mongodb://' + config.db.host+ ':' + config.db.port + '/' + config.db.name;
