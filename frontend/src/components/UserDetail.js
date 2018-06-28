@@ -2,10 +2,11 @@
 
 import React from 'react';
 import Page from './Page';
-import {Col, Row, Button} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import TourListItem from "./Tours/TourListItem";
 
 function UserDetail(props){
+    console.log(props);
     let tours = props.tours.map((tour) => {
         //console.log(tour)
         return <TourListItem key={tour._id} {...tour}/>
