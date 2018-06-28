@@ -19,5 +19,5 @@ export const TourDifficulty = (props) =>
 
 TourDifficulty.propTypes = {
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.number.isRequired
+    value: PropTypes.string.isRequired
 };

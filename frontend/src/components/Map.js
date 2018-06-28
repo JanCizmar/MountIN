@@ -58,7 +58,6 @@ export const Map = compose(
                     //get the actual route, to be drawed on the map
                     DirectionsService.route(way, (result, status) => {
                         if (status === google.maps.DirectionsStatus.OK) {
-                            console.log(result);
                             props.setDirections(result);
                         } else {
                             console.error(`error fetching directions ${result}`);
@@ -85,6 +84,11 @@ export const Map = compose(
             }
             if (props.waypoints.length === 1) {
                 props.setMarker([val.latLng.lat(), val.latLng.lng()]);
+
+            }
+
+            if (props.waypoints.length === 2) {
+                props.onDirectionsChanged(props.waypoints);
             }
         }
 

@@ -20,5 +20,5 @@ export const TourActivityType = (props) => {
 
 TourActivityType.propTypes = {
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.number.isRequired
+    value: PropTypes.string.isRequired
 };

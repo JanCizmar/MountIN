@@ -4,11 +4,11 @@ export default function reducer(state = {
     toursInput: {
         name: "",
         description:"",
-        difficulty: 0,
+        difficulty: "",
         guideType: "",
         cost: 0,
         route:[],
-        activityType: 0,
+        activityType:"",
         date:"",
         changedInput: []
     },

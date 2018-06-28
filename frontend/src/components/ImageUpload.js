@@ -32,7 +32,7 @@ export const ImageUpload = (props) => {
                 <div className="imgPreview">
                     {imagePreview}
                 </div>
-                <Button onClick={props.onSubmit}>Upload Image</Button>
+                <Button className="imageUploadButton" onClick={props.onSubmit}>Upload Image</Button>
                 {props.error !== '' && <p>{props.error}</p>}
             </div>
     )
