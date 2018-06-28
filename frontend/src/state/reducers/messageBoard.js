@@ -1,6 +1,11 @@
 import {
-    FETCH_HISTORY_SUCCESS, FETCH_HISTORY_REQUEST, UPDATE_MESSAGES, FETCH_HISTORY_ERROR, CLEAR_MESSAGES,
-    UPDATE_CURRENT_MESSAGE, CLEAR_CURRENT_MESSAGE
+    CLEAR_CURRENT_MESSAGE,
+    CLEAR_MESSAGES,
+    FETCH_HISTORY_ERROR,
+    FETCH_HISTORY_REQUEST,
+    FETCH_HISTORY_SUCCESS,
+    UPDATE_CURRENT_MESSAGE,
+    UPDATE_MESSAGES
 } from "../actions/messageBoard";
 import {combineReducers} from "redux";
 
@@ -45,7 +50,6 @@ function fetchState(fetchState = {}, action) {
 function currentMessage(currentMessage = '', action) {
     switch(action.type) {
         case UPDATE_CURRENT_MESSAGE:
-            console.log(action.message);
             return action.message;
         case CLEAR_CURRENT_MESSAGE:
             return '';

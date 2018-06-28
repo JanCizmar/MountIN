@@ -1,20 +1,92 @@
 $textGreen: #158a00;
 $textGrey: #727272;
+$borderGrey: #707070;
+$lightgray: #f0f0ff;
+$borderBlue: #6d96b9;
 $filter-values-color: $textGrey;
 
+.list-page {
+  width: 100%;
+  .infinite-scroll-component {
+  }
+  .map-head {
+    font-size: 20px;
+    margin: 20px 0 10px 0;
+  }
+  .view-button {
+    width: 100%;
+    border-radius: 0;
+    margin-top: 15px;
+    background: papayawhip;
+    border: #6d96b9;
+  }
+}
+
 .tour-list-item-wrapper {
-  //margin-top: 20px;
+
+  .title {
+    color: #d9edf7 !important;
+  }
+}
+
+.tour-heading {
+  font-size: 20px;
+  padding: 5px 10px 10px 20px;
+}
+
+a {
+  color: papayawhip !important;
+  text-decoration: none;
+}
+
+i {
+  color: gold;
+}
+
+div.infinite-scroll-component {
+  display: flex;
+  flex-wrap: wrap;
+  //padding-right: 15px;
+}
+
+.tour-list-item-wrapper {
+  padding: 10px;
+
+  .title {
+    color: #d9edf7 !important;
+  }
+
+  .tour-heading {
+    font-size: 20px;
+    padding: 5px 10px 10px 20px;
+  }
+  a {
+    color: papayawhip !important;
+    text-decoration: none;
+  }
+  i {
+    color: gold;
+  }
+
   div.tour-list-item {
-    min-height: 250px;
-    div.image {
+    height: 100%;
+    box-shadow: 4px 5px 6px 0 rgba(0, 0, 0, 0.3);
+    margin: 2px 2px 15px 0;
+    background-color: dimgray;
+    padding: 10px;
+
+    &:hover {
+      background-color: #565656;
+      cursor: pointer;
+    }
+
+    div.image, .def-image {
       margin-top: 15px;
       height: 130px;
       background-size: cover
     }
-    .def-image{
-      background: url("../images/tour.jpg") 50% no-repeat, #adb5c4 fixed;
-      height:130px;
-      background-size: cover
+    .def-image {
+      background: url("../images/tour.jpg") 50% no-repeat, fixed;
     }
     div.title {
       color: $textGreen;
@@ -27,18 +99,61 @@ $filter-values-color: $textGrey;
         flex-grow: 1;
       }
     }
-
   }
 }
 
 div.filters-wrapper {
+  .form-group {
+    input {
+      border: none;
+      border-bottom: 2px solid grey;
+      border-radius: 0;
+      box-shadow: none;
+
+    }
+    input:focus {
+      border-bottom: 2px solid $borderBlue;;
+    }
+    .input-group-addon {
+      padding: 4px 12px;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+      color: #555;
+      text-align: center;
+      background: none;
+      border: none;
+      border-bottom: 2px solid grey;
+      border-radius: 0;
+    }
+    .css-10nd86i:focus {
+      outline: none;
+    }
+    .css-1aya2g8 {
+      border: none;
+      border-bottom: 2px solid grey;
+      border-radius: 0;
+      box-shadow: none;
+      background: none;
+    }
+    .css-2o5izw {
+      border: none;
+      outline: none;
+      border-bottom: 2px solid $borderBlue;
+      border-radius: 0;
+      box-shadow: none
+    }
+    .css-xwjg1b {
+      background-color: papayawhip;
+    }
+  }
   .location {
     div.autocomplete-dropdown-container {
       border-radius: 0 0 3px 3px;
-      border: 1px solid #707070;
+      border: 1px solid $borderGrey;
       .suggestion-item {
         &.active {
-          background-color: #f0f0ff;
+          background-color: $lightgray;
         }
         padding: 5px 10px;
       }
@@ -62,7 +177,7 @@ div.filters-wrapper {
         }
       }
       .rc-slider-track {
-        background-color: $textGreen !important;
+        background-color: $borderBlue !important;
       }
 
       .rc-slider-handle {
@@ -70,5 +185,13 @@ div.filters-wrapper {
       }
     }
   }
+}
 
+div.map-wrapper {
+  height: 100vh;
+  &.scrolled {
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
 }

@@ -24,7 +24,6 @@ class CreateTour extends React.Component {
     }
 
     handleOnDirectionsChanged(val) {
-        console.log(JSON.stringify(val));
         this.setState({wpts: val});
     }
 
