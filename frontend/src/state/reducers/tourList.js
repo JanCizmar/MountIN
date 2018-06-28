@@ -14,7 +14,9 @@ export default function reducer(state = {
     },
     openInfobox: undefined,
     mapView:true,
-    listView:false
+    scrollY: 0,
+    mapCenter: [48.150040, 11.545055],
+    zoom: 9
 }, action) {
     switch (action.type) {
         case ('FILTERS_CHANGED'): {
@@ -35,13 +37,14 @@ export default function reducer(state = {
             return {...state, openInfobox: state.openInfobox === action.payload ? undefined : action.payload};
         }
         case ('MAP_VIEW_TOGGLE'): {
-            return {...state, mapView:true, listView:false};
+            return {...state, mapView: !state.mapView};
         }
-        case ('LIST_VIEW_TOGGLE'): {
-            return {...state, mapView:false, listView:true};
+        case ('TOUR_LIST_SCROLL'): {
+            return {...state, scrollY: action.payload};
         }
-        case ('BOTH_VIEWS_TOGGLE'): {
-            return {...state, mapView:true, listView:true};
+        case ('TOUR_LIST_TOUR_SELECTED'): {
+            let selectedTour = state.tours.find(tour => tour._id === action.payload);
+            return {...state, mapCenter: selectedTour.route[0], zoom: 9};
         }
     }
     return {...state};

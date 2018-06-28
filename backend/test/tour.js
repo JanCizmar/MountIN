@@ -89,7 +89,7 @@ describe('Tours', () => {
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    console.log(res.body);
+                    //console.log(res.body);
                     res.body.message.should.be.eql('Creator does not exist');
                     done();
                 })

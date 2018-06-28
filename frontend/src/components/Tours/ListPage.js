@@ -10,7 +10,7 @@ import {Filters} from "./Filters";
 import {connect} from "react-redux";
 import * as actions from '../../state/actions/tourList';
 import ListMap from "./ListMap";
-import {Row,Col,Button} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 
 class ListPage extends React.Component {
     onFilterChange = value => {
@@ -34,6 +34,11 @@ class ListPage extends React.Component {
     componentDidMount() {
         //Fetch some tours on beginning
         this.props.dispatch(actions.fetchTours(this.props.state.filtersValue, 0, 0));
+
+        let that = this;
+        window.addEventListener("scroll", function () {
+            that.props.dispatch(actions.scroll(this.scrollY));
+        });
     }
 
     componentWillUnmount() {
@@ -41,62 +46,47 @@ class ListPage extends React.Component {
         this.props.dispatch(actions.clearTours());
     }
 
-    loadMore()  {
+    loadMore() {
         //this is going to load more results from backend
         this.props.dispatch(actions.fetchTours(this.props.state.filtersValue, this.props.state.tours.length))
     }
+
     showMap() {
-        this.props.dispatch(actions.mapView())
-
-    }
-    showList() {
-        this.props.dispatch(actions.listView())
+        this.props.dispatch(actions.toggleMapView())
     }
 
-    showBoth() {
-        this.props.dispatch(actions.bothView())
+    onTourClick(id) {
+        this.props.dispatch(actions.tourSelect(id))
     }
 
     render() {
         return (
             <Page className="list-page">
-                {this.props.state.mapView}
                 <Row>
-                <Filters value={this.props.state.filtersValue} onChange={this.onFilterChange}/>
+                    <Filters value={this.props.state.filtersValue} onChange={this.onFilterChange}/>
                 </Row>
-                <Col sm={12} md={12} lg={12}>
-                    <Col sm={3} md={3} lg={3}>
-                    <Button className="view-button" type="button" onClick={this.showMap.bind(this)}>SHOW MAP VIEW
-                    </Button>
-                    </Col>
-                    <Col sm={3} md={3} lg={3}>
-                    <Button className="view-button" type="button" onClick={this.showList.bind(this)}>SHOW LIST VIEW
-                    </Button>
-                    </Col>
-                    <Col sm={6} md={6} lg={6}>
-                    <Button className="view-button" type="button" onClick={this.showBoth.bind(this)}>SHOW BOTH MAP AND LIST VIEW
-                    </Button>
-                    </Col>
-                </Col>
                 <Row>
-                    {this.props.state.mapView &&
-                    <Col className="no-padding" lg={12} md={12} sm={12} >
-                        <div className="map-head">
-                           {/* MAP VIEW */}
-                        </div>
-                        <ListMap tours={this.props.state.tours} onMarkerClick={this.onMarkerClick}
-                                 openInfobox={this.props.state.openInfobox}/>
-                    </Col>}
-                    {this.props.state.listView &&
-                    <Col className="no-padding" lg={12} md={12} sm={12}>
-                        <div className="map-head">
-                            {/*LIST VIEW*/}
-                        </div>
+                    <Col sm={3} md={3} lg={3}>
+                        <Button className="view-button" type="button" onClick={this.showMap.bind(this)}>
+                            {this.props.state.mapView && 'HIDE' || 'SHOW'} MAP
+                        </Button>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col lg={this.props.state.mapView ? 6 : 12}
+                         md={this.props.state.mapView ? 6 : 12} sm={12}>
                         <List tours={this.props.state.tours} loading={this.props.state.loading}
-                              loadMore={this.loadMore.bind(this)} hasMore={this.props.state.hasMore}/>
+                              loadMore={this.loadMore.bind(this)} hasMore={this.props.state.hasMore}
+                              mapView={this.props.state.mapView} onTourClick={this.onTourClick.bind(this)}/>
+                    </Col>
+
+                    {this.props.state.mapView &&
+                    <Col lg={6} md={6} sm={12}
+                         className={['map-wrapper', this.props.state.scrollY > 209 && 'scrolled']}>
+                        <ListMap tours={this.props.state.tours} onMarkerClick={this.onMarkerClick}
+                                 openInfobox={this.props.state.openInfobox} mapCenter={this.props.state.mapCenter}
+                                 zoom={this.props.state.zoom}/>
                     </Col>}
-
-
                 </Row>
             </Page>);
     }

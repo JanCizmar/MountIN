@@ -22,23 +22,12 @@ export function clearTours() {
     }
 }
 
-export function mapView() {
+export function toggleMapView() {
     return {
         type: 'MAP_VIEW_TOGGLE',
     }
 }
 
-export function listView() {
-    return {
-        type: 'LIST_VIEW_TOGGLE',
-    }
-}
-
-export function bothView() {
-    return {
-        type: 'BOTH_VIEWS_TOGGLE',
-    }
-}
 
 export function toggleInfobox(id) {
     return {
@@ -47,3 +36,16 @@ export function toggleInfobox(id) {
     }
 }
 
+export function scroll(y) {
+    return {
+        type: 'TOUR_LIST_SCROLL',
+        payload: y
+    }
+}
+
+export function tourSelect(id) {
+    return {
+        type: 'TOUR_LIST_TOUR_SELECTED',
+        payload: id
+    }
+}

@@ -9,35 +9,34 @@ const handleSocketConnection = (server) => {
     let io = socket(server);
     console.log('Websocket is listening');
 
-    io.on('connection', function(socket){
+    io.on('connection', function (socket) {
         console.log('a user connected');
 
         io.clients((error, clients) => {
             if (error) throw error;
-            console.log(clients);
         });
 
-        socket.on('joinRoom', function(tourId){
+        socket.on('joinRoom', function (tourId) {
             console.log('Join room: ', tourId);
             socket.join(tourId);
         });
 
-        socket.on('sendMessage', function(message){
+        socket.on('sendMessage', function (message) {
             console.log('Server received message');
             console.log(message);
             // Save the message
             //MessageBoardController.createMessage(payload)
-                //.then(message => {
-                    // Broadcast message
-                    console.log('Broadcasting the message after create');
-                    socket.broadcast.to(message.tourId).emit('receiveMessage', message);
-                //})
-                //.catch(err => {
-                  //  console.log('Error saving message', err.message);
-                //});
+            //.then(message => {
+            // Broadcast message
+            console.log('Broadcasting the message after create');
+            socket.broadcast.to(message.tourId).emit('receiveMessage', message);
+            //})
+            //.catch(err => {
+            //  console.log('Error saving message', err.message);
+            //});
         });
 
-        socket.on('disconnect', function(){
+        socket.on('disconnect', function () {
             console.log('user disconnected');
         });
     });
