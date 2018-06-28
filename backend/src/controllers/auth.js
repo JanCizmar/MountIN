@@ -115,7 +115,10 @@ const logout = (req, res) => {
 const read = (req, res) => {
     UserModel.findById(req.params.id).populate('tours toursAttending').exec()
         .then(user => {
-            delete user.password;
+
+            user.password = "";
+            //user = {...user};
+            //delete user["password"];
 
             if (!user) return res.status(404).json({
                 error: 'Not Found',
@@ -132,11 +135,32 @@ const read = (req, res) => {
 
 };
 
+const update = (req, res) => {
+    if (Object.keys(req.body).length === 0) return res.status(400).json({
+        error: 'Bad Request',
+        message: 'The request body is empty'
+    });
+    if (!req.body._id) return res.status(400).json({
+        error: 'Bad Request',
+        message: 'There is no _id in the body'
+    });
+
+    //delete req.body.password;
+
+    UserModel.findByIdAndUpdate(req.body._id, req.body, {new: true, runValidators: true}).exec()
+        .then(user => res.status(200).json(user))
+        .catch(error => res.status(500).json({
+            error: 'Internal server error',
+            message: error.message
+        }));
+};
+
 
 module.exports = {
     login,
     register,
     logout,
     me,
-    read
+    read,
+    update
 };
