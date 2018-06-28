@@ -11,7 +11,6 @@ function UserDetail(props){
         return <TourListItem key={tour._id} {...tour}/>
     });
     let toursAttending = props.toursAttending.map((tour) => {
-        //console.log(tour)
         return <TourListItem key={tour._id} {...tour}/>
     });
     return (

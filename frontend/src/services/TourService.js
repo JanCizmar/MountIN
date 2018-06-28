@@ -30,4 +30,12 @@ export default class TourService {
             }, timeout);
         });
     }
+
+    static getTourDetails(tour_id) {
+        return new Promise((resolve, reject) => {
+            console.log(tour_id);
+
+            return HttpService.get(`${TourService.baseURL()}/` + tour_id, resolve, reject)
+        });
+    }
 }

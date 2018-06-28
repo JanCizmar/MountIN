@@ -20,7 +20,6 @@ export class UserDetailView extends React.Component {
 
     getuserdetails(){
             UserService.getUserDetails(UserService.getCurrentUser().id).then((data) => {
-                //this.value.username = 'sdfg'
                 this.setState({...this.state, value: data});
             }).catch((e) => {
                 console.error(e);
