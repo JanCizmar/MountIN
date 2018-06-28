@@ -2,63 +2,48 @@
 
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import {Button, Col, form, FormControl, FormGroup, Grid} from 'react-bootstrap'
+import {Button, Col, form, FormGroup, Grid} from 'react-bootstrap'
 import Page from './Page';
-
-
-const style = { maxWidth: 500 };
+import {Location} from "./Tours/FilterInputs/Location";
+import {connect} from "react-redux";
+import * as actions from "../state/actions/tourList";
 
 
 class LandingPage extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            search: ''
-        };
-
-        this.handleSearchChanged = this.handleSearchChanged.bind(this);
-    }
-
-    handleSearchChanged(value){
-        this.setState({...this.state, search: value});
-    }
-
-    getValidationState() {
-        const length = this.state.search.length;
-        if (length == 0) return 'error';
-        return null;
-    }
-
+    onValueChange = (value) => {
+        if (JSON.stringify(value.latLng) !== JSON.stringify(this.props.state.filtersValue.location.latLng)) {
+            console.log('hafo');
+            this.props.dispatch(actions.fetchTours({...this.props.state.filtersValue, location: value}));
+            this.props.history.push('/list');
+        }
+        this.props.dispatch(actions.changeFilters({...this.props.state.filtersValue, location: value}));
+    };
 
     render() {
         return (
             <Page className="landing-page">
                 <Grid>
                     <div className="testt">
-                    <form className="landing-form" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
-                        <FormGroup
-                            validationState={this.getValidationState()}
-                        >
-                            <Col xs={10} sm={10} md={8} lg={8} xsOffset={1} smOffset={1} mdOffset={2} lgOffset={2}>
-                                <Col xs={11}  sm={11} md={11} lg={11} >
-                                    <FormControl
-                                        type="text"
-                                        placeholder="Enter a location to begin your adventure"
-                                        id="search"
-                                        onChange={this.handleSearchChanged}
-                                    />
-                                </Col>
+                        <form className="landing-form" onSubmit={this.handleSubmit}
+                              onReset={() => this.props.history.goBack()}>
+                            <FormGroup>
+                                <Col xs={10} sm={10} md={8} lg={8} xsOffset={1} smOffset={1} mdOffset={2} lgOffset={2}>
+                                    <Col xs={11} sm={11} md={11} lg={11}>
+                                        <Location value={this.props.state.filtersValue.location}
+                                                  onValueChange={this.onValueChange}/>
+                                    </Col>
 
-                                <Col xs={1}  sm={1} md={1} lg={1}>
-                                    <Button className="searchButton" type="submit"
-                                            disabled={this.state.search === ''}>
-                                        <i className="search-glyphicon glyphicon glyphicon-search"></i></Button>
+                                    <Col xs={1} sm={1} md={1} lg={1}>
+                                        <Button className="searchButton" type="button"
+                                                disabled={!this.props.state.filtersValue.location.latLng.lat}
+                                                onClick={() => this.props.history.push('/list')}
+                                        >
+                                            <i className="search-glyphicon glyphicon glyphicon-search"/></Button>
+                                    </Col>
                                 </Col>
-                            </Col>
-                        </FormGroup>
-                    </form>
+                            </FormGroup>
+                        </form>
                     </div>
                 </Grid>
             </Page>
@@ -66,5 +51,8 @@ class LandingPage extends React.Component {
     }
 }
 
-export default withRouter(LandingPage);
-
+export default withRouter(connect(store => {
+    return {
+        state: store.tourList
+    }
+})(LandingPage));

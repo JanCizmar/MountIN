@@ -40,7 +40,9 @@ const Markers = withRouter((props) => {
                 markers.push(
                     <Marker key={tour._id}
                             position={{lat: tour.route[0][0], lng: tour.route[0][1]}}
-                            onClick={() => props.onMarkerClick(tour._id)}>
+                            onClick={() => props.onMarkerClick(tour._id)}
+                            label={{text: tour.cost + '€'}}
+                            icon={{url: "images/map_marker.jpeg", scaledSize: new google.maps.Size(47, 47)}}>
 
                         {props.openInfobox === tour._id &&
                         <InfoBox options={{closeBoxURL: ``, enableEventPropagation: true}}>
