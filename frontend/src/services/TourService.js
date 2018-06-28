@@ -20,7 +20,6 @@ export default class TourService {
                 let query = JSON.parse(JSON.stringify(filters)); //clone the filters object
                 query.lat = query.location.latLng.lat ? query.location.latLng.lat.toString() : undefined; //add just latLng, because don't need name
                 query.lng = query.location.latLng.lng ? query.location.latLng.lng.toString() : undefined; //add just latLng, because don't need name
-                query.distance = "50";
                 query.skip = skip.toString();
                 console.log(query);
 
