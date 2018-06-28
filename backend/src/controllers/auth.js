@@ -23,7 +23,11 @@ const login = (req,res) => {
 
             // check if the password is valid
             const isPasswordValid = bcrypt.compareSync(req.body.password, user.password);
-            if (!isPasswordValid) return res.status(401).send({token: null });
+            //if (!isPasswordValid) return res.status(401).send({token: null , error: 'Wrong password'});
+            if (!isPasswordValid) return res.status(404).json({
+                error: 'Wrong password',
+                message: 'Please check if you entered the right password'
+            });
 
             // if user is found and password is valid
             // create a token
@@ -72,7 +76,7 @@ const register = (req,res) => {
         .catch(error => {
             if(error.code == 11000) {
                 res.status(400).json({
-                    error: 'User exists',
+                    error: 'Username or email already used',
                     message: error.message
                 })
             }
