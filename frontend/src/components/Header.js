@@ -18,7 +18,7 @@ class Header extends React.Component {
         return (
             <Navbar className="customNavbar">
                 <Navbar.Header className="customNavbarHeading">
-                    <Navbar.Brand className="customNavbarBrand" >
+                    <Navbar.Brand className="customNavbarBrand">
                         <a href="#" onClick={() => this.props.history.push('/')}>{this.props.title}</a>
                     </Navbar.Brand>
                     <Navbar.Toggle className="burger-menu"/>
@@ -27,9 +27,6 @@ class Header extends React.Component {
                     <Nav>
                         <NavItem eventKey={1} onClick={() => this.props.history.push('/')}>
                             Home
-                        </NavItem>
-                        <NavItem eventKey={2} onClick={() => this.props.history.push('/list')}>
-                            List
                         </NavItem>
                     </Nav>
                     <Nav pullRight>
