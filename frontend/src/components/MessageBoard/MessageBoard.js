@@ -19,7 +19,7 @@ const io = SocketService.getSocket();
 class MessageBoard extends React.Component {
     constructor(props) {
         super(props);
-
+        console.log('Message board props', props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleEmojiClick = this.handleEmojiClick.bind(this);
@@ -41,7 +41,6 @@ class MessageBoard extends React.Component {
     }
 
     handleInputChange(event) {
-        console.log('HandleInputChnage', event.target.value);
         this.props.updateCurrentMessage(event.target.value);
     }
 
@@ -53,15 +52,18 @@ class MessageBoard extends React.Component {
             // Build the message
             let message = {
                 tourId: this.props.tourId,
-                creator: this.props.userId,
-                data: clean
+                userId: this.props.userId,
+                username: this.props.username,
+                userAvatar: '',     //TODO: Implement user avatar
+                data: clean,
+                createdAt: Date.now()
             };
+            console.log('Send this to server', message);
             this.props.sendMessage(io, message);
         }
     }
 
     handleEmojiClick(emoji) {
-        console.log('Emoji-Object', emoji);
         this.props.addEmoji(EmojiOne.toImage(emoji.native));
     }
 
@@ -70,10 +72,12 @@ class MessageBoard extends React.Component {
     }
 
     componentDidMount() {
-        // Register listener to receive messages
-        this.listenToAddMessage();
+        // Fetch the message history
+        this.props.fetchMessageHistory(this.props.tourId);
         // Joining the tour socket room
         this.joinTourRoom();
+        // Register listener to receive messages
+        this.listenToAddMessage();
     }
 
     componentWillUnmount() {
@@ -85,10 +89,7 @@ class MessageBoard extends React.Component {
 
     render() {
         let messages = this.props.messages.map((message, index) => {
-            console.log(message);
-            return <Message key={index}
-                            message={message.data}
-                            {...message}/>
+            return <Message key={index} {...message}/>
         });
 
         return (

@@ -14,29 +14,42 @@ const handleSocketConnection = (server) => {
 
         io.clients((error, clients) => {
             if (error) throw error;
+            console.log(clients);
         });
 
         socket.on('joinRoom', function (tourId) {
+            io.clients((error, clients) => {
+                if (error) throw error;
+                console.log(clients);
+            });
             console.log('Join room: ', tourId);
             socket.join(tourId);
         });
 
-        socket.on('sendMessage', function (message) {
+        socket.on('sendMessage', function (received) {
+            io.clients((error, clients) => {
+                if (error) throw error;
+                console.log(clients);
+            });
             console.log('Server received message');
-            console.log(message);
+            console.log(received);
             // Save the message
-            //MessageBoardController.createMessage(payload)
-            //.then(message => {
-            // Broadcast message
-            console.log('Broadcasting the message after create');
-            socket.broadcast.to(message.tourId).emit('receiveMessage', message);
-            //})
-            //.catch(err => {
-            //  console.log('Error saving message', err.message);
-            //});
+            MessageBoardController.createMessage(received)
+                .then((received) => {
+                    // Broadcast message
+                    console.log('Broadcasting the message after create');
+                    socket.broadcast.to(received.tourId).emit('receiveMessage', received);
+                })
+                .catch(err => {
+                    console.log('Error saving message', err.message);
+                });
         });
 
         socket.on('disconnect', function () {
+            io.clients((error, clients) => {
+                if (error) throw error;
+                console.log(clients);
+            });
             console.log('user disconnected');
         });
     });

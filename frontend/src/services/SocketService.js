@@ -14,6 +14,7 @@ export default class SocketService {
 
     static joinTourRoom(socket, tourId) {
         socket.on('connect', () => {
+            console.log('Joining now', tourId);
             socket.emit('joinRoom', tourId);
         })
     }

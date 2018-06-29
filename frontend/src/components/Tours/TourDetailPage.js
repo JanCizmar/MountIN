@@ -9,6 +9,7 @@ import Col from "react-bootstrap/es/Col";
 import MessageBoard from "../MessageBoard/MessageBoard";
 
 export const TourDetailPage = props => {
+    console.log(props);
     return (
         <Page>
             <Grid>
@@ -27,7 +28,7 @@ export const TourDetailPage = props => {
                         Image: {props.image && props.image.thumbnail} <br/>
                         Rating: {props.rating} <br/>
 
-                        <MessageBoard userId={props.userId} tourId={props.id} username={props.name}/>
+                        <MessageBoard userId={props.userId} tourId={props._id} username={props.name}/>
                     </Col>
                 </Row>
             </Grid>
