@@ -35,6 +35,5 @@ export const TourDetailPage = props => {
 };
 
 TourDetailPage.propTypes = {
-    tourId: propTypes.string.isRequired,
     userId: propTypes.string
 };
