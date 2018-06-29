@@ -157,7 +157,7 @@ const search = (req, res) => {
             $nearSphere: {
                 $geometry: {
                     type: 'Point',
-                    coordinates: [req.query.lat, req.query.lng]
+                    coordinates: [req.query.lng, req.query.lat]
                 },
             }
         };

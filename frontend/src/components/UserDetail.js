@@ -4,6 +4,7 @@ import React from 'react';
 import Page from './Page';
 import {Button, Col, Row} from "react-bootstrap";
 import TourListItem from "./Tours/TourListItem";
+import {withRouter} from "react-router-dom";
 
 function UserDetail(props){
     console.log(props);
@@ -37,9 +38,9 @@ function UserDetail(props){
                     <Col sm={12} md={12} lg={12}>
                         <div className="email"><div className="email-tag">Email: &nbsp;</div><div className="user-email">{props.email}</div></div>
                     </Col>
-                    <Button className="edit-profile">Edit Profile</Button>
-                    <Button className="edit-profile">Reset Password</Button>
-                    <Button className="edit-profile">Delete Account</Button>
+                    <Button className="edit-profile" onClick={() => props.history.push('/editProfile')}>Edit Profile</Button>
+                    {/*<Button className="edit-profile">Reset Password</Button>*/}
+                    {/*<Button className="edit-profile">Delete Account</Button>*/}
                 </Col>
                 <Col xs={12} sm={8} md={8} lg={9}>
                     <Row>
@@ -60,4 +61,4 @@ function UserDetail(props){
     );
 }
 
-export default UserDetail;
+export default withRouter(UserDetail);
