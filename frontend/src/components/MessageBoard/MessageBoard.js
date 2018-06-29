@@ -23,6 +23,7 @@ class MessageBoard extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleEmojiClick = this.handleEmojiClick.bind(this);
+        this.handleEmojiToggleClick = this.handleEmojiToggleClick.bind(this);
     }
 
     onAddMessage(message) {
@@ -40,7 +41,7 @@ class MessageBoard extends React.Component {
     }
 
     handleInputChange(event) {
-        console.log('HandleInputChnage', event.target.value)
+        console.log('HandleInputChnage', event.target.value);
         this.props.updateCurrentMessage(event.target.value);
     }
 

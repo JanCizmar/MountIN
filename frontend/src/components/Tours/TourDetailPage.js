@@ -27,7 +27,7 @@ export const TourDetailPage = props => {
                         Image: {props.image && props.image.thumbnail} <br/>
                         Rating: {props.rating} <br/>
 
-                        <MessageBoard userId={props.userId} tourId={props.id}/>
+                        <MessageBoard userId={props.userId} tourId={props.id} username={props.name}/>
                     </Col>
                 </Row>
             </Grid>
