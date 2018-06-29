@@ -6,7 +6,7 @@ import Slider from 'rc-slider/lib/Slider';
 export const TourPrice = (props) =>
     <div className={props.clname}>
         <FormGroup className="price">
-            <Slider min={0} max={150} value={props.value} onChange={props.onChange} tipFormatter={ props.value}/>
+            <Slider min={0} max={150} value={props.value} onChange={props.onChange} tipFormatter={props.value}/>
             <div className="value">{props.value}&nbsp;€</div>
         </FormGroup>
     </div>;
