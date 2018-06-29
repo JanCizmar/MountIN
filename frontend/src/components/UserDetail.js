@@ -7,12 +7,12 @@ import TourListItem from "./Tours/TourListItem";
 import {withRouter} from "react-router-dom";
 
 function UserDetail(props){
+    console.log(props);
     let tours = props.tours.map((tour) => {
         //console.log(tour)
         return <TourListItem key={tour._id} {...tour}/>
     });
     let toursAttending = props.toursAttending.map((tour) => {
-        //console.log(tour)
         return <TourListItem key={tour._id} {...tour}/>
     });
     return (
