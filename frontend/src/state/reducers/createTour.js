@@ -18,12 +18,20 @@ export default function reducer(state = {
         uploadedUrl: '',
         uploading: false,
         error: ''
-
-    }
+    },
+    loading: false,
+    redirect: undefined,
+    error: ''
 }, action) {
     switch (action.type) {
-        case ('CREATE_TOURS'):{
-            return {...state, toursInput: action.payload}
+        case ('CREATE_TOURS_PENDING'): {
+            return {...state, loading: true}
+        }
+        case ('CREATE_TOURS_FULFILLED'): {
+            return {...state, loading: false, redirect: 'tours/detail/' + action.payload._id}
+        }
+        case ('CREATE_TOURS_REJECTED'): {
+            return {...state, loading: false, error: action.payload}
         }
         case ('CREATE_TOURS_INPUTS_CHANGED'):{
             return {...state, toursInput: action.payload}

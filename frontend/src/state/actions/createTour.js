@@ -10,8 +10,6 @@ export function changeFilters(data) {
 export function createTours(data = {}) {
     return {
         type: 'CREATE_TOURS',
-        payload: TourService.createTour(data).then(payload => {
-            return {data: payload}
-        })
+        payload: TourService.createTour(data)
     }
 }
