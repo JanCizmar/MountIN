@@ -35,10 +35,10 @@ const handleSocketConnection = (server) => {
             console.log(received);
             // Save the message
             MessageBoardController.createMessage(received)
-                .then((received) => {
+                .then(() => {
                     // Broadcast message
-                    console.log('Broadcasting the message after create');
-                    socket.broadcast.to(received.tourId).emit('receiveMessage', received);
+                    console.log('Broadcasting the message after create', received);
+                    socket.broadcast.emit('receiveMessage', received);
                 })
                 .catch(err => {
                     console.log('Error saving message', err.message);

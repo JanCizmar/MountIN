@@ -18,7 +18,9 @@ class TourDetailPageView extends React.Component {
         return (
             !this.props.state.data || this.props.state.loading && <Loading/> ||
             <TourDetailPage {...this.props.state.data}
-                            userId={UserService.getCurrentUser() && UserService.getCurrentUser().id}/>
+                            userId={UserService.getCurrentUser() && UserService.getCurrentUser().id}
+                            username={UserService.getCurrentUser().username}
+            />
         );
     }
 }

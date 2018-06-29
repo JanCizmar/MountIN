@@ -91,7 +91,7 @@ class MessageBoard extends React.Component {
         let messages = this.props.messages.map((message, index) => {
             return <Message key={index} {...message}/>
         });
-
+        console.log('All messages', this.props.messages);
         return (
             <div className={this.props.className}>
                 {messages}
