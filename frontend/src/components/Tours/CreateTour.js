@@ -14,6 +14,7 @@ import {connect} from "react-redux";
 import Page from '../Page';
 import * as imageUploadActions from "../../state/actions/imageUpload";
 import ImageUpload from "../ImageUpload";
+import UserService from "../../services/UserService";
 
 
 export const CreateTour = compose(
@@ -39,6 +40,11 @@ export const CreateTour = compose(
 
     if (props.state.redirect !== undefined) {
         props.history.push(props.state.redirect);
+    }
+
+
+    if (UserService.getCurrentUser().id === undefined) {
+        props.history.push('login');
     }
 
     const getValidState = (inputName) => {

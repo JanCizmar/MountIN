@@ -25,8 +25,8 @@ class Header extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem eventKey={1} onClick={() => this.props.history.push('/')}>
-                            Home
+                        <NavItem eventKey={1} onClick={() => this.props.history.push('/createTour')}>
+                            Create tour
                         </NavItem>
                     </Nav>
                     <Nav pullRight>
