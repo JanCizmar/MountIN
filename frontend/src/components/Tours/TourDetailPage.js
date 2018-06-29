@@ -3,34 +3,98 @@
 import React from 'react';
 import Page from '../Page';
 import propTypes from "prop-types";
-import Grid from "react-bootstrap/es/Grid";
-import Row from "react-bootstrap/es/Row";
-import Col from "react-bootstrap/es/Col";
+import {Map} from './../Map';
+import {Row,Col,Button} from "react-bootstrap";
+import Sticky from 'react-sticky-el';
 import MessageBoard from "../MessageBoard/MessageBoard";
 
 export const TourDetailPage = props => {
     return (
-        <Page>
-            <Grid>
+        <Page className="tour-detail">
                 <Row>
-                    <Col md={12}>
-                        Name: {props.name} <br/>
-                        Description: {props.description} <br/>
-                        Date: {props.date} <br/>
-                        Difficulty: {props.difficulty} <br/>
-                        Created at: {props.createdAt} needed? <br/>
-                        Creator: {props.creator && props.creator.username} <br/>
-                        Cost: {props.cost} <br/>
-                        Type: {props.type} <br/>
-                        Participants:{props.participants && props.participants.length} <br/>
-                        } <br/>
-                        Image: {props.image && props.image.thumbnail} <br/>
+                    <Col xs={12}md={6} lg={6}>
+                        <div className="tour-name">
+                         {props.name} </div>
+                        <Col xs={12} md={6} lg={6}>
+                           <div className="tour">
+                        {props.image  && <img className="tour-image" src= {props.image.thumbnail}/> }
+                            </div>
+                        </Col>
+                        <Col xs={12} md={6} lg={6}>
+                            <div className="head"> Date and Time of Tour:</div>
+                            <div className="tour-date">
+                        {new Intl.DateTimeFormat('en-GB', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(newDate(props.date))} </div>
+                            <div className="difficulty head detail-head">
+                        Level ofDifficulty: {props.difficulty===1 &&
+                                <div className="easy">EASY</div>
+                                }
+                         {props.difficulty ===2 &&
+                                <div className="med">INTERMEDIATE</div>
+                                }
+                                {props.difficulty ===3 &&
+                                <div className="hard">EXPERT</div>
+                                }
+                            </div>
+                            <div className="head detail-head">
+                                Tour Type:
+                         {props.type ===1 &&
+                                <div className="other">OTHER</div>
+                                }
+                                {props.type ===2 &&
+                                <div className="hiking">HIKING</div>
+                                }
+                                {props.type ===3 &&
+                                <div className="skiing">SKIING</div>
+                                }
+                                { props.type ===4 &&
+                                <div className="biking">BIKING</div>
+                                }
+                            </div>
+                            <div className="head detail-head">
+                        TourCost:{props.cost===0 &&
+                                <div className="free">FREE</div>
+                                } {!props.cost=== 0 &&
+                                <div className="cost">{props.cost} €</div>
+                                }
+                            </div>
+                            <div className="head detail-head">
+                        Tour Created By:
+                                <div className="creator"> {props.creator && props.creator.username}</div>
+                            </div>
+                            <div className="head detail-head">
+                        Number ofParticipants:<div className="creator">{props.participants &&props.participants.length} </div>
+                            </div>
+                        </Col>
+                        <Col className="margin-20 text-justify" xs={12} md={12} lg={12}>
+                            {props.description}
+                        </Col>
+                        <Col className="margin-20 text-justify" xs={12} md={12} lg={12}>
+                            <div className="head detail-head">
+                                MESSAGE BOARD:
+                            </div>
+                            <MessageBoard userId={props.userId} tourId={props.id}/>
+                        </Col>
+
+                    </Col>
+                    {/*
+                        Participants: {props.participants && props.participants.length} <br/>
                         Rating: {props.rating} <br/>
 
                         <MessageBoard userId={props.userId} tourId={props.id}/>
-                    </Col>
-                </Row>
-            </Grid>
+                    <Col>
+                Description: {props.description} <br/>
+                </Col>*/}
+
+                <Col xs={12} md={6} lg={6}>
+                    <Sticky mode="top">
+                        <Map waypoints={props.route} draggable={false} />
+                        <Button className="join-button">JOIN</Button>
+            </Sticky>
+                </Col>
+
+
+
+            </Row>
         </Page>);
 };
 
