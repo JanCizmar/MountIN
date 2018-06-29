@@ -4,7 +4,7 @@ import React from 'react';
 
 import {AlertMessage} from './AlertMessage';
 import Page from './Page';
-import {Button, Checkbox, Col, ControlLabel, FormControl, FormGroup, Row} from "react-bootstrap";
+import {Button, Col, ControlLabel, FormControl, FormGroup, Row} from "react-bootstrap";
 import UserService from "../services/UserService";
 
 
@@ -30,7 +30,7 @@ class UserEdit extends React.Component {
 
     }
 
-    getuserdetails(){
+    getuserdetails() {
         UserService.getUserDetails(UserService.getCurrentUser().id).then((data) => {
             this.setState({...this.state, ...data});
         }).catch((e) => {
@@ -41,7 +41,7 @@ class UserEdit extends React.Component {
         });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getuserdetails();
     }
 
@@ -58,7 +58,6 @@ class UserEdit extends React.Component {
 
         let user = {
             username: this.state.username,
-            password: this.state.password,
             email: this.state.email,
             firstName: this.state.firstName,
             surname: this.state.surname,
@@ -72,11 +71,10 @@ class UserEdit extends React.Component {
     getValidState(inputName) {
         return this.getFormValidStates()[inputName];
     }
+
     getFormValidStates() {
         return {
             username: this.state.changed && this.state.username.length ? this.state.username.length < 5 || this.state.username.length > 200 ? 'error' : 'success' : null,
-            //password: (this.state.changed && this.state.password.length) ? this.state.password.length < 5 || this.state.password.length > 200 ? 'error' : 'success' : null,
-            //passwordRepeat: this.state.changed && this.state.passwordRepeat.length ? this.state.password !== this.state.passwordRepeat || this.state.passwordRepeat.length < 5 ? 'error' : 'success' : null,
             email: this.state.changed && this.state.email.length ? this.state.email.indexOf('@') < 1 || this.state.email.indexOf('.') < 3 ? 'error' : 'success' : null,
             firstName: this.state.changed && this.state.firstName.length ? this.state.firstName.length < 3 || this.state.firstName.length > 200 ? 'error' : 'success' : null,
             surname: this.state.changed && this.state.surname.length ? this.state.surname.length < 3 || this.state.surname.length > 200 ? 'error' : 'success' : null,
@@ -93,7 +91,6 @@ class UserEdit extends React.Component {
     }
 
     onInstructorChange() {
-        console.log(`calling`);
         this.setState({...this.state, isInstructor: !this.state.isInstructor});
     };
 
@@ -154,38 +151,6 @@ class UserEdit extends React.Component {
                                 <ControlLabel>Username</ControlLabel>
                                 <FormControl.Static>{this.state.username}</FormControl.Static>
                             </FormGroup>
-                            {/*
-                            <Col className="name" md={6} sm={6}>
-                                <FormGroup
-                                    controlId="password"
-                                    validationState={this.getValidState('password')}
-                                >
-                                    <ControlLabel>Password</ControlLabel>
-                                    <FormControl
-                                        name="password"
-                                        type="password"
-                                        value={this.state.password}
-                                        placeholder="Password"
-                                        onChange={this.handleFormChange}
-                                    />
-                                </FormGroup>
-                            </Col>
-                            <Col className="name" md={6} sm={6}>
-                                <FormGroup
-                                    controlId="passwordRepeat"
-                                    validationState={this.getValidState('passwordRepeat')}
-                                >
-                                    <ControlLabel>Repeat Password</ControlLabel>
-                                    <FormControl
-                                        name="passwordRepeat"
-                                        type="password"
-                                        value={this.state.passwordRepeat}
-                                        placeholder="Password again"
-                                        onChange={this.handleFormChange}
-                                    />
-                                </FormGroup>
-                            </Col>
-                            */}
                             <Col className="name" md={8} sm={8}>
                                 <FormGroup
                                     controlId="email"

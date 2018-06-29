@@ -16,8 +16,8 @@ export class EditUserView extends React.Component {
 
 
     edit(user) {
-        user._id = UserService.getCurrentUser().id
-        delete user.password
+        user._id = UserService.getCurrentUser().id;
+        delete user.password;
         UserService.update(user).then(() => {
             this.props.history.push('/profile');
         }).catch((e) => {

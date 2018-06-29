@@ -74,7 +74,7 @@ const register = (req,res) => {
 
         })
         .catch(error => {
-            if(error.code == 11000) {
+            if (error.code === 11000) {
                 res.status(400).json({
                     error: 'Username or email already used',
                     message: error.message

@@ -38,7 +38,8 @@ function UserDetail(props){
                     <Col sm={12} md={12} lg={12}>
                         <div className="email"><div className="email-tag">Email: &nbsp;</div><div className="user-email">{props.email}</div></div>
                     </Col>
-                    <Button className="edit-profile" onClick={() => props.history.push('/editProfile')}>Edit Profile</Button>
+                    <Button className="edit-profile" onClick={() => props.history.push('/editProfile')}>Edit
+                        Profile</Button>
                     {/*<Button className="edit-profile">Reset Password</Button>*/}
                     {/*<Button className="edit-profile">Delete Account</Button>*/}
                 </Col>

@@ -11,7 +11,8 @@ $shadow: rgba(0,0,0,0.3);
   }
   .user-details-column{
     background: papayawhip;
-    height:100vh;
+    height: 100%;
+    min-height: 100vh;
     -webkit-box-shadow: 4px 2px 6px 0 rgba(0,0,0,0.3);
     -moz-box-shadow: 4px 2px 6px 0 rgba(0,0,0,0.3);
     box-shadow: 4px 2px 6px 0 rgba(0,0,0,0.3);

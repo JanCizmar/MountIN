@@ -69,7 +69,7 @@ module.exports = {
         ]
     },
     plugins: [
-        //new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['dist']),
         new webpack.optimize.CommonsChunkPlugin({name: "vendor", minChunks: Infinity,}),
         new HtmlWebpackPlugin({
             template: './src/index.html',

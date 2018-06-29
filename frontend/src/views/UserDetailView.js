@@ -6,11 +6,13 @@ import UserDetail from '../components/UserDetail';
 import * as actions from "../state/actions/userDetail";
 import connect from "react-redux/es/connect/connect";
 import Loading from "../components/Loading";
+import UserService from "../services/UserService";
 
 
 class UserDetailView extends React.Component {
     componentDidMount() {
-        this.props.dispatch(actions.getUserData(this.props.match.params.id));
+        let id = this.props.match.params.id || UserService.getCurrentUser().id;
+        this.props.dispatch(actions.getUserData(id));
     }
 
     render() {
