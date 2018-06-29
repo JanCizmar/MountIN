@@ -61,4 +61,14 @@ export default class UserService {
     static isAuthenticated() {
         return !!window.localStorage['jwtToken'];
     }
+
+    static update(user) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(`${UserService.baseURL()}/update/`, user, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 }

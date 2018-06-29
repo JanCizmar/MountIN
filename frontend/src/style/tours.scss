@@ -101,75 +101,76 @@ $filter-values-color: $textGrey;
     }
   }
 
-  div.filters-wrapper {
-    .form-group {
-      input {
-        border: none;
-        border-bottom: 2px solid grey;
-        border-radius: 0;
-        box-shadow: none;
+.location {
+  div.autocomplete-dropdown-container {
+    border-radius: 0 0 3px 3px;
+    background-color: white;
+    border: 1px solid $borderGrey;
+    .suggestion-item {
+      &.active {
+        background-color: $lightgray;
+      }
+      padding: 5px 10px;
+    }
+  }
+}div.filters-wrapper {
+  .form-group {
+    input {
+      border: none;
+      border-bottom: 2px solid grey;
+      border-radius: 0;
+      box-shadow: none;
 
-      }
-      input:focus {
-        border-bottom: 2px solid $borderBlue;;
-      }
-      .input-group-addon {
-        padding: 4px 12px;
-        font-size: 24px;
-        font-weight: 400;
-        line-height: 1;
-        color: #555;
-        text-align: center;
-        background: none;
-        border: none;
-        border-bottom: 2px solid grey;
-        border-radius: 0;
-      }
-      .css-10nd86i:focus {
-        outline: none;
-      }
-      .css-1aya2g8 {
-        border: none;
-        border-bottom: 2px solid grey;
-        border-radius: 0;
-        box-shadow: none;
-        background: none;
-      }
-      .css-2o5izw {
-        border: none;
-        outline: none;
-        border-bottom: 2px solid $borderBlue;
-        border-radius: 0;
-        box-shadow: none
-      }
-      .css-xwjg1b {
-        background-color: papayawhip;
-      }
     }
-    .location {
-      div.autocomplete-dropdown-container {
-        border-radius: 0 0 3px 3px;
-        border: 1px solid $borderGrey;
-        .suggestion-item {
-          &.active {
-            background-color: $lightgray;
-          }
-          padding: 5px 10px;
+    input:focus {
+      border-bottom: 2px solid $borderBlue;;
+    }
+    .input-group-addon {
+      padding: 4px 12px;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+      color: #555;
+      text-align: center;
+      background: none;
+      border: none;
+      border-bottom: 2px solid grey;
+      border-radius: 0;
+    }
+    .css-10nd86i:focus {
+      outline: none;
+    }
+    .css-1aya2g8 {
+      border: none;
+      border-bottom: 2px solid grey;
+      border-radius: 0;
+      box-shadow: none;
+      background: none;
+    }
+    .css-2o5izw {
+      border: none;
+      outline: none;
+      border-bottom: 2px solid $borderBlue;
+      border-radius: 0;
+      box-shadow: none
+    }
+    .css-xwjg1b {
+      background-color: papayawhip;
+    }
+  }
+
+  div.price-wrapper {
+    div.price {
+      padding-top: 12px;
+      display: flex;
+      .value {
+        line-height: 14px;
+        font-size: 16px;
+        color: $filter-values-color;
+        font-weight: 300;
+        &.min {
+          margin: 0 20px 0 2px;
         }
-      }
-    }
-    div.price-wrapper {
-      div.price {
-        padding-top: 12px;
-        display: flex;
-        .value {
-          line-height: 14px;
-          font-size: 16px;
-          color: $filter-values-color;
-          font-weight: 300;
-          &.min {
-            margin: 0 20px 0 2px;
-          }
 
           &.max {
             margin: 0 2px 0 20px;

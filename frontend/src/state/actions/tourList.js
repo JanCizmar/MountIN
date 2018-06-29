@@ -6,7 +6,6 @@ export function changeFilters(data) {
         payload: data
     }
 }
-
 export function fetchTours(data = {}, skip, timeout) {
     return {
         type: 'FETCH_TOURS',

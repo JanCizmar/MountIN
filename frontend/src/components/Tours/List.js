@@ -24,15 +24,16 @@ export default function List(props) {
 
     return (
         <Row>
-            {props.loading && !tours.length && <Loading/> || <InfiniteScroll
+            {props.loading && !tours.length && <Loading/> ||
+            <InfiniteScroll
                 dataLength={tours.length}
                 next={props.loadMore}
                 loader={<Loading/>}
                 hasMore={props.hasMore}
                 endMessage={
-                    <p style={{textAlign: 'center'}}>
-                        <b>Yay! You have seen it all</b>
-                    </p>
+                    <div style={{textAlign: 'center'}}>
+                        <b>No more tours :(</b>
+                    </div>
                 }
             >
                 {tours}
