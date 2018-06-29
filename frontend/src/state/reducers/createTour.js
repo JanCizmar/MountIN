@@ -3,13 +3,13 @@ import ImageUploadService from "../../services/ImageUploadService";
 export default function reducer(state = {
     toursInput: {
         name: "",
-        description:"",
+        description: "",
         difficulty: "",
         guideType: "",
         cost: 0,
-        route:[],
-        activityType:"",
-        date:"",
+        route: [],
+        activityType: "",
+        date: "",
         changedInput: []
     },
     imageUpload: {
@@ -33,7 +33,7 @@ export default function reducer(state = {
         case ('CREATE_TOURS_REJECTED'): {
             return {...state, loading: false, error: action.payload}
         }
-        case ('CREATE_TOURS_INPUTS_CHANGED'):{
+        case ('CREATE_TOURS_INPUTS_CHANGED'): {
             return {...state, toursInput: action.payload}
         }
         case ('IMAGE_UPLOAD_CHANGED'): {

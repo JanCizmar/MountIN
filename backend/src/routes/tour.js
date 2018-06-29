@@ -2,7 +2,7 @@
 const express  = require('express');
 const router   = express.Router();
 const TourController = require('../controllers/tour');
-const middlewares    = require('../middlewares');
+const middlewares = require('../middlewares');
 
 router.get('/', TourController.list); // List all tours
 router.post('/', middlewares.checkAuthentication, TourController.create); // Create a new tour
