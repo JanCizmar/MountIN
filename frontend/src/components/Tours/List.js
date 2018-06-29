@@ -9,31 +9,43 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import propTypes from "prop-types";
 
 export default function List(props) {
+    let sizes = {
+        xs: 12,
+        sm: props.mapView ? 12 : 6,
+        md: props.mapView ? 6 : 3,
+        lg: props.mapView ? 6 : 3,
+    };
+
+
     let tours = props.tours.map((tour) => {
-        return <TourListItem key={tour._id} {...tour}/>
+        return <TourListItem key={tour._id} {...tour} {...sizes}
+                             onClick={() => (props.onTourClick && props.onTourClick(tour._id))}/>
     });
 
     return (
         <Row>
+            {props.loading && !tours.length && <Loading/> ||
             <InfiniteScroll
                 dataLength={tours.length}
                 next={props.loadMore}
                 loader={<Loading/>}
                 hasMore={props.hasMore}
                 endMessage={
-                    <p style={{textAlign: 'center'}}>
-                        <b>Yay! You have seen it all</b>
-                    </p>
+                    <div style={{textAlign: 'center'}}>
+                        <b>No more tours :(</b>
+                    </div>
                 }
             >
                 {tours}
-            </InfiniteScroll>
+            </InfiniteScroll>}
         </Row>
-    )
-        ;
+    );
 }
 
 List.propTypes = {
     loadMore: propTypes.func.isRequired,
-    hasMore: propTypes.bool.isRequired
+    hasMore: propTypes.bool.isRequired,
+    mapView: propTypes.bool,
+    onTourClick: propTypes.func
+
 };

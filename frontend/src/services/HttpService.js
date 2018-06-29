@@ -1,9 +1,6 @@
 "use strict";
 
 export default class HttpService {
-    constructor() {
-    }
-
     static apiURL() {return "http://localhost:3000"; }
 
     static get(url, onSuccess, onError) {
@@ -76,7 +73,7 @@ export default class HttpService {
         let token = window.localStorage['jwtToken'];
         let header = new Headers();
         if(token) {
-            header.append('Authorization', `JWT ${token}`);
+            header.append('x-access-token', `${token}`);
         }
         header.append('Content-Type', 'application/json');
 

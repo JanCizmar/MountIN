@@ -24,7 +24,6 @@ export function fetchMessageHistory(tourId, timeout) {
     return (dispatch) => {
         dispatch(fetchHistoryRequest());
         return MessageService.getMessageHistory(tourId, timeout).then((resp) => {
-            console.log(resp);
             if (resp.hasOwnProperty('error')) {
 
                 dispatch(fetchHistoryError(resp))
@@ -36,7 +35,7 @@ export function fetchMessageHistory(tourId, timeout) {
     }
 }
 
-function fetchHistoryRequest(){
+function fetchHistoryRequest() {
     return {
         type: FETCH_HISTORY_REQUEST
     }

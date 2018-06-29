@@ -4,10 +4,10 @@ import HttpService from "./HttpService";
 
 export default class MessageService {
 
+    timer = 0;
+
     constructor() {
     }
-
-    timer = 0;
 
     static baseURL() {
         return "http://localhost:3000/messageBoard/";

@@ -1,9 +1,9 @@
 "use strict";
 
 import React from 'react';
-import LandingPage from '../components/LandingPage'
+import CreateRoute from '../components/Tours/CreateRoute'
 
-export class LandingPageView extends React.Component {
+export class CreateRouteView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -12,8 +12,7 @@ export class LandingPageView extends React.Component {
 
     render() {
         return (
-          <LandingPage />
+            <CreateRoute/>
         );
     }
 }
-

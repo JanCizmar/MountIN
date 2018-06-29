@@ -5,7 +5,6 @@ import {Col, Row} from "react-bootstrap";
 import ContentEditable from 'react-contenteditable';
 
 export default function Message(props) {
-    console.log(props);
     return (
         <Row>
             <Col md={3} sm={6}>

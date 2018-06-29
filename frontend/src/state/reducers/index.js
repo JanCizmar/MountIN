@@ -1,12 +1,14 @@
 import {combineReducers} from "redux";
 import tourList from "./tourList";
-import example from "./example";
+import createTour from "./createTour"
 import messageBoard from "./messageBoard"
-import fileUploadExample from "./fileUpload";
+import userDetail from "./userDetail";
+import tourDetail from "./tourDetail";
 
 export default combineReducers({
     tourList,
+    createTour,
     messageBoard,
-    example,
-    fileUploadExample
+    userDetail,
+    tourDetail
 });

@@ -21,7 +21,7 @@ const fakeRoute = () => {
     return route;
 };
 
-const fakeImage = () => fetch('https://loremflickr.com/1024/768/nature').then(resp => {
+const fakeImage = () => fetch('https://source.unsplash.com/random').then(resp => {
     return resp.url;
 });
 
@@ -46,7 +46,7 @@ async function mongoConnected() {
     let toursCounter = 0;
 
     function exit() {
-        console.log('Created ' + toursCounter + ' for ' + USERS_COUNT + ' users.');
+        console.log('Created tours' + toursCounter + ' for ' + USERS_COUNT + ' users.');
         process.exit();
     }
 

@@ -1,7 +1,6 @@
 "use strict";
 
 import HttpService from "./HttpService";
-import TourService from "./TourService";
 
 export default class UserService {
 
@@ -54,8 +53,6 @@ export default class UserService {
 
     static getUserDetails(user_id) {
         return new Promise((resolve, reject) => {
-            console.log(user_id);
-
             return HttpService.get(`${UserService.baseURL()}/profile/` + user_id, resolve, reject)
         });
     }
@@ -63,5 +60,15 @@ export default class UserService {
 
     static isAuthenticated() {
         return !!window.localStorage['jwtToken'];
+    }
+
+    static update(user) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(`${UserService.baseURL()}/update/`, user, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
     }
 }
