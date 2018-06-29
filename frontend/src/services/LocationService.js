@@ -34,7 +34,6 @@ export default class LocationService {
             }
 
             if ("geolocation" in navigator) {
-                console.log("calling");
                 // check if geolocation is supported/enabled on current browser
                 navigator.geolocation.getCurrentPosition(position => {
                         getAddress(position.coords.latitude, position.coords.longitude);
