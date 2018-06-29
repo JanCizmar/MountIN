@@ -87,6 +87,8 @@ div.infinite-scroll-component {
     }
     .def-image {
       background: url("../images/tour.jpg") 50% no-repeat, fixed;
+      height: 130px;
+      background-size: cover
     }
     div.title {
       color: $textGreen;
@@ -98,6 +100,53 @@ div.infinite-scroll-component {
       div.guided {
         flex-grow: 1;
       }
+    }
+  }
+}
+
+div.filters-wrapper {
+  .form-group {
+    input {
+      border: none;
+      border-bottom: 2px solid grey;
+      border-radius: 0;
+      box-shadow: none;
+
+    }
+    input:focus {
+      border-bottom: 2px solid $borderBlue;;
+    }
+    .input-group-addon {
+      padding: 4px 12px;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+      color: #555;
+      text-align: center;
+      background: none;
+      border: none;
+      border-bottom: 2px solid grey;
+      border-radius: 0;
+    }
+    .css-10nd86i:focus {
+      outline: none;
+    }
+    .css-1aya2g8 {
+      border: none;
+      border-bottom: 2px solid grey;
+      border-radius: 0;
+      box-shadow: none;
+      background: none;
+    }
+    .css-2o5izw {
+      border: none;
+      outline: none;
+      border-bottom: 2px solid $borderBlue;
+      border-radius: 0;
+      box-shadow: none
+    }
+    .css-xwjg1b {
+      background-color: papayawhip;
     }
   }
 }

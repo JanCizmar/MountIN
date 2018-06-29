@@ -6,8 +6,7 @@ import {Button, Col, Row} from "react-bootstrap";
 import TourListItem from "./Tours/TourListItem";
 import {withRouter} from "react-router-dom";
 
-function UserDetail(props){
-    console.log(props);
+function UserDetail(props) {
     let tours = props.tours.map((tour) => {
         //console.log(tour)
         return <TourListItem key={tour._id} {...tour}/>
@@ -16,11 +15,13 @@ function UserDetail(props){
         return <TourListItem key={tour._id} {...tour}/>
     });
     return (
-        <Page  className="profile-page">
+        <Page className="profile-page">
             <Row>
                 <Col className="user-details-column text-center" xs={12} sm={4} md={4} lg={3}>
                     <Col sm={12} md={12} lg={12}>
-                        <img className="profile-image" width={164} height={164} src="https://image.freepik.com/free-icon/profile-user-silhouette_318-40557.jpg" alt="thumbnail" />
+                        <img className="profile-image" width={164} height={164}
+                             src="https://image.freepik.com/free-icon/profile-user-silhouette_318-40557.jpg"
+                             alt="thumbnail"/>
                     </Col>
                     <Col sm={12} md={12} lg={12}>
                         <div className="user-firstname">{props.firstName} {props.surname}</div>
@@ -30,13 +31,22 @@ function UserDetail(props){
                         <div className="user-type">(PROFESSIONAL INSTRUCTOR)</div>
                     </Col>}
                     <Col sm={12} md={12} lg={12}>
-                        <div className="username"><div className="username-tag">Username: &nbsp;</div><div className="user-username">{props.username}</div></div>
+                        <div className="username">
+                            <div className="username-tag">Username: &nbsp;</div>
+                            <div className="user-username">{props.username}</div>
+                        </div>
                     </Col>
                     <Col sm={12} md={12} lg={12}>
-                        <div className="phone"><div className="phone-tag">Phone: &nbsp;</div><div className="user-phone">{props.phone}</div></div>
+                        <div className="phone">
+                            <div className="phone-tag">Phone: &nbsp;</div>
+                            <div className="user-phone">{props.phone}</div>
+                        </div>
                     </Col>
                     <Col sm={12} md={12} lg={12}>
-                        <div className="email"><div className="email-tag">Email: &nbsp;</div><div className="user-email">{props.email}</div></div>
+                        <div className="email">
+                            <div className="email-tag">Email: &nbsp;</div>
+                            <div className="user-email">{props.email}</div>
+                        </div>
                     </Col>
                     <Button className="edit-profile" onClick={() => props.history.push('/editProfile')}>Edit
                         Profile</Button>

@@ -5,10 +5,6 @@ import CreateTour from '../components/Tours/CreateTour'
 
 export class CreateTourView extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
 
     render() {
         return (

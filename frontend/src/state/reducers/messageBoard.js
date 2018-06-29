@@ -10,7 +10,7 @@ import {
 import {combineReducers} from "redux";
 
 function messages(messages = [], action) {
-    switch(action.type) {
+    switch (action.type) {
         case FETCH_HISTORY_SUCCESS:
             return action.messages;
         case UPDATE_MESSAGES:
@@ -26,7 +26,7 @@ function messages(messages = [], action) {
 }
 
 function fetchState(fetchState = {}, action) {
-    switch(action.type) {
+    switch (action.type) {
         case FETCH_HISTORY_SUCCESS:
             return {
                 isLoading: false,
@@ -48,7 +48,7 @@ function fetchState(fetchState = {}, action) {
 }
 
 function currentMessage(currentMessage = '', action) {
-    switch(action.type) {
+    switch (action.type) {
         case UPDATE_CURRENT_MESSAGE:
             return action.message;
         case CLEAR_CURRENT_MESSAGE:

@@ -1,6 +1,17 @@
-import ImageUploadService from "../../services/ImageUploadService"
+import ImageUploadService from "../../services/ImageUploadService";
 
 export default function reducer(state = {
+    toursInput: {
+        name: "",
+        description:"",
+        difficulty: "",
+        guideType: "",
+        cost: 0,
+        route:[],
+        activityType:"",
+        date:"",
+        changedInput: []
+    },
     imageUpload: {
         file: {},
         imagePreviewUrl: '',
@@ -11,6 +22,12 @@ export default function reducer(state = {
     }
 }, action) {
     switch (action.type) {
+        case ('CREATE_TOURS'):{
+            return {...state, toursInput: action.payload}
+        }
+        case ('CREATE_TOURS_INPUTS_CHANGED'):{
+            return {...state, toursInput: action.payload}
+        }
         case ('IMAGE_UPLOAD_CHANGED'): {
             return {
                 ...state,
@@ -26,7 +43,8 @@ export default function reducer(state = {
                     uploadedUrl: ImageUploadService.getImageURL(action.payload.large),
                     uploading: false,
                     error: ''
-                }
+                },
+                toursInput: {...state.toursInput, image: action.payload}
             };
         }
         case ('IMAGE_UPLOAD_PENDING'): {
@@ -36,5 +54,6 @@ export default function reducer(state = {
             return {...state, imageUpload: {...state.imageUpload, uploading: false, error: 'Something went wrong :('}};
         }
     }
+
     return {...state};
 };

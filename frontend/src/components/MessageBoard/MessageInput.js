@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import {FormGroup, FormControl, Button} from "react-bootstrap";
+import {Button, FormControl, FormGroup} from "react-bootstrap";
 
 class MessageInput extends React.Component {
     constructor(props) {

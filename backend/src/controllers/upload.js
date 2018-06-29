@@ -1,36 +1,39 @@
 "use strict";
-const express = require('express');
 const fileModel = require('../models/file');
+const uniqid = require('uniqid');
+const Jimp = require("jimp");
 
-
-const image = (req, res) => {
+const image = async (req, res) => {
     if (!req.files) return res.status(400).json({
         error: 'Bad Request',
         message: 'No file was chosen.'
     });
     let image = req.files.image;
-    let uniqid = require('uniqid');
-    let Jimp = require("jimp");
-    let newFileName = uniqid() + ".jpg";
-    let body = {
-        file_name: image.name,
-        sys_file_name: newFileName
-    };
-    Jimp.read(image.data).then(function (sample) {
-        sample.resize(256, 256)            // resize
-            .quality(80)                 // set JPEG quality
-            .write("./upload/images/" + newFileName); // save
-    })
-        .then(fileModel.create(body)
-            .then(file => res.status(201).json(file))
-            .catch(error => res.status(500).json({
-                error: 'Internal server error',
-                message: error.message
-            })))
-        .catch(err => res.status(500).json({
+
+    try {
+        let response = {
+            large: uniqid() + ".jpg",
+            thumbnail: uniqid() + ".jpg"
+        };
+        //creating large image
+        await Jimp.read(image.data).then(function (sample) {
+            sample.cover(1024, 768)            // resize
+                .quality(80)                 // set JPEG quality
+                .write("./upload/images/" + response.large); // save
+        });
+        //creating small image
+        await Jimp.read(image.data).then(function (sample) {
+            sample.cover(1024, 768)            // resize
+                .quality(80)                 // set JPEG quality
+                .write("./upload/images/" + response.thumbnail); // save
+        });
+        res.status(201).json(response);
+    } catch (error) {
+        res.status(500).json({
             error: err,
             message: 'File could not be uploaded.'
-        }))
+        });
+    }
 };
 
 const file = (req, res) => {
