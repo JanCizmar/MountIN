@@ -50,6 +50,15 @@ export default function reducer(state = {
             let selectedTour = state.tours.find(tour => tour._id === action.payload);
             return {...state, mapCenter: selectedTour.route[0], zoom: 9, openInfobox: action.payload};
         }
+        case ('GET_LOCATION_FULFILLED'): {
+            return {
+                ...state,
+                filtersValue: {
+                    ...state.filtersValue,
+                    location: {name: action.payload.address, latLng: action.payload.location}
+                }
+            };
+        }
     }
     return {...state};
 };

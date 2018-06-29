@@ -11,28 +11,24 @@ import MessageBoard from "../MessageBoard/MessageBoard";
 export const TourDetailPage = props => {
     return (
         <Page className="tour-detail">
-            <Row>
-
-                    <Col xs={12} md={6} lg={6}>
+                <Row>
+                    <Col xs={12}md={6} lg={6}>
                         <div className="tour-name">
-                            {props.name}
-                        </div>
+                         {props.name} </div>
                         <Col xs={12} md={6} lg={6}>
                            <div className="tour">
-                                {props.image  && <img className="tour-image" src= {props.image.thumbnail}/> }
+                        {props.image  && <img className="tour-image" src= {props.image.thumbnail}/> }
                             </div>
                         </Col>
                         <Col xs={12} md={6} lg={6}>
                             <div className="head"> Date and Time of Tour:</div>
                             <div className="tour-date">
-                                {new Intl.DateTimeFormat('en-GB', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(new Date(props.date))}
-                            </div>
+                        {new Intl.DateTimeFormat('en-GB', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(newDate(props.date))} </div>
                             <div className="difficulty head detail-head">
-                                Level of Difficulty:
-                                {props.difficulty ===1 &&
+                        Level ofDifficulty: {props.difficulty===1 &&
                                 <div className="easy">EASY</div>
                                 }
-                                {props.difficulty ===2 &&
+                         {props.difficulty ===2 &&
                                 <div className="med">INTERMEDIATE</div>
                                 }
                                 {props.difficulty ===3 &&
@@ -41,7 +37,7 @@ export const TourDetailPage = props => {
                             </div>
                             <div className="head detail-head">
                                 Tour Type:
-                                {props.type ===1 &&
+                         {props.type ===1 &&
                                 <div className="other">OTHER</div>
                                 }
                                 {props.type ===2 &&
@@ -50,26 +46,23 @@ export const TourDetailPage = props => {
                                 {props.type ===3 &&
                                 <div className="skiing">SKIING</div>
                                 }
-                                {props.type ===4 &&
+                                { props.type ===4 &&
                                 <div className="biking">BIKING</div>
                                 }
                             </div>
                             <div className="head detail-head">
-                                Tour Cost:
-                                {props.cost===0 &&
+                        TourCost:{props.cost===0 &&
                                 <div className="free">FREE</div>
-                                }
-                                {!props.cost === 0 &&
+                                } {!props.cost=== 0 &&
                                 <div className="cost">{props.cost} €</div>
                                 }
                             </div>
                             <div className="head detail-head">
-                                Tour Created By:
-                                <div className="creator">{props.creator && props.creator.username}</div>
+                        Tour Created By:
+                                <div className="creator"> {props.creator && props.creator.username}</div>
                             </div>
                             <div className="head detail-head">
-                                Number of Participants:
-                                <div className="creator">{props.participants && props.participants.length} </div>
+                        Number ofParticipants:<div className="creator">{props.participants &&props.participants.length} </div>
                             </div>
                         </Col>
                         <Col className="margin-20 text-justify" xs={12} md={12} lg={12}>
@@ -83,24 +76,20 @@ export const TourDetailPage = props => {
                         </Col>
 
                     </Col>
+                    {/*
+                        Participants: {props.participants && props.participants.length} <br/>
+                        Rating: {props.rating} <br/>
 
-
-{/*
-                Participants:{props.participants && props.participants.length} <br/>
-
-
-                Rating: {props.rating} <br/>
-                <MessageBoard userId={props.userId} tourId={props.id}/>
-
-                <Col>
-                    Description: {props.description} <br/>
+                        <MessageBoard userId={props.userId} tourId={props.id}/>
+                    <Col>
+                Description: {props.description} <br/>
                 </Col>*/}
 
                 <Col xs={12} md={6} lg={6}>
                     <Sticky mode="top">
                         <Map waypoints={props.route} draggable={false} />
                         <Button className="join-button">JOIN</Button>
-                    </Sticky>
+            </Sticky>
                 </Col>
 
 
@@ -110,6 +99,5 @@ export const TourDetailPage = props => {
 };
 
 TourDetailPage.propTypes = {
-    tourId: propTypes.string.isRequired,
     userId: propTypes.string
 };

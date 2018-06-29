@@ -5,6 +5,7 @@ import {TourDetailPage} from "../components/Tours/TourDetailPage";
 import UserService from "../services/UserService";
 import * as actions from "../state/actions/tourDetail"
 import connect from "react-redux/es/connect/connect";
+import Loading from "../components/Loading";
 
 
 class TourDetailPageView extends React.Component {

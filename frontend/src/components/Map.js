@@ -84,6 +84,11 @@ export const Map = compose(
             }
             if (props.waypoints.length === 1) {
                 props.setMarker([val.latLng.lat(), val.latLng.lng()]);
+
+            }
+
+            if (props.waypoints.length === 2) {
+                props.onDirectionsChanged(props.waypoints);
             }
         }
 

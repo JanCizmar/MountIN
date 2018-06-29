@@ -5,7 +5,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 // Define the message schema
 
-const MessageSchema  = new mongoose.Schema({
+const MessageSchema = new mongoose.Schema({
     tourId: {
         type: ObjectId, ref: 'Tour',
         required: true,

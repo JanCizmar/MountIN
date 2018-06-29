@@ -19,6 +19,8 @@ const create = (req, res) => {
         };
     }
 
+    console.log(req.userId);
+    req.body.creator = req.userId;
     UserModel.findById(req.body.creator).then(creator => {
         if (creator !== null) {
             TourModel.create(req.body)
@@ -152,6 +154,7 @@ const search = (req, res) => {
         }
     }
 
+
     if (req.query.lat !== undefined && req.query.lng !== undefined) {
         query.route = {
             $nearSphere: {
@@ -177,6 +180,8 @@ const search = (req, res) => {
     if (query.$and.length === 0) {
         delete query.$and;
     }
+
+    //console.log(query.route.$nearSphere);
 
     TourModel.find(query).skip(parseInt(req.query.skip)).limit(28).exec()
         .then(tours => res.status(200).json(tours.map(tour => {
