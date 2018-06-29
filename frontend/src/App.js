@@ -5,7 +5,6 @@ import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 
 import {UserLoginView} from "./views/UserLoginView";
 import {UserSignupView} from "./views/UserSignupView";
-import {CreateRouteView} from "./views/CreateRouteView";
 import {LandingPageView} from "./views/LandingPageView";
 import {CreateTourView} from "./views/CreateTourView";
 import {ListPageView} from "./views/ListPageView";

@@ -43,7 +43,7 @@ export const Filters = compose(
                         onChange={props.onChange('dateBefore')}
                         value={props.value.dateBefore}
                         placeholder="Date to"
-                        minDate={props.value.dateAfter ? props.value.dateAfter:(new Date()).toString()}
+                        minDate={props.value.dateAfter ? props.value.dateAfter : (new Date()).toString()}
                     />
                 </FormGroup>
             </Col>

@@ -22,8 +22,8 @@ export const TourDetailPage = props => {
                         Creator: {props.creator && props.creator.username} <br/>
                         Cost: {props.cost} <br/>
                         Type: {props.type} <br/>
-                        Participants:{props.participants &&props.participants.length} <br/>
-                    } <br/>
+                        Participants:{props.participants && props.participants.length} <br/>
+                        } <br/>
                         Image: {props.image && props.image.thumbnail} <br/>
                         Rating: {props.rating} <br/>
 
