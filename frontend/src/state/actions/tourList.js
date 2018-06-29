@@ -1,4 +1,5 @@
 import TourService from "../../services/TourService";
+import LocationService from "../../services/LocationService";
 
 export function changeFilters(data) {
     return {
@@ -6,6 +7,7 @@ export function changeFilters(data) {
         payload: data
     }
 }
+
 export function fetchTours(data = {}, skip, timeout) {
     return {
         type: 'FETCH_TOURS',
@@ -47,4 +49,13 @@ export function tourSelect(id) {
         type: 'TOUR_LIST_TOUR_SELECTED',
         payload: id
     }
+}
+
+export function getLocation() {
+    return {
+        type: 'GET_LOCATION',
+        payload: LocationService.getLocation()
+    }
+
+
 }
