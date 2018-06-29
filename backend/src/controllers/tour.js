@@ -39,8 +39,6 @@ const create = (req, res) => {
         error: 'Internal server error',
         message: error
     }));
-
-
 };
 
 const read = (req, res) => {
@@ -215,6 +213,23 @@ const getParticipants = (req, res) => {
         }));
 };
 
+
+const join = (req, res) => {
+    console.log(req.userId);
+    TourModel.findById(req.params.id).exec().then(tour => {
+        tour.participants.push(req.params.id);
+        tour.save((err) => {
+            if (err)
+                res.status(500).json({
+                    error: 'Internal server error',
+                    message: err
+                });
+            else
+                res.status(200).json(tour);
+        });
+    });
+};
+
 module.exports = {
     create,
     read,
@@ -222,5 +237,6 @@ module.exports = {
     remove,
     list,
     search,
-    getParticipants
+    getParticipants,
+    join
 };
