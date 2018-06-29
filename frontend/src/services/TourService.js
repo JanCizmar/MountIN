@@ -1,6 +1,7 @@
 "use strict";
 
 import HttpService from "./HttpService";
+import UserService from "./UserService";
 
 export default class TourService {
 
@@ -60,4 +61,15 @@ export default class TourService {
             return HttpService.get(`${TourService.baseURL()}/` + tour_id, resolve, reject)
         });
     }
+
+    static update(tour) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(`${TourService.baseURL()}/update/`, tour, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
 }
