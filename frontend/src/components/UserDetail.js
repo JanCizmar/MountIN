@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Page from './Page';
-import {Col, Row, Button} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import TourListItem from "./Tours/TourListItem";
 import {withRouter} from "react-router-dom";
 
@@ -39,8 +39,8 @@ function UserDetail(props){
                         <div className="email"><div className="email-tag">Email: &nbsp;</div><div className="user-email">{props.email}</div></div>
                     </Col>
                     <Button className="edit-profile" onClick={() => props.history.push('/editProfile')}>Edit Profile</Button>
-                    <Button className="edit-profile">Reset Password</Button>
-                    <Button className="edit-profile">Delete Account</Button>
+                    {/*<Button className="edit-profile">Reset Password</Button>*/}
+                    {/*<Button className="edit-profile">Delete Account</Button>*/}
                 </Col>
                 <Col xs={12} sm={8} md={8} lg={9}>
                     <Row>
