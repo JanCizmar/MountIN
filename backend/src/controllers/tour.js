@@ -67,15 +67,23 @@ const update = (req, res) => {
         error: 'Bad Request',
         message: 'The request body is empty'
     });
+    if (!req.body._id) return res.status(400).json({
+        error: 'Bad Request',
+        message: 'There is no _id in the body'
+    });
+    if (0 == 0) return res.status(400).json({
+        error: 'Bad Request',
+        message: 'The id in the request is' + req.body._id
+    });
 
-    if (req.body.route !== undefined && req.body.route.length > 1) {
-        req.body.route = {
-            "type": "MultiPoint",
-            "coordinates": req.body.route.map(point => [point[1], point[0]])
-        };
-    }
+    //if (req.body.route !== undefined && req.body.route.length > 1) {
+    //    req.body.route = {
+    //        "type": "MultiPoint",
+    //        "coordinates": req.body.route.map(point => [point[1], point[0]])
+    //    };
+    //}
 
-    TourModel.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true}).exec()
+    TourModel.findByIdAndUpdate(req.body._id, req.body, {new: true, runValidators: true}).exec()
         .then(tour => res.status(200).json(tour))
         .catch(error => res.status(500).json({
             error: 'Internal server error',
