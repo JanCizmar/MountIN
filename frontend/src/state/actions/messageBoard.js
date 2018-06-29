@@ -8,6 +8,8 @@ export const FETCH_HISTORY_ERROR = "FETCH_MESSAGE_HISTORY_ERROR";
 export const CLEAR_MESSAGES = "CLEAR_MESSAGES";
 export const CLEAR_CURRENT_MESSAGE = "CLEAR_CURRENT_MESSAGE";
 export const UPDATE_CURRENT_MESSAGE = "UPDATE_CURRENT_MESSAGE";
+export const ADD_EMOJI = "ADD_EMOTE";
+export const TOGGLE_EMOJI_PICKER = "TOGGLE_EMOJI_PICKER";
 
 
 export function sendMessage(socket, message) {
@@ -76,5 +78,18 @@ export function updateCurrentMessage(message) {
     return {
         type: UPDATE_CURRENT_MESSAGE,
         message: message
+    }
+}
+
+export function addEmoji(emoji) {
+    return {
+        type: ADD_EMOJI,
+        emoji: emoji
+    }
+}
+
+export function toggleEmojiPicker() {
+    return {
+        type: TOGGLE_EMOJI_PICKER
     }
 }

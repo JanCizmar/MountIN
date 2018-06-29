@@ -1,6 +1,6 @@
 import {
     FETCH_HISTORY_SUCCESS, FETCH_HISTORY_REQUEST, UPDATE_MESSAGES, FETCH_HISTORY_ERROR, CLEAR_MESSAGES,
-    UPDATE_CURRENT_MESSAGE, CLEAR_CURRENT_MESSAGE
+    UPDATE_CURRENT_MESSAGE, CLEAR_CURRENT_MESSAGE, TOGGLE_EMOJI_PICKER, ADD_EMOJI
 } from "../actions/messageBoard";
 import {combineReducers} from "redux";
 
@@ -45,19 +45,30 @@ function fetchState(fetchState = {}, action) {
 function currentMessage(currentMessage = '', action) {
     switch(action.type) {
         case UPDATE_CURRENT_MESSAGE:
-            console.log(action.message);
             return action.message;
         case CLEAR_CURRENT_MESSAGE:
             return '';
+        case ADD_EMOJI:
+            return currentMessage + action.emoji;
         default:
             return currentMessage;
+    }
+}
+
+function showEmojiPicker(showEmojiPicker = false, action) {
+    switch(action.type) {
+        case TOGGLE_EMOJI_PICKER:
+            return !showEmojiPicker;
+        default:
+            return showEmojiPicker;
     }
 }
 
 export default combineReducers({
     messages,
     currentMessage,
-    fetchState
+    fetchState,
+    showEmojiPicker
 });
 
 

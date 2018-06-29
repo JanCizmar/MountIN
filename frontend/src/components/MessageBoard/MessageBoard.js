@@ -8,16 +8,21 @@ import MessageInput from './MessageInput';
 import * as messageActions from "../../state/actions/messageBoard";
 import {connect} from "react-redux";
 import SocketService from "../../services/SocketService";
+import EmojiOne from "emojione";
+const sanitizeHtml = require('sanitize-html');
+const allowedHtml = {
+    allowedTags: ['img']
+};
 
 const io = SocketService.getSocket();
-
 
 class MessageBoard extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props.currentMessage);
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleEmojiClick = this.handleEmojiClick.bind(this);
     }
 
     onAddMessage(message) {
@@ -34,18 +39,33 @@ class MessageBoard extends React.Component {
         SocketService.joinTourRoom(io, this.props.tourId);
     }
 
-    handleInputChange(event) {
-        this.props.updateCurrentMessage(event.target.value);
+    handleInputChange(event, value) {
+        console.log('HandleInputChnage', value)
+        this.props.updateCurrentMessage(value);
     }
 
     handleSubmit() {
-        // Build the message
-        let message = {
-            tourId: this.props.tourId,
-            creator: this.props.userId,
-            data: this.props.currentMessage
-        };
-        this.props.sendMessage(io, message);
+        let clean = sanitizeHtml(this.props.currentMessage, allowedHtml);
+        console.log('Clean', clean);
+        // If there is still something left after sanitization submit it
+        if (clean !== '') {
+            // Build the message
+            let message = {
+                tourId: this.props.tourId,
+                creator: this.props.userId,
+                data: clean
+            };
+            this.props.sendMessage(io, message);
+        }
+    }
+
+    handleEmojiClick(emoji) {
+        console.log('Emoji-Object', emoji);
+        this.props.addEmoji(EmojiOne.toImage(emoji.native));
+    }
+
+    handleEmojiToggleClick() {
+        this.props.toggleEmojiPicker();
     }
 
     componentDidMount() {
@@ -64,25 +84,33 @@ class MessageBoard extends React.Component {
 
     render() {
         let messages = this.props.messages.map((message, index) => {
-            return <Message key={index}{...message}/>
+            console.log(message);
+            return <Message key={index}
+                            message={message.data}
+                            {...message}/>
         });
 
         return (
             <div className={this.props.className}>
                 {messages}
-                <MessageInput message={this.props.currentMessage} onSubmit={this.handleSubmit}
-                              onInputChange={this.handleInputChange}/>
+                <MessageInput messageData={this.props.currentMessage}
+                              showEmojiPicker={this.props.showEmojiPicker}
+                              onSubmit={this.handleSubmit}
+                              onInputChange={this.handleInputChange}
+                              handleEmojiClick={this.handleEmojiClick}
+                              handleEmojiToggleClick={this.handleEmojiToggleClick}
+                />
             </div>
         );
     }
-
 }
 
 const mapStateToProps = store => {
     return {
         messages: store.messageBoard.messages,
         currentMessage: store.messageBoard.currentMessage,
-        fetchState: store.messageBoard.fetchState
+        fetchState: store.messageBoard.fetchState,
+        showEmojiPicker: store.messageBoard.showEmojiPicker
     }
 };
 
@@ -100,8 +128,17 @@ const mapDispatchToProps = dispatch => {
         clearMessages: () => {
             dispatch(messageActions.clearMessages())
         },
+        clearCurrentMessage: () => {
+            dispatch(messageActions.clearCurrentMessage())
+        },
         updateCurrentMessage: (message) => {
             dispatch(messageActions.updateCurrentMessage(message))
+        },
+        addEmoji: (emoji) => {
+            dispatch(messageActions.addEmoji(emoji));
+        },
+        toggleEmojiPicker: () => {
+            dispatch(messageActions.toggleEmojiPicker());
         }
     }
 };
