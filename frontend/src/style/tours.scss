@@ -102,6 +102,20 @@ div.infinite-scroll-component {
   }
 }
 
+.location {
+  div.autocomplete-dropdown-container {
+    border-radius: 0 0 3px 3px;
+    background-color: white;
+    border: 1px solid $borderGrey;
+    .suggestion-item {
+      &.active {
+        background-color: $lightgray;
+      }
+      padding: 5px 10px;
+    }
+  }
+}
+
 div.filters-wrapper {
   .form-group {
     input {
@@ -145,18 +159,6 @@ div.filters-wrapper {
     }
     .css-xwjg1b {
       background-color: papayawhip;
-    }
-  }
-  .location {
-    div.autocomplete-dropdown-container {
-      border-radius: 0 0 3px 3px;
-      border: 1px solid $borderGrey;
-      .suggestion-item {
-        &.active {
-          background-color: $lightgray;
-        }
-        padding: 5px 10px;
-      }
     }
   }
   div.price-wrapper {

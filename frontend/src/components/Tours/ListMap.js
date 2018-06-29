@@ -3,6 +3,7 @@ import {Marker} from "react-google-maps";
 import {InfoBox} from "react-google-maps/lib/components/addons/InfoBox";
 import TourListItem from "./TourListItem";
 import withRouter from "react-router-dom/es/withRouter";
+import marker from "../../images/white.png"
 
 const {compose, withProps} = require("recompose");
 const {
@@ -40,7 +41,9 @@ const Markers = withRouter((props) => {
                 markers.push(
                     <Marker key={tour._id}
                             position={{lat: tour.route[0][0], lng: tour.route[0][1]}}
-                            onClick={() => props.onMarkerClick(tour._id)}>
+                            onClick={() => props.onMarkerClick(tour._id)}
+                            label={{text: tour.cost + '€'}}
+                            icon={{url: marker, scaledSize: new google.maps.Size(47, 25)}}>
 
                         {props.openInfobox === tour._id &&
                         <InfoBox options={{closeBoxURL: ``, enableEventPropagation: true}}>
