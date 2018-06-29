@@ -4,7 +4,7 @@ import React from 'react';
 import {FormGroup, FormControl, Button} from "react-bootstrap";
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
-import ContentEditable from 'react-sane-contenteditable';
+import ContentEditable from 'react-contenteditable';
 
 
 class MessageInput extends React.Component {
@@ -18,12 +18,7 @@ class MessageInput extends React.Component {
                 <form onSubmit={this.props.onSubmit}>
                     <div className={'messageBoard-input'}>
                         <ContentEditable
-                            tagName="h1"
-                            className="my-class"
-                            content={this.props.messageData}
-                            editable={true}
-                            maxLength={140}
-                            multiLine={false}
+                            html={this.props.messageData}
                             onChange={this.props.onInputChange}
                         />
                     </div>

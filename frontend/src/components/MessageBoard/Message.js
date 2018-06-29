@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
-import ContentEditable from 'react-sane-contenteditable';
+import ContentEditable from 'react-contenteditable';
 
 export default function Message(props) {
     console.log(props);
@@ -14,12 +14,8 @@ export default function Message(props) {
             <Col md={3} sm={6}>
                 <div className="message-data">
                     <ContentEditable
-                        tagName="h1"
-                        className="my-class"
-                        content={props.data}
-                        editable={false}
-                        maxLength={140}
-                        multiLine={true}
+                        html={props.data}
+                        disabled={true}
                     />
                 </div>
             </Col>

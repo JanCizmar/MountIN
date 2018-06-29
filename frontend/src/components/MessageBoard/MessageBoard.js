@@ -39,9 +39,9 @@ class MessageBoard extends React.Component {
         SocketService.joinTourRoom(io, this.props.tourId);
     }
 
-    handleInputChange(event, value) {
-        console.log('HandleInputChnage', value)
-        this.props.updateCurrentMessage(value);
+    handleInputChange(event) {
+        console.log('HandleInputChnage', event.target.value)
+        this.props.updateCurrentMessage(event.target.value);
     }
 
     handleSubmit() {
