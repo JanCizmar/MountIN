@@ -50,7 +50,6 @@ function fetchState(fetchState = {}, action) {
 function currentMessage(currentMessage = '', action) {
     switch (action.type) {
         case UPDATE_CURRENT_MESSAGE:
-            console.log(action.message);
             return action.message;
         case CLEAR_CURRENT_MESSAGE:
             return '';

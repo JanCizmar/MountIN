@@ -4,6 +4,7 @@ import React from 'react';
 import Page from './Page';
 import {Button, Col, Row} from "react-bootstrap";
 import TourListItem from "./Tours/TourListItem";
+import {withRouter} from "react-router-dom";
 
 function UserDetail(props) {
     let tours = props.tours.map((tour) => {
@@ -11,7 +12,6 @@ function UserDetail(props) {
         return <TourListItem key={tour._id} {...tour}/>
     });
     let toursAttending = props.toursAttending.map((tour) => {
-        //console.log(tour)
         return <TourListItem key={tour._id} {...tour}/>
     });
     return (
@@ -48,9 +48,10 @@ function UserDetail(props) {
                             <div className="user-email">{props.email}</div>
                         </div>
                     </Col>
-                    <Button className="edit-profile">Edit Profile</Button>
-                    <Button className="edit-profile">Reset Password</Button>
-                    <Button className="edit-profile">Delete Account</Button>
+                    <Button className="edit-profile" onClick={() => props.history.push('/editProfile')}>Edit
+                        Profile</Button>
+                    {/*<Button className="edit-profile">Reset Password</Button>*/}
+                    {/*<Button className="edit-profile">Delete Account</Button>*/}
                 </Col>
                 <Col xs={12} sm={8} md={8} lg={9}>
                     <Row>
@@ -71,4 +72,4 @@ function UserDetail(props) {
     );
 }
 
-export default UserDetail;
+export default withRouter(UserDetail);

@@ -2,42 +2,28 @@
 
 import React from 'react';
 
-import UserService from '../services/UserService';
-
 import UserDetail from '../components/UserDetail';
+import * as actions from "../state/actions/userDetail";
+import connect from "react-redux/es/connect/connect";
+import Loading from "../components/Loading";
+import UserService from "../services/UserService";
 
 
-export class UserDetailView extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: {
-                tours: [],
-                toursAttending: []
-            }
-        };
-    }
-
-    getuserdetails() {
-        UserService.getUserDetails(UserService.getCurrentUser().id).then((data) => {
-            //this.value.username = 'sdfg'
-            this.setState({...this.state, value: data});
-        }).catch((e) => {
-            console.error(e);
-            this.setState({
-                error: e
-            });
-        });
-    }
-
+class UserDetailView extends React.Component {
     componentDidMount() {
-        this.getuserdetails();
+        let id = this.props.match.params.id || UserService.getCurrentUser().id;
+        this.props.dispatch(actions.getUserData(id));
     }
 
     render() {
         return (
-            <UserDetail {...this.state.value}/>
+            !this.props.state.data || this.props.state.loading && <Loading/> || <UserDetail {...this.props.state.data}/>
         );
     }
 }
+
+export default connect(store => {
+    return {
+        state: store.userDetail
+    }
+})(UserDetailView);

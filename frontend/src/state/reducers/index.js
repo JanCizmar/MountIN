@@ -3,12 +3,13 @@ import tourList from "./tourList";
 import createTour from "./createTour"
 import example from "./example";
 import messageBoard from "./messageBoard"
-import fileUploadExample from "./fileUpload";
+import userDetail from "./userDetail";
+import tourDetail from "./tourDetail";
 
 export default combineReducers({
     tourList,
     createTour,
     messageBoard,
-    example,
-    fileUploadExample
+    userDetail,
+    tourDetail
 });

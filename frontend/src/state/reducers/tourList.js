@@ -12,11 +12,19 @@ export default function reducer(state = {
         guideTypes: [],
         price: [0, 500]
     },
-    openInfobox: undefined
+    openInfobox: undefined,
+    mapView: true,
+    scrollY: 0,
+    mapCenter: [48.150040, 11.545055],
+    zoom: 9
 }, action) {
     switch (action.type) {
         case ('FILTERS_CHANGED'): {
-            return {...state, filtersValue: action.payload};
+            let mapCenter = state.mapCenter;
+            if (JSON.stringify(action.payload.location.latLng) !== JSON.stringify(state.filtersValue.location.latLng))
+                mapCenter = [action.payload.location.latLng.lat, action.payload.location.latLng.lng];
+
+            return {...state, filtersValue: action.payload, mapCenter};
         }
         case ('FETCH_TOURS_FULFILLED'): {
             let tours = state.tours;
@@ -31,6 +39,16 @@ export default function reducer(state = {
         }
         case ('TOUR_LIST_TOGGLE_INFOBOX'): {
             return {...state, openInfobox: state.openInfobox === action.payload ? undefined : action.payload};
+        }
+        case ('MAP_VIEW_TOGGLE'): {
+            return {...state, mapView: !state.mapView};
+        }
+        case ('TOUR_LIST_SCROLL'): {
+            return {...state, scrollY: action.payload};
+        }
+        case ('TOUR_LIST_TOUR_SELECTED'): {
+            let selectedTour = state.tours.find(tour => tour._id === action.payload);
+            return {...state, mapCenter: selectedTour.route[0], zoom: 9, openInfobox: action.payload};
         }
     }
     return {...state};

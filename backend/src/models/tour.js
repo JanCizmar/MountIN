@@ -27,7 +27,10 @@ const TourSchema  = new mongoose.Schema({
         type: Number,
         required: false
     },
-    cost: Number,
+    cost: {
+        type: Number,
+        default: 0
+    },
     type: {
         type: Number,
         required: true,

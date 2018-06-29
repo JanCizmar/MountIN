@@ -14,7 +14,6 @@ const handleSocketConnection = (server) => {
 
         io.clients((error, clients) => {
             if (error) throw error;
-            console.log(clients);
         });
 
         socket.on('joinRoom', function (tourId) {

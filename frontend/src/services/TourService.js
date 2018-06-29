@@ -45,12 +45,19 @@ export default class TourService {
                 query.lng = query.location.latLng.lng ? query.location.latLng.lng.toString() : undefined; //add just latLng, because don't need name
                 //query.distance = "50";
                 query.skip = skip.toString();
-                console.log(query);
 
                 delete query.location;
                 let queryString = HttpService.buildQueryString(query);
                 return HttpService.get(`${TourService.baseURL()}/search` + queryString, resolve, reject)
             }, timeout);
+        });
+    }
+
+    static getTourDetails(tour_id) {
+        return new Promise((resolve, reject) => {
+            console.log(tour_id);
+
+            return HttpService.get(`${TourService.baseURL()}/` + tour_id, resolve, reject)
         });
     }
 }

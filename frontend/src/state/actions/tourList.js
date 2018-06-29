@@ -6,7 +6,6 @@ export function changeFilters(data) {
         payload: data
     }
 }
-
 export function fetchTours(data = {}, skip, timeout) {
     return {
         type: 'FETCH_TOURS',
@@ -22,6 +21,13 @@ export function clearTours() {
     }
 }
 
+export function toggleMapView() {
+    return {
+        type: 'MAP_VIEW_TOGGLE',
+    }
+}
+
+
 export function toggleInfobox(id) {
     return {
         type: 'TOUR_LIST_TOGGLE_INFOBOX',
@@ -29,3 +35,16 @@ export function toggleInfobox(id) {
     }
 }
 
+export function scroll(y) {
+    return {
+        type: 'TOUR_LIST_SCROLL',
+        payload: y
+    }
+}
+
+export function tourSelect(id) {
+    return {
+        type: 'TOUR_LIST_TOUR_SELECTED',
+        payload: id
+    }
+}

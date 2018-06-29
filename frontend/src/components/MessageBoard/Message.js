@@ -4,7 +4,6 @@ import React from 'react';
 import {Col, Row} from "react-bootstrap";
 
 export default function Message(props) {
-    console.log(props);
     return (
         <Row>
             <Col md={3} sm={6}>>

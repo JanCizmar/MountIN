@@ -16,3 +16,4 @@ export class LandingPageView extends React.Component {
         );
     }
 }
+
