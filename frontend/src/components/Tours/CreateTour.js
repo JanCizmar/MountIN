@@ -62,7 +62,7 @@ export const CreateTour = compose(
 
     return (
         <Page className="tour-create">
-            <form onSubmit={props.submit}>
+            <form onSubmit={props.submit} noValidate>
                 <div className="filters-wrapper">
                     <Row>
                         <Col md={6} sm={6} lg={6}>
