@@ -31,3 +31,9 @@ export function getClientLocation() {
         payload: LocationService.getLocation()
     }
 }
+
+export function restoreInitialState() {
+    return {
+        type: 'RESTORE_INITIAL_STATE'
+    }
+}
