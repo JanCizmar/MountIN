@@ -40,6 +40,9 @@ export const CreateTour = compose(
     lifecycle({
             componentDidMount() {
                 this.props.dispatch(actions.getClientLocation());
+            },
+            componentWillUnmount() {
+                this.props.dispatch(actions.restoreInitialState());
             }
         }
     ))(props => {
