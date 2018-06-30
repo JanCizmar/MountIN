@@ -149,10 +149,20 @@ const update = (req, res) => {
 
     UserModel.findByIdAndUpdate(req.body._id, req.body, {new: true, runValidators: true}).exec()
         .then(user => res.status(200).json(user))
-        .catch(error => res.status(500).json({
-            error: 'Internal server error',
-            message: error.message
-        }));
+        .catch(error => {
+            if (error.code === 11000) {
+                res.status(400).json({
+                    error: 'Email already in use',
+                    message: error.message
+                })
+            }
+            else{
+                res.status(500).json({
+                    error: 'Internal server error',
+                    message: error.message
+                })
+            }
+        });
 };
 
 

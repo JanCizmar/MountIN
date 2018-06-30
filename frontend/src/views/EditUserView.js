@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import UserEdit from '../components/UserEdit';
+import UserEdit from '../components/User/UserEdit';
 
 import UserService from '../services/UserService';
 

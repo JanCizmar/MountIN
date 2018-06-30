@@ -3,7 +3,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom'
 
-import UserMenu from './UserMenu';
+import UserMenu from './User/UserMenu';
 
 import {Nav, Navbar, NavItem} from "react-bootstrap";
 
