@@ -26,3 +26,28 @@ export function closeModal() {
         type: 'TOUR_JOIN_CLOSE_MODAL',
     }
 }
+
+export function deleteTourToggle() {
+    return {
+        type: 'TOUR_DELETE_TOGGLE',
+    }
+}
+
+export function deleteToggleConfirmed(id) {
+    return {
+        type: 'TOUR_DELETE_TOGGLE_CONFIRMED',
+        payload: TourService.deleteTour(id)
+    }
+}
+
+
+export function closeDeleteTourModal() {
+    return {
+        type: 'TOUR_DELETE_CLOSE_MODAL',
+    }
+}
+export function clearState() {
+    return{
+        type: 'TOUR_DETAIL_CLEAR_STATE'
+    }
+}

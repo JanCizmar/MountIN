@@ -96,7 +96,7 @@ function TourDetailPage (props)  {
                                 onClick={props.onJoinTourToggle}>{!props.joined ? 'JOIN' : 'LEAVE TOUR'}</Button>}
                         {props.userId===props.creator._id &&
                         <Button className="delete-button"
-                                >DELETE TOUR</Button>
+                               onClick={props.onDeleteTourToggle} >DELETE TOUR</Button>
                         }
                         {props.userId===props.creator._id &&
                         <Button className="edit-button"
@@ -111,6 +111,7 @@ function TourDetailPage (props)  {
 
 TourDetailPage.propTypes = {
     userId: propTypes.string,
-    onJoinTourToggle: propTypes.func.isRequired
+    onJoinTourToggle: propTypes.func.isRequired,
+    onDeleteTourToggle: propTypes.func.isRequired
 };
 export default withRouter(TourDetailPage);

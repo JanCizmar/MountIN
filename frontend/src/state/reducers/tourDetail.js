@@ -1,14 +1,19 @@
 import UserService from "../../services/UserService";
 
-export default function reducer(state = {
-    loading: true,
-    data: undefined,
-    error: '',
-    joined: false,
-    showJoinDialog: false,
-    showLeaveDialog: false,
-    mapCenter: [48.150040, 11.545055]
-}, action) {
+let tourState =
+    {
+        loading: true,
+        data: undefined,
+        error: '',
+        joined: false,
+        redirect: "",
+        showJoinDialog: false,
+        showLeaveDialog: false,
+        showDeleteDialog: false,
+        mapCenter: [48.150040, 11.545055]
+    };
+
+export default function reducer(state = tourState, action) {
     switch (action.type) {
         case ('TOUR_DETAIL_FETCH_DATA_PENDING'): {
             return {...state, loading: true};
@@ -47,6 +52,25 @@ export default function reducer(state = {
             return {...state, error: action.payload};
         }
 
+        case ('TOUR_DELETE_TOGGLE'): {
+            return {...state, showDeleteDialog: !state.showDeleteDialog};
+        }
+        case ('TOUR_DELETE_CLOSE_MODAL'): {
+            return {...state, showDeleteDialog: false};
+        }
+        case ('TOUR_DELETE_TOGGLE_CONFIRMED_FULFILLED'): {
+            return {
+                ...state,
+                showDeleteDialog: false,
+                redirect: "/"
+                };
+        }
+        case ('TOUR_DELETE_TOGGLE_CONFIRMED_REJECTED'): {
+            return {...state, error: action.payload};
+        }
+        case ('TOUR_DETAIL_CLEAR_STATE'): {
+            return {...tourState}
+        }
     }
     return {...state};
 };

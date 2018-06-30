@@ -27,11 +27,33 @@ class TourDetailPageView extends React.Component {
         this.props.dispatch(actions.closeModal());
     }
 
+    onDeleteTourToggle() {
+        this.props.dispatch(actions.deleteTourToggle());
+    }
+
+    onDeleteToggleConfirmed() {
+        this.props.dispatch(actions.deleteToggleConfirmed(this.props.match.params.id));
+    }
+
+    onCloseDeleteTourModal() {
+        this.props.dispatch(actions.closeDeleteTourModal());
+    }
+
+    shouldComponentUpdate (props) {
+        if(props.state.redirect !=="") {
+            this.props.dispatch(actions.clearState());
+            props.history.push(props.state.redirect);
+            return false
+        }
+        return true
+    }
+
     render() {
         return (
             !this.props.state.data || this.props.state.loading && <Loading/> ||
             <TourDetailPage {...this.props.state.data}
                             onJoinTourToggle={this.onJoinTourToggle.bind(this)}
+                            onDeleteTourToggle={this.onDeleteTourToggle.bind(this)}
                             userId={UserService.getCurrentUser() && UserService.getCurrentUser().id}
                             username={UserService.getCurrentUser().username}
                             joined={this.props.state.joined}
@@ -72,6 +94,44 @@ class TourDetailPageView extends React.Component {
                         <Modal.Footer>
                             <Button onClick={this.onJoinToggleConfirmed.bind(this)}>Leave</Button>
                             <Button onClick={this.onCloseModal.bind(this)}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+
+                <div className="static-modal">
+                    <Modal
+                        onHide={this.onCloseDeleteTourModal.bind(this)}
+                        show={this.props.state.showDeleteDialog}
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>
+                                Delete tour
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Do you really want to delete the tour?
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.onDeleteToggleConfirmed.bind(this)}>Delete</Button>
+                            <Button onClick={this.onCloseDeleteTourModal.bind(this)}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
+
+                    <Modal
+                        onHide={this.onCloseDeleteTourModal.bind(this)}
+                        show={this.props.state.showLeaveDialog}
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>
+                                Leave tour
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Do you really want to leave this tour? :(
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.onDeleteToggleConfirmed.bind(this)}>Leave</Button>
+                            <Button onClick={this.onCloseDeleteTourModal.bind(this)}>Close</Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
