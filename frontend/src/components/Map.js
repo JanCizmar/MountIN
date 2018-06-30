@@ -25,6 +25,7 @@ export const Map = compose(
     withHandlers(
         {
             waypointsChanged: props => () => {
+                console.log(props.waypoints);
                 if (props.waypoints.length > 1) {
                     const DirectionsService = new google.maps.DirectionsService();
 
@@ -116,7 +117,7 @@ export const Map = compose(
 
         return <GoogleMap
             defaultZoom={9}
-            defaultCenter={new google.maps.LatLng(48.150040, 11.545055)}
+            center={new google.maps.LatLng(props.center[0], props.center[1])}
             onRightClick={handleOnClick}
         >
 

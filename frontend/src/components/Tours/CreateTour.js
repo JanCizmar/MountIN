@@ -40,6 +40,7 @@ export const CreateTour = compose(
         {
             componentDidMount(){
                 let id=UserService.getCurrentUser().id;
+                this.props.dispatch(actions.getClientLocation());
                 this.props.dispatch(actions.isProfessional(id))
             }
         }
@@ -161,7 +162,9 @@ export const CreateTour = compose(
                         <Col sm={12} md={8} lg={8}>
                             <div className="route-head">Specify the Route for the Tour</div>
                             <Map waypoints={props.state.toursInput.route} draggable={true}
-                                 onDirectionsChanged={props.onChange('route')}/>
+                                 onDirectionsChanged={props.onChange('route')}
+                                 center={props.state.mapCenter}
+                            />
                         </Col>
                     </Row>
 

@@ -22,7 +22,8 @@ export default function reducer(state = {
     loading: false,
     redirect: undefined,
     error: '',
-    professional: false
+    professional: false,
+    mapCenter: [48.150040, 11.545055]
 }, action) {
     switch (action.type) {
         case ('CREATE_TOURS_PENDING'): {
@@ -61,6 +62,9 @@ export default function reducer(state = {
         }
         case ('IMAGE_UPLOAD_REJECTED'): {
             return {...state, imageUpload: {...state.imageUpload, uploading: false, error: 'Something went wrong :('}};
+        }
+        case ('GET_CLIENT_LOCATION_FULFILLED'): {
+            return {...state, mapCenter: [action.payload.location.lat, action.payload.location.lng]};
         }
         case ('USER_PROFESSIONAL_FULFILLED'):  {
             return {

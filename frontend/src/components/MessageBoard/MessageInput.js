@@ -1,7 +1,11 @@
 "use strict";
 
 import React from 'react';
-import {Button, FormControl, FormGroup} from "react-bootstrap";
+import {FormGroup, FormControl, Button} from "react-bootstrap";
+import 'emoji-mart/css/emoji-mart.css';
+import {Picker, Emoji} from 'emoji-mart';
+import ContentEditable from 'react-contenteditable';
+
 
 class MessageInput extends React.Component {
     constructor(props) {
@@ -9,22 +13,28 @@ class MessageInput extends React.Component {
     }
 
     render() {
+        let emojiset = 'emojione';
+        let picker;
+        if (this.props.showEmojiPicker) {
+            picker = <Picker set={emojiset} title='' onSelect={this.props.handleEmojiClick} showPreview={false}/>;
+        }
+
         return (
             <div className={this.props.className}>
-                <form onSubmit={this.props.onSubmit}>
-                    <FormGroup controlId="messageBoardInput">
-                        <FormControl
-                            type="text"
-                            value={this.props.message}
-                            placeholder="Enter your message"
+                {picker}
+                <div className={'messageBoard-input'}>
+                    <form onSubmit={this.props.onSubmit}>
+                        <ContentEditable
+                            html={this.props.messageData}
                             onChange={this.props.onInputChange}
                         />
-                    </FormGroup>
+                        <Emoji emoji='smiley' onClick={this.props.handleEmojiToggleClick} set={emojiset} size={24}/>
 
-                    <Button id="submit" type="submit"
-                            disabled={this.props.message === ''}
-                    >Submit</Button>
-                </form>
+                        <Button id="submit" type="submit"
+                                disabled={this.props.messageData === ''}
+                        >Submit</Button>
+                    </form>
+                </div>
             </div>
         );
     }

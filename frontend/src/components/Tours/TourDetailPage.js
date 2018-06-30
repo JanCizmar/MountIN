@@ -80,32 +80,24 @@ export const TourDetailPage = props => {
                             <div className="head detail-head">
                                 MESSAGE BOARD:
                             </div>
-                            <MessageBoard userId={props.userId} tourId={props.id}/>
+                            <MessageBoard userId={props.userId} tourId={props._id} username={props.username}/>
                         </Col>
 
                     </Col>
-                {/*
-                        Participants: {props.participants && props.participants.length} <br/>
-                        Rating: {props.rating} <br/>
-
-                        <MessageBoard userId={props.userId} tourId={props.id}/>
-                    <Col>
-                Description: {props.description} <br/>
-                </Col>*/}
 
                 <Col xs={12} md={6} lg={6}>
                     <Sticky mode="top">
-                        <Map waypoints={props.route} draggable={false} />
-                        <Button className="join-button">JOIN</Button>
+                        <Map waypoints={props.route} draggable={false} center={props.mapCenter}/>
+                        <Button className="join-button"
+                                onClick={props.onJoinTourToggle}>{!props.joined ? 'JOIN' : 'LEAVE TOUR'}</Button>
                     </Sticky>
                 </Col>
-
-
-
             </Row>
+            {props.children}
         </Page>);
 };
 
 TourDetailPage.propTypes = {
-    userId: propTypes.string
+    userId: propTypes.string,
+    onJoinTourToggle: propTypes.func.isRequired
 };

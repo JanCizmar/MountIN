@@ -11,17 +11,20 @@ const MessageSchema = new mongoose.Schema({
         required: true,
         index: true
     },
-    creator: {
+    userId: {
         type: ObjectId, ref: 'User',
         required: true
     },
     data: {
         type: String,
-        required: true,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        required: true
     }
 });
 
 MessageSchema.set('versionKey', false);
-MessageSchema.set('timestamps', true);
 
 module.exports = mongoose.model('Message', MessageSchema);
