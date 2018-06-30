@@ -24,7 +24,26 @@ const create = (req, res) => {
     UserModel.findById(req.body.creator).then(creator => {
         if (creator !== null) {
             TourModel.create(req.body)
-                .then(tour => res.status(201).json(tour))
+                .then(tour => {
+                    console.log('Tour created', tour);
+                    creator.tours.push(tour._id);
+                    console.log('User', creator);
+                    creator.save(err => {
+                        if (err) {
+                            // Attempt a rollback of the tour creation
+                            tour.remove().then(() => {
+                                console.log('Removed created tour as user model update failed');
+                                res.status(500).json({
+                                    error: 'Internal server error',
+                                    message: 'Failed to update user schema on create tour'
+                                })
+                            });
+                        } else {
+                            console.log('Tour correctly created');
+                            res.status(201).json(tour);
+                        }
+                    })
+                })
                 .catch(error => res.status(500).json({
                     error: 'Internal server error',
                     message: error.message

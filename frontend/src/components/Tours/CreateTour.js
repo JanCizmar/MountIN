@@ -42,6 +42,9 @@ export const CreateTour = compose(
                 let id=UserService.getCurrentUser().id;
                 this.props.dispatch(actions.getClientLocation());
                 this.props.dispatch(actions.isProfessional(id))
+            },
+            componentWillUnmount() {
+                this.props.dispatch(actions.restoreInitialState());
             }
         }
     ))(props => {
@@ -54,9 +57,6 @@ export const CreateTour = compose(
     if (UserService.getCurrentUser().id === undefined) {
         props.history.push('login');
     }
-
-
-
 
     const getValidState = (inputName) => {
         return getFormValidStates()[inputName];
