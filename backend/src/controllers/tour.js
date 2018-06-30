@@ -330,6 +330,8 @@ const join = async (req, res) => {
                         });
                     else {
                         let tour = await TourModel.findById(req.params.id).populate('participants').exec();
+                        tour = JSON.parse(JSON.stringify(tour));
+                        tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
                         res.status(200).json(tour);
                     }
                 });

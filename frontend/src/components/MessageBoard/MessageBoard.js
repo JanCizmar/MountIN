@@ -45,7 +45,8 @@ class MessageBoard extends React.Component {
         this.props.updateCurrentMessage(event.target.value);
     }
 
-    handleSubmit() {
+    handleSubmit(event) {
+        event.preventDefault();
         let clean = sanitizeHtml(this.props.currentMessage, allowedHtml);
         console.log('Clean', clean);
         // If there is still something left after sanitization submit it
@@ -94,8 +95,10 @@ class MessageBoard extends React.Component {
         });
         console.log('All messages', this.props.messages);
         return (
-            <div className={this.props.className}>
-                {messages}
+            <div className="message-board-main">
+                <div className="messages">
+                    {messages}
+                </div>
                 <MessageInput messageData={this.props.currentMessage}
                               showEmojiPicker={this.props.showEmojiPicker}
                               onSubmit={this.handleSubmit}

@@ -73,7 +73,8 @@ class ListPage extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col lg={this.props.state.mapView ? 6 : 12}
+                    <Col className={["list-wrapper", this.props.state.mapView && 'small-hidden']}
+                         lg={this.props.state.mapView ? 6 : 12}
                          md={this.props.state.mapView ? 6 : 12} sm={12}>
                         <List tours={this.props.state.tours} loading={this.props.state.loading}
                               loadMore={this.loadMore.bind(this)} hasMore={this.props.state.hasMore}
