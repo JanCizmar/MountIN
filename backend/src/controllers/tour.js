@@ -44,7 +44,10 @@ const create = (req, res) => {
 const read = (req, res) => {
     TourModel.findById(req.params.id).populate('creator participants').exec()
         .then(tour => {
+            //otherwise it is immutable or what
+            tour = JSON.parse(JSON.stringify(tour));
             tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
+
             if (!tour) return res.status(404).json({
                 error: 'Not Found',
                 message: `Tour not found`

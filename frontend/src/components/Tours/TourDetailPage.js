@@ -87,7 +87,7 @@ export const TourDetailPage = props => {
 
                 <Col xs={12} md={6} lg={6}>
                     <Sticky mode="top">
-                        <Map waypoints={props.route} draggable={false} />
+                        <Map waypoints={props.route} draggable={false} center={props.mapCenter}/>
                         <Button className="join-button"
                                 onClick={props.onJoinTourToggle}>{!props.joined ? 'JOIN' : 'LEAVE TOUR'}</Button>
                     </Sticky>

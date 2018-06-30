@@ -35,6 +35,7 @@ class TourDetailPageView extends React.Component {
                             userId={UserService.getCurrentUser() && UserService.getCurrentUser().id}
                             username={UserService.getCurrentUser().username}
                             joined={this.props.state.joined}
+                            mapCenter={this.props.state.mapCenter}
             >
                 <div className="static-modal">
                     <Modal
