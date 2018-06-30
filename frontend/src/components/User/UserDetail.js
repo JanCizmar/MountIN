@@ -1,9 +1,9 @@
 "use strict";
 
 import React from 'react';
-import Page from './Page';
+import Page from '../Page';
 import {Button, Col, Row} from "react-bootstrap";
-import TourListItem from "./Tours/TourListItem";
+import TourListItem from "../Tours/TourListItem";
 import {withRouter} from "react-router-dom";
 
 function UserDetail(props) {

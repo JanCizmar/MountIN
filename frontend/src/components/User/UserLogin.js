@@ -3,8 +3,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import {AlertMessage} from './AlertMessage';
-import Page from './Page';
+import {AlertMessage} from '../AlertMessage';
+import Page from '../Page';
 import {Button, Col, ControlLabel, FormControl, FormGroup, Row} from "react-bootstrap";
 
 

@@ -20,6 +20,10 @@ class LandingPage extends React.Component {
         this.props.dispatch(actions.changeFilters({...this.props.state.filtersValue, location: value}));
     };
 
+    componentDidMount() {
+        this.props.dispatch(actions.getLocation());
+    }
+
     render() {
         return (
             <Page className="landing-page">

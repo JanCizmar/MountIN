@@ -3,13 +3,13 @@ import ImageUploadService from "../../services/ImageUploadService";
 export default function reducer(state = {
     toursInput: {
         name: "",
-        description:"",
+        description: "",
         difficulty: "",
         guideType: "",
         cost: 0,
-        route:[],
-        activityType:"",
-        date:"",
+        route: [],
+        activityType: "",
+        date: "",
         changedInput: []
     },
     imageUpload: {
@@ -18,14 +18,23 @@ export default function reducer(state = {
         uploadedUrl: '',
         uploading: false,
         error: ''
-
-    }
+    },
+    loading: false,
+    redirect: undefined,
+    error: '',
+    mapCenter: [48.150040, 11.545055]
 }, action) {
     switch (action.type) {
-        case ('CREATE_TOURS'):{
-            return {...state, toursInput: action.payload}
+        case ('CREATE_TOURS_PENDING'): {
+            return {...state, loading: true}
         }
-        case ('CREATE_TOURS_INPUTS_CHANGED'):{
+        case ('CREATE_TOURS_FULFILLED'): {
+            return {...state, loading: false, redirect: 'tours/detail/' + action.payload._id}
+        }
+        case ('CREATE_TOURS_REJECTED'): {
+            return {...state, loading: false, error: action.payload}
+        }
+        case ('CREATE_TOURS_INPUTS_CHANGED'): {
             return {...state, toursInput: action.payload}
         }
         case ('IMAGE_UPLOAD_CHANGED'): {
@@ -52,6 +61,9 @@ export default function reducer(state = {
         }
         case ('IMAGE_UPLOAD_REJECTED'): {
             return {...state, imageUpload: {...state.imageUpload, uploading: false, error: 'Something went wrong :('}};
+        }
+        case ('GET_CLIENT_LOCATION_FULFILLED'): {
+            return {...state, mapCenter: [action.payload.location.lat, action.payload.location.lng]};
         }
     }
 

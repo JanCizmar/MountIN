@@ -3,7 +3,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom'
 
-import UserMenu from './UserMenu';
+import UserMenu from './User/UserMenu';
 
 import {Nav, Navbar, NavItem} from "react-bootstrap";
 
@@ -25,8 +25,8 @@ class Header extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem eventKey={1} onClick={() => this.props.history.push('/')}>
-                            Home
+                        <NavItem eventKey={1} onClick={() => this.props.history.push('/createTour')}>
+                            Create tour
                         </NavItem>
                     </Nav>
                     <Nav pullRight>

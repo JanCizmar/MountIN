@@ -5,7 +5,7 @@ import ReactRouterEnzymeContext from 'react-router-enzyme-context';
 import toJson from 'enzyme-to-json';
 
 
-import UserLogin from "../src/components/UserLogin";
+import UserLogin from "../src/components/User/UserLogin";
 
 configure({adapter: new Adapter()});
 

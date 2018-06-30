@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import UserDetail from '../components/UserDetail';
+import UserDetail from '../components/User/UserDetail';
 import * as actions from "../state/actions/userDetail";
 import connect from "react-redux/es/connect/connect";
 import Loading from "../components/Loading";

@@ -56,8 +56,6 @@ export default class TourService {
 
     static getTourDetails(tour_id) {
         return new Promise((resolve, reject) => {
-            console.log(tour_id);
-
             return HttpService.get(`${TourService.baseURL()}/` + tour_id, resolve, reject)
         });
     }
@@ -69,6 +67,13 @@ export default class TourService {
             }, function (textStatus) {
                 reject(textStatus);
             });
+        });
+    }
+
+
+    static joinTourToggle(tour_id, state) {
+        return new Promise((resolve, reject) => {
+            return HttpService.put(`${TourService.baseURL()}/join/` + tour_id, {joined: state}, resolve, reject)
         });
     }
 

@@ -1,0 +1,75 @@
+$borderBlue: #6d96b9;
+$bodyblack: #333333;
+.tour-detail{
+  font-size: 18px;
+  .tour-name{
+    font-size: 24px;
+    text-align: center;
+    text-transform: uppercase;
+    color:$borderBlue;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .tour-date{
+
+  }
+  .tour-image{
+    max-width:100%
+  }
+  .difficulty {
+    .easy {
+      color: green;
+    }
+    .med {
+      color: yellow;
+    }
+    .hard {
+      color: red
+    }
+  }
+  .head{
+    color:$borderBlue;
+  }
+  .detail-head{
+    margin-top: 10px;
+  }
+  .free{
+    color:green;
+  }
+  .cost{
+    color:$bodyblack;
+  }
+  .hiking,.biking,.skiing,.others{
+    color:$bodyblack;
+  }
+  .creator{
+    color:$bodyblack;
+  }
+  .margin-20{
+    margin-top: 20px;
+  }
+  Map{
+    margin-top: 20px;
+    height:500px;
+  }
+  .join-button {
+   /* display: flex;
+    justify-content: center;
+    margin: auto;*/
+    float: right;
+    width: 30%;
+    border-radius: 0;
+    color: $white;
+    border: 3px solid $borderBlue;
+    background: $borderBlue;
+    margin-top: 35px;
+    font-size: 20px;
+  }
+  .btn-default:focus, .btn-default:hover {
+    border: 3px solid $borderBlue;
+    color: $borderBlue;
+    background: $white;
+  }
+
+}

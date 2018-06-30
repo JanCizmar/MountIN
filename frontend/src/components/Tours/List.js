@@ -26,6 +26,7 @@ export default function List(props) {
         <Row>
             {props.loading && !tours.length && <Loading/> ||
             <InfiniteScroll
+                style={{overflow: 'visible'}}
                 dataLength={tours.length}
                 next={props.loadMore}
                 loader={<Loading/>}
