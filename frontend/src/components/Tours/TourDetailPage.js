@@ -10,6 +10,20 @@ import MessageBoard from "../MessageBoard/MessageBoard";
 import ImageUploadService from "../../services/ImageUploadService";
 
 export const TourDetailPage = props => {
+    let messageBoardElements;
+    let participantsId = props.participants.map(participant => participant._id);
+
+    // Only show the messageBoard if the current user is a participant or the creator
+    if (props.userId !== undefined && (props.userId === props.creator._id || participantsId.includes(props.userId))) {
+        messageBoardElements =
+            <Col className="margin-20 text-justify" xs={12} md={12} lg={12}>
+                <div className="head detail-head">
+                    MESSAGE BOARD:
+                </div>
+            <MessageBoard userId={props.userId} tourId={props._id} username={props.username}/>
+            </Col>
+    }
+
     return (
         <Page className="tour-detail">
             <Row>
@@ -78,13 +92,7 @@ export const TourDetailPage = props => {
                         <Col className="margin-20 text-justify" xs={12} md={12} lg={12}>
                             {props.description}
                         </Col>
-                        <Col className="margin-20 text-justify" xs={12} md={12} lg={12}>
-                            <div className="head detail-head">
-                                MESSAGE BOARD:
-                            </div>
-                            <MessageBoard userId={props.userId} tourId={props._id} username={props.username}/>
-                        </Col>
-
+                        {messageBoardElements}
                     </Col>
 
                 <Col xs={12} md={6} lg={6}>
