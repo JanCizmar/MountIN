@@ -33,6 +33,7 @@ class TourDetailPageView extends React.Component {
             <TourDetailPage {...this.props.state.data}
                             onJoinTourToggle={this.onJoinTourToggle.bind(this)}
                             userId={UserService.getCurrentUser() && UserService.getCurrentUser().id}
+                            username={UserService.getCurrentUser().username}
                             joined={this.props.state.joined}
             >
                 <div className="static-modal">

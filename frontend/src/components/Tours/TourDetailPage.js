@@ -80,7 +80,7 @@ export const TourDetailPage = props => {
                             <div className="head detail-head">
                                 MESSAGE BOARD:
                             </div>
-                            <MessageBoard userId={props.userId} tourId={props.id}/>
+                            <MessageBoard userId={props.userId} tourId={props._id} username={props.username}/>
                         </Col>
 
                     </Col>
