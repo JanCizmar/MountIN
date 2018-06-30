@@ -35,7 +35,8 @@ const UserSchema  = new mongoose.Schema({
         thumbnail: {type: String}
     },
     certificate: {
-        data: Buffer, imageType: String
+        type: String,
+        required: false
     },
     professional: {
         type: Boolean,

@@ -4,11 +4,13 @@ import createTour from "./createTour"
 import messageBoard from "./messageBoard"
 import userDetail from "./userDetail";
 import tourDetail from "./tourDetail";
+import userSignUp from "./userSignup";
 
 export default combineReducers({
     tourList,
     createTour,
     messageBoard,
     userDetail,
-    tourDetail
+    tourDetail,
+    userSignUp
 });
