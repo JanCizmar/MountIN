@@ -6,18 +6,27 @@ import ContentEditable from 'react-contenteditable';
 
 export default function Message(props) {
     return (
-        <Row>
-            <Col md={3} sm={6}>
-                <div className="message-username">{props.username}</div>
-            </Col>
-            <Col md={3} sm={6}>
-                <div className="message-data">
+        <div className="message">
+
+
+                <span className="message-username">{props.username}</span>
+
+                <span className="message-data">
                     <ContentEditable
                         html={props.data}
                         disabled={true}
                     />
-                </div>
-            </Col>
-        </Row>
+                </span>
+                <span className="msg-date">
+                    {new Intl.DateTimeFormat('en-GB', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    }).format(props.createAt)}
+                   </span>
+        </div>
     );
 }

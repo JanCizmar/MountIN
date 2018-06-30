@@ -20,22 +20,22 @@
       border-radius: 50% 50%;
     }
     .user-firstname {
-      font-size: 30px;
+      font-size: 22px;
     }
     .user-surname {
-      font-size: 30px;
+      font-size: 22px;
     }
     .username {
       display: inline-flex;
       margin: 10% 2% 2% 2%;
 
       .username-tag {
-        font-size: 16px;
+        font-size: 14px;
         color: lightslategray;
-        line-height: 35px;
+        line-height: 24px;
       }
       .user-username {
-        font-size: 22px;
+        font-size: 18px;
       }
     }
     .phone {
@@ -43,12 +43,12 @@
       margin: 2%;
 
       .phone-tag {
-        font-size: 16px;
+        font-size: 14px;
         color: lightslategray;
-        line-height: 40px;
+        line-height: 24px;
       }
       .user-phone {
-        font-size: 24px;
+        font-size: 18px;
       }
     }
     .email {
@@ -56,12 +56,15 @@
       margin: 2%;
 
       .email-tag {
-        font-size: 16px;
+        font-size: 14px;
         color: lightslategray;
-        line-height: 40px;
+        line-height: 24px;
       }
       .user-email {
-        font-size: 24px;
+        font-size: 18px;
+        max-width: fit-content;
+        word-break: break-word;
+
       }
     }
   }
@@ -81,10 +84,8 @@
     font-size: 20px;
     padding: 5px 10px 10px 20px;
   }
-  a {
-    color: papayawhip !important;
-    text-decoration: none;
-  }
+
+
   i {
     color: gold;
   }
