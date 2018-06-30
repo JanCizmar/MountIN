@@ -6,7 +6,7 @@ import {TourDifficulty} from "./CreateTourInputs/TourDifficulty";
 import {TourGuideType} from "./CreateTourInputs/TourGuideType";
 import {TourPrice} from "./CreateTourInputs/TourPrice";
 import {Map} from './../Map';
-import {compose, withHandlers} from "recompose";
+import {compose, lifecycle, withHandlers} from "recompose";
 import PropTypes from 'prop-types';
 import * as actions from "../../state/actions/createTour";
 import {withRouter} from "react-router-dom";
@@ -34,6 +34,12 @@ export const CreateTour = compose(
             },
             onFileUploadSubmit: props => () => {
                 props.dispatch(imageUploadActions.uploadImage(props.state.imageUpload.file));
+            }
+        }
+    ),
+    lifecycle({
+            componentDidMount() {
+                this.props.dispatch(actions.getClientLocation());
             }
         }
     ))(props => {
@@ -156,7 +162,9 @@ export const CreateTour = compose(
                         <Col sm={12} md={8} lg={8}>
                             <div className="route-head">Specify the Route for the Tour</div>
                             <Map waypoints={props.state.toursInput.route} draggable={true}
-                                 onDirectionsChanged={props.onChange('route')}/>
+                                 onDirectionsChanged={props.onChange('route')}
+                                 center={props.state.mapCenter}
+                            />
                         </Col>
                     </Row>
 
