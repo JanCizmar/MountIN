@@ -5,6 +5,7 @@ import {
     FETCH_HISTORY_ERROR,
     FETCH_HISTORY_REQUEST,
     FETCH_HISTORY_SUCCESS,
+    RESET_SCROLL_DOWN,
     TOGGLE_EMOJI_PICKER,
     UPDATE_CURRENT_MESSAGE,
     UPDATE_MESSAGES
@@ -71,11 +72,27 @@ function showEmojiPicker(showEmojiPicker = false, action) {
     }
 }
 
+function scrollDown(scrollDown = false, action) {
+    switch (action.type) {
+        case FETCH_HISTORY_SUCCESS:
+            return true;
+        case UPDATE_MESSAGES:
+            return action.message.userId === action.userId;
+        case RESET_SCROLL_DOWN:
+            return false;
+        default:
+            return scrollDown;
+    }
+}
+
+
+
 export default combineReducers({
     messages,
     currentMessage,
     fetchState,
-    showEmojiPicker
+    showEmojiPicker,
+    scrollDown
 });
 
 

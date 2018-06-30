@@ -28,7 +28,7 @@ class MessageBoard extends React.Component {
     }
 
     onAddMessage(message) {
-        this.props.updateMessages(message);
+        this.props.updateMessages(message, this.props.userId);
     }
 
     listenToAddMessage() {
@@ -61,7 +61,7 @@ class MessageBoard extends React.Component {
                 createdAt: Date.now()
             };
             console.log('Send this to server', message);
-            this.props.sendMessage(io, message);
+            this.props.sendMessage(io, message, this.props.userId);
         }
     }
 
@@ -89,6 +89,19 @@ class MessageBoard extends React.Component {
         SocketService.disconnect(io);
     }
 
+    componentDidUpdate() {
+        // Scroll to the bottom if flag scrollDown is set
+        if (this.props.scrollDown) {
+            this.scrollToBottom();
+            this.props.resetScrollDown();
+        }
+    }
+
+    scrollToBottom() {
+        console.log("Scroll down");
+        this.messagesEnd.scrollIntoView();
+    }
+
     render() {
         let messages = this.props.messages.map((message, index) => {
             return <Message key={index} {...message}/>
@@ -98,6 +111,10 @@ class MessageBoard extends React.Component {
             <div className="message-board-main">
                 <div className="messages">
                     {messages}
+                    <div style={{float: "left", clear: "both"}}
+                         ref={(el) => {
+                             this.messagesEnd = el;
+                         }}/>
                 </div>
                 <MessageInput messageData={this.props.currentMessage}
                               showEmojiPicker={this.props.showEmojiPicker}
@@ -113,6 +130,7 @@ class MessageBoard extends React.Component {
 
 const mapStateToProps = store => {
     return {
+        scrollDown: store.messageBoard.scrollDown,
         messages: store.messageBoard.messages,
         currentMessage: store.messageBoard.currentMessage,
         fetchState: store.messageBoard.fetchState,
@@ -122,14 +140,14 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        sendMessage: (socket, message) => {
-            dispatch(messageActions.sendMessage(socket, message))
+        sendMessage: (socket, message, userId) => {
+            dispatch(messageActions.sendMessage(socket, message, userId))
         },
         fetchMessageHistory: (tourId) => {
             dispatch(messageActions.fetchMessageHistory(tourId))
         },
-        updateMessages: (message) => {
-            dispatch(messageActions.updateMessages(message))
+        updateMessages: (message, userId) => {
+            dispatch(messageActions.updateMessages(message, userId))
         },
         clearMessages: () => {
             dispatch(messageActions.clearMessages())
@@ -145,6 +163,9 @@ const mapDispatchToProps = dispatch => {
         },
         toggleEmojiPicker: () => {
             dispatch(messageActions.toggleEmojiPicker());
+        },
+        resetScrollDown: () => {
+            dispatch(messageActions.resetScrollDown());
         }
     }
 };
