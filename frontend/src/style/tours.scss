@@ -116,11 +116,25 @@ div.filters-wrapper {
   }
 }
 
+div.list-wrapper {
+  &.small-hidden {
+    @media (max-width: 970px) {
+      display: none;
+    }
+  }
+}
+
 div.map-wrapper {
   height: 100vh;
   &.scrolled {
-    position: fixed;
-    right: 0;
-    top: 0;
+    @media (min-width: 970px) {
+      position: fixed;
+      right: 0;
+      top: 0;
+    }
+  }
+  @media (max-width: 970px) {
+    margin-top: 20px
   }
 }
+
