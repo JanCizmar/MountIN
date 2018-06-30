@@ -10,28 +10,20 @@ export function fetchTour(tour_id) {
 
 export function changeFilters(data) {
     return {
-        type: 'CREATE_TOURS_INPUTS_CHANGED',
+        type: 'EDIT_TOUR_INPUTS_CHANGED',
         payload: data
     }
 }
 
-export function updateTours(data = {}) {
+export function editTour(data = {}) {
     return {
         type: 'UPDATE_TOUR',
         payload: TourService.update(data)
+    }
+}
 
-        // type: 'CREATE_TOURS',
-        // payload: TourService.update(tour).then(() => {
-        //     this.props.history.push('/tours/detail/' + tour._id);
-        // }).catch((e) => {
-        //     console.error(e);
-        //     this.setState({
-        //         error: e
-        //     });
-        // })
-      //old:
-      //  TourService.createTour(data).then(payload => {
-      //      return {data: payload}
-       // })
+export function restoreInitialState() {
+    return {
+        type: 'RESTORE_INITIAL_STATE'
     }
 }

@@ -13,7 +13,7 @@ export default combineReducers({
     messageBoard,
     userDetail,
     tourDetail,
-    tourEdit
+    tourEdit,
     tourDetail,
     userSignUp
 });

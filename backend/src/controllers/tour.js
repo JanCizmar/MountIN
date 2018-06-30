@@ -96,12 +96,12 @@ const update = (req, res) => {
     //     message: 'The id in the request is' + req.body._id
     // });
 
-    //if (req.body.route !== undefined && req.body.route.length > 1) {
-    //    req.body.route = {
-    //        "type": "MultiPoint",
-    //        "coordinates": req.body.route.map(point => [point[1], point[0]])
-    //    };
-    //}
+    if (req.body.route !== undefined && req.body.route.length > 1) {
+       req.body.route = {
+           "type": "MultiPoint",
+           "coordinates": req.body.route.map(point => [point[1], point[0]])
+       };
+    }
 
     TourModel.findByIdAndUpdate(req.body._id, req.body, {new: true, runValidators: true}).exec()
         .then(tour => res.status(200).json(tour))

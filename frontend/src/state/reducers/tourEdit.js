@@ -1,15 +1,15 @@
 import ImageUploadService from "../../services/ImageUploadService";
 
-export default function reducer(state = {
+const defaultState = {
     toursInput: {
         name: "",
-        description:"",
+        description: "",
         difficulty: "",
         guideType: "",
         cost: 0,
-        route:[],
-        activityType:"",
-        date:"",
+        route: [],
+        activityType: "",
+        date: "",
         changedInput: []
     },
     imageUpload: {
@@ -21,26 +21,30 @@ export default function reducer(state = {
     },
     loading: false,
     redirect: undefined,
-    error: ''
-}, action) {
+    error: '',
+    professional: false,
+    mapCenter: [48.150040, 11.545055]
+};
+
+export default function reducer(state = defaultState, action) {
     switch (action.type) {
         case ('EDIT_FETCH_TOUR_FULFILLED'): {
-            console.log()
+            //console.log()
             return {...state, toursInput: {...state.toursInput, ...action.payload, date: new Date(action.payload.date),
                     difficulty: String(action.payload.difficulty), activityType: String(action.payload.type),
                     guideType: String(action.payload.guideType)}}
                     //guideType has to be fetched from user table -> see ankitas create tour version
         }
-        case ('CREATE_TOURS_PENDING'): {
+        case ('UPDATE_TOUR_PENDING'): {
             return {...state, loading: true}
         }
-        case ('CREATE_TOURS_FULFILLED'): {
-            return {...state, loading: false, redirect: 'tours/detail/' + action.payload._id}
+        case ('UPDATE_TOUR_FULFILLED'): {
+            return {...state, loading: false, redirect: '/tours/detail/' + action.payload._id}
         }
-        case ('CREATE_TOURS_REJECTED'): {
+        case ('UPDATE_TOUR_REJECTED'): {
             return {...state, loading: false, error: action.payload}
         }
-        case ('CREATE_TOURS_INPUTS_CHANGED'):{
+        case ('UPDATE_TOUR_INPUTS_CHANGED'):{
             return {...state, toursInput: action.payload}
         }
         case ('IMAGE_UPLOAD_CHANGED'): {
@@ -67,6 +71,9 @@ export default function reducer(state = {
         }
         case ('IMAGE_UPLOAD_REJECTED'): {
             return {...state, imageUpload: {...state.imageUpload, uploading: false, error: 'Something went wrong :('}};
+        }
+        case ('RESTORE_INITIAL_STATE'): {
+            return defaultState;
         }
     }
 
