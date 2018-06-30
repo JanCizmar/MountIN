@@ -9,6 +9,7 @@ import * as messageActions from "../../state/actions/messageBoard";
 import {connect} from "react-redux";
 import SocketService from "../../services/SocketService";
 import EmojiOne from "emojione";
+
 const sanitizeHtml = require('sanitize-html');
 const allowedHtml = {
     allowedTags: ['img']

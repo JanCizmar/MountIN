@@ -115,7 +115,7 @@ const search = (req, res) => {
         rawGuideTypes.map(type => {
             if (type === '1') {
                 guideTypesArray.push(true);
-            } else if (type === '2'){
+            } else if (type === '2') {
                 guideTypesArray.push(false);
             }
         })
@@ -203,7 +203,8 @@ const search = (req, res) => {
                             tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
                         }
                         return tour;
-                    }))})
+                    }))
+                })
                 .catch(error => res.status(500).json({
                     error: 'Internal server error',
                     message: error.message
