@@ -22,6 +22,7 @@ const defaultState = {
     loading: false,
     redirect: undefined,
     error: '',
+    professional: false,
     mapCenter: [48.150040, 11.545055]
 };
 
@@ -67,8 +68,14 @@ export default function reducer(state = defaultState, action) {
         case ('GET_CLIENT_LOCATION_FULFILLED'): {
             return {...state, mapCenter: [action.payload.location.lat, action.payload.location.lng]};
         }
-        case ('RESTORE_INITIAL_STATE'):
+        case ('USER_PROFESSIONAL_FULFILLED'):  {
+            return {
+                ...state,
+                professional: action.payload.professional}
+        }
+        case ('RESTORE_INITIAL_STATE'): {
             return defaultState;
+        }
     }
 
     return {...state};

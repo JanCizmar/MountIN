@@ -156,7 +156,7 @@ const update = (req, res) => {
                     message: error.message
                 })
             }
-            else{
+            else {
                 res.status(500).json({
                     error: 'Internal server error',
                     message: error.message
