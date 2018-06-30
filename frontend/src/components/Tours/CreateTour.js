@@ -3,10 +3,9 @@ import {Button, Col, FormControl, FormGroup, Row} from "react-bootstrap";
 import DateTimePicker from 'react-datetime-picker';
 import {TourActivityType} from "./CreateTourInputs/TourActivityType";
 import {TourDifficulty} from "./CreateTourInputs/TourDifficulty";
-import {TourGuideType} from "./CreateTourInputs/TourGuideType";
 import {TourPrice} from "./CreateTourInputs/TourPrice";
 import {Map} from './../Map';
-import {compose, withHandlers} from "recompose";
+import {compose, lifecycle, withHandlers} from "recompose";
 import PropTypes from 'prop-types';
 import * as actions from "../../state/actions/createTour";
 import {withRouter} from "react-router-dom";
@@ -36,6 +35,14 @@ export const CreateTour = compose(
                 props.dispatch(imageUploadActions.uploadImage(props.state.imageUpload.file));
             }
         }
+    ),
+    lifecycle(
+        {
+            componentDidMount(){
+                let id=UserService.getCurrentUser().id;
+                this.props.dispatch(actions.isProfessional(id))
+            }
+        }
     ))(props => {
 
     if (props.state.redirect !== undefined) {
@@ -47,19 +54,22 @@ export const CreateTour = compose(
         props.history.push('login');
     }
 
+
+
+
     const getValidState = (inputName) => {
         return getFormValidStates()[inputName];
     };
     //Form checking: TODO when time - change feedback: https://react-bootstrap.github.io/components/forms/
     const getFormValidStates = () => {
-        console.log(props.state.toursInput.route);
+        //console.log(props.state.toursInput.route);
         return {
             name: props.state.toursInput.name.length ? props.state.toursInput.name.length < 3 || props.state.toursInput.name.length > 100 ? 'error' : 'success' : null,
             description: props.state.toursInput.description.length ? props.state.toursInput.description.length < 10 ? 'error' : 'success' : null,
             date: props.state.toursInput.date ? 'success' : null,
             difficulty: props.state.toursInput.difficulty ? props.state.toursInput.difficulty === "0" || props.state.toursInput.difficulty === "1" || props.state.toursInput.difficulty === "2" ? 'success' : 'error' : null,
             activityType: props.state.toursInput.activityType ? props.state.toursInput.activityType.length < 1 ? 'error' : 'success' : null,
-            guideType: props.state.toursInput.guideType ? props.state.toursInput.guideType === "1" || props.state.toursInput.guideType === "2" ? 'success' : 'error' : null,
+           // guideType: props.state.toursInput.guideType ? props.state.toursInput.guideType === "1" || props.state.toursInput.guideType === "2" ? 'success' : 'error' : null,
             route: props.state.toursInput.route === undefined || props.state.toursInput.route.length === 0 ? 'error' : 'success'
         };
     };
@@ -118,32 +128,27 @@ export const CreateTour = compose(
                                 />
                             </FormGroup>
                         </Col>
-                        <Col sm={12} md={4} lg={4}>
+                        <Col sm={12} md={6} lg={6}>
                             <TourActivityType
                                 onChange={props.onChange('activityType')}
                                 value={props.state.toursInput.activityType}/>
                         </Col>
-                        <Col sm={12} md={4} lg={4}>
+                        <Col sm={12} md={6} lg={6}>
                             <TourDifficulty
                                 onChange={props.onChange('difficulty')}
                                 value={props.state.toursInput.difficulty}/>
                         </Col>
-                        <Col sm={12} md={4} lg={4}>
-                            <TourGuideType
-                                onChange={props.onChange('guideType')}
-                                value={props.state.toursInput.guideType}/>
-                        </Col>
                         <Col sm={12} md={3} lg={3}>
-                            {props.state.toursInput.guideType == 1 &&
+                            {props.state.professional &&
                             <div className="upload-head">Specify the Cost of the Tour </div>}
                         </Col>
                         <Col sm={12} md={9} lg={9}>
-                            {props.state.toursInput.guideType == 1 &&
+                            {props.state.professional &&
                             <TourPrice onChange={props.onChange('cost')}
                                        value={props.state.toursInput.cost}/>}
 
-                            {props.state.toursInput.guideType == 2 &&
-                            <TourPrice clname="hidden" onChange={props.onChange('cost')}
+                            {!props.state.professional &&
+                            <TourPrice  clname='hidden' onChange={props.onChange('cost')}
                                        value={props.state.toursInput.cost = 0}/>}
                         </Col>
                     </Row>

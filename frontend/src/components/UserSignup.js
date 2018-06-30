@@ -5,7 +5,7 @@ import React from 'react';
 import {AlertMessage} from './AlertMessage';
 import Page from './Page';
 import {Button, Checkbox, Col, ControlLabel, FormControl, FormGroup, Row} from "react-bootstrap";
-import {FileUpload} from "./FileUpload";
+//import {FileUpload} from "./FileUpload";
 import * as fileUploadActions from "../state/actions/fileUpload";
 
 
@@ -206,8 +206,7 @@ class UserSignup extends React.Component {
                                 {this.state.isInstructor &&
                                 <div>
 
-                                    <FileUpload {...this.props.state.fileUpload} onSubmit={this.onFileUploadSubmit}
-                                                onChange={(val) => this.props.dispatch(fileUploadActions.changeFile(val))}/>
+                                   #todo fileupload
                                 </div>}
                             </Col>
 

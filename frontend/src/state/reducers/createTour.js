@@ -21,7 +21,8 @@ export default function reducer(state = {
     },
     loading: false,
     redirect: undefined,
-    error: ''
+    error: '',
+    professional: false
 }, action) {
     switch (action.type) {
         case ('CREATE_TOURS_PENDING'): {
@@ -60,6 +61,11 @@ export default function reducer(state = {
         }
         case ('IMAGE_UPLOAD_REJECTED'): {
             return {...state, imageUpload: {...state.imageUpload, uploading: false, error: 'Something went wrong :('}};
+        }
+        case ('USER_PROFESSIONAL_FULFILLED'):  {
+            return {
+                ...state,
+                professional: action.payload.professional}
         }
     }
 
