@@ -49,16 +49,12 @@ const file = (req, res) => {
     let fileExtension = require('file-extension');
     let ext = fileExtension(file.name);
     let newFileName = uniqid() + "." + ext;
-    let body = {
-        file_name: file.name,
-        sys_file_name: newFileName
-    };
     //creates files directory
     if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir);
     }
 
-    file.mv('uploadDir' + newFileName)
+    file.mv(uploadDir + newFileName)
         .then(() => res.status(201).json(newFileName))
         .catch(error => res.status(500).json({
             error: 'Internal server error',
