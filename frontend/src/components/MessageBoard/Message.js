@@ -1,7 +1,6 @@
 "use strict";
 
 import React from 'react';
-import {Col, Row} from "react-bootstrap";
 import ContentEditable from 'react-contenteditable';
 
 export default function Message(props) {
@@ -25,7 +24,7 @@ export default function Message(props) {
                         hour: '2-digit',
                         minute: '2-digit',
                         second: '2-digit'
-                    }).format(props.createAt)}
+                    }).format(new Date(props.createdAt))}
                    </span>
         </div>
     );
