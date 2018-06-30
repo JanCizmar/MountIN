@@ -20,6 +20,7 @@ export function joinToggleConfirmed(id, state) {
     }
 }
 
+
 export function closeModal() {
     return {
         type: 'TOUR_JOIN_CLOSE_MODAL',

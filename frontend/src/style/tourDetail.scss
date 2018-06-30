@@ -1,9 +1,9 @@
 $borderBlue: #6d96b9;
 $bodyblack: #333333;
 .tour-detail{
-  font-size: 18px;
+  font-size: 16px;
   .tour-name{
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
     text-transform: uppercase;
     color:$borderBlue;
@@ -53,18 +53,19 @@ $bodyblack: #333333;
     margin-top: 20px;
     height:500px;
   }
-  .join-button {
+  .join-button,.edit-button,.delete-button {
    /* display: flex;
     justify-content: center;
     margin: auto;*/
     float: right;
-    width: 30%;
+    width: 25%;
     border-radius: 0;
     color: $white;
     border: 3px solid $borderBlue;
     background: $borderBlue;
+    font-size: 16px;
+    margin: 7px;
     margin-top: 35px;
-    font-size: 20px;
   }
   .btn-default:focus, .btn-default:hover {
     border: 3px solid $borderBlue;
