@@ -7,6 +7,7 @@ import {Map} from './../Map';
 import {Button, Col, Row} from "react-bootstrap";
 import Sticky from 'react-sticky-el';
 import MessageBoard from "../MessageBoard/MessageBoard";
+import ImageUploadService from "../../services/ImageUploadService";
 
 export const TourDetailPage = props => {
     return (
@@ -17,7 +18,8 @@ export const TourDetailPage = props => {
                             {props.name} </div>
                         <Col xs={12} md={6} lg={6}>
                            <div className="tour">
-                               {props.image && <img className="tour-image" src={props.image.thumbnail}/>}
+                               {props.image &&
+                               <img className="tour-image" src={ImageUploadService.getImageURL(props.image.large)}/>}
                             </div>
                         </Col>
                         <Col xs={12} md={6} lg={6}>

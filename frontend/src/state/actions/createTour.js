@@ -1,4 +1,5 @@
 import TourService from "../../services/TourService";
+import UserService from "../../services/UserService";
 import LocationService from "../../services/LocationService";
 
 export function changeFilters(data) {
@@ -7,6 +8,14 @@ export function changeFilters(data) {
         payload: data
     }
 }
+
+export function isProfessional() {
+    return {
+        type: 'USER_PROFESSIONAL',
+        payload: UserService.getUserDetails(UserService.getCurrentUser().id)
+    }
+}
+
 
 export function createTours(data = {}) {
     return {
@@ -20,5 +29,11 @@ export function getClientLocation() {
     return {
         type: 'GET_CLIENT_LOCATION',
         payload: LocationService.getLocation()
+    }
+}
+
+export function restoreInitialState() {
+    return {
+        type: 'RESTORE_INITIAL_STATE'
     }
 }

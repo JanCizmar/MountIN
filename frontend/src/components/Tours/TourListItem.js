@@ -4,6 +4,7 @@ import React from 'react';
 import {Col} from "react-bootstrap";
 import Rating from "../Rating";
 import {withRouter} from 'react-router-dom';
+import ImageUploadService from "../../services/ImageUploadService";
 
 function TourListItem(props) {
     return (
@@ -13,7 +14,7 @@ function TourListItem(props) {
             <div className="tour-list-item">
                 {props.image &&
                 <div className="image" style={{
-                    backgroundImage: "url(" + props.image.thumbnail + ")",
+                    backgroundImage: "url(" + ImageUploadService.getImageURL(props.image.thumbnail) + ")",
                 }}>
                 </div>}
                 {!props.image &&

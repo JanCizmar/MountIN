@@ -1,6 +1,6 @@
 import ImageUploadService from "../../services/ImageUploadService";
 
-export default function reducer(state = {
+const defaultState = {
     toursInput: {
         name: "",
         description: "",
@@ -22,8 +22,11 @@ export default function reducer(state = {
     loading: false,
     redirect: undefined,
     error: '',
+    professional: false,
     mapCenter: [48.150040, 11.545055]
-}, action) {
+};
+
+export default function reducer(state = defaultState, action) {
     switch (action.type) {
         case ('CREATE_TOURS_PENDING'): {
             return {...state, loading: true}
@@ -64,6 +67,14 @@ export default function reducer(state = {
         }
         case ('GET_CLIENT_LOCATION_FULFILLED'): {
             return {...state, mapCenter: [action.payload.location.lat, action.payload.location.lng]};
+        }
+        case ('USER_PROFESSIONAL_FULFILLED'):  {
+            return {
+                ...state,
+                professional: action.payload.professional}
+        }
+        case ('RESTORE_INITIAL_STATE'): {
+            return defaultState;
         }
     }
 

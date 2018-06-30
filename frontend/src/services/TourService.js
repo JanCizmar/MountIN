@@ -23,7 +23,8 @@ export default class TourService {
             "type": parseInt(tour.activityType),
             "name": tour.name,
             "cost": tour.cost,
-            "route": tour.route
+            "route": tour.route,
+            "image": tour.image
         };
         console.log(inputs);
         return new Promise((resolve, reject) => {
