@@ -23,16 +23,15 @@ export function sendMessage(socket, message) {
 export function fetchMessageHistory(tourId, timeout) {
     return (dispatch) => {
         dispatch(fetchHistoryRequest());
-        return MessageService.getMessageHistory(tourId, timeout).
-            then((resp) => {
-                console.log('Message from server', resp);
-                if (resp.hasOwnProperty('error')) {
-                    dispatch(fetchHistoryError())
-                }
-                else {
-                    dispatch(fetchHistorySuccess(resp))
-                }
-            })
+        return MessageService.getMessageHistory(tourId, timeout).then((resp) => {
+            console.log('Message from server', resp);
+            if (resp.hasOwnProperty('error')) {
+                dispatch(fetchHistoryError())
+            }
+            else {
+                dispatch(fetchHistorySuccess(resp))
+            }
+        })
             .catch(error => {
                 console.log(error);
                 dispatch(fetchHistoryError())
