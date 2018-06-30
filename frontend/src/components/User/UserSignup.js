@@ -7,6 +7,7 @@ import Page from '../Page';
 import {Button, Checkbox, Col, ControlLabel, FormControl, FormGroup, Row} from "react-bootstrap";
 import {FileUpload} from "../FileUpload";
 import * as fileUploadActions from "../../state/actions/fileUpload";
+import connect from "react-redux/es/connect/connect";
 
 
 class UserSignup extends React.Component {
@@ -22,7 +23,6 @@ class UserSignup extends React.Component {
             surname: '',
             phone: '',
             isInstructor: false,
-
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,25 +36,15 @@ class UserSignup extends React.Component {
         });
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-
-        let user = {
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email,
-            firstName: this.state.firstName,
-            surname: this.state.surname,
-            phone: this.state.phone,
-            professional: this.state.isInstructor
-        };
-
-        this.props.onSubmit(user);
-    }
+    onFileUploadSubmit = (props) => {
+        console.log(this.props.state.certificateUpload.file);
+        this.props.dispatch(fileUploadActions.uploadFile(this.props.state.certificateUpload.file));
+    };
 
     getValidState(inputName) {
         return this.getFormValidStates()[inputName];
     }
+
     //Form checking: TODO when time - change feedback: https://react-bootstrap.github.io/components/forms/
     getFormValidStates() {
         return {
@@ -81,10 +71,22 @@ class UserSignup extends React.Component {
         this.setState({...this.state, isInstructor: !this.state.isInstructor});
     };
 
-    onFileUploadSubmit = (props) => {
-        props.dispatch(fileUploadActions.uploadFile(props.state.fileUpload.file));
-    };
+    handleSubmit(event) {
+        event.preventDefault();
 
+        let user = {
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email,
+            firstName: this.state.firstName,
+            surname: this.state.surname,
+            phone: this.state.phone,
+            professional: this.state.isInstructor,
+            certificate: this.props.state.certificateUpload.uploadedUrl
+        };
+
+        this.props.onSubmit(user);
+    }
 
     render() {
         return (
@@ -205,9 +207,10 @@ class UserSignup extends React.Component {
 
                                 {this.state.isInstructor &&
                                 <div>
-
-                                    <FileUpload {...this.props.state.fileUpload} onSubmit={this.onFileUploadSubmit}
-                                                onChange={(val) => this.props.dispatch(fileUploadActions.changeFile(val))}/>
+                                    {this.props.state.certificateUpload.uploadedUrl === '' &&
+                                    <FileUpload {...this.props.state.certificateUpload}
+                                                onSubmit={this.onFileUploadSubmit}
+                                                onChange={(val) => this.props.dispatch(fileUploadActions.changeFile(val))}/> || 'Uploaded'}
                                 </div>}
                             </Col>
 
@@ -227,4 +230,8 @@ class UserSignup extends React.Component {
     }
 }
 
-export default UserSignup;
+export default connect(store => {
+    return {
+        state: store.userSignUp
+    }
+})(UserSignup);
