@@ -214,20 +214,92 @@ const getParticipants = (req, res) => {
 };
 
 
-const join = (req, res) => {
-    console.log(req.userId);
-    TourModel.findById(req.params.id).exec().then(tour => {
-        tour.participants.push(req.params.id);
+const join = async (req, res) => {
+    //need value from body
+    if (req.body.joined === undefined) {
+        res.status(400).json({
+            error: 'Bad request',
+            message: "No state provided"
+        });
+        return;
+    }
+    try {
+        //getting tour from db
+        let tour = await TourModel.findById(req.params.id).exec();
+        //handle if there is no tour we want
+        if (tour === null) {
+            res.status(400).json({
+                error: 'Bad request',
+                message: "Tour not found"
+            });
+            return;
+        }
+        //convert participant array of object to array of strings
+        let participants = tour.participants.map(id => id.toString());
+        //find user in db
+        let user = await UserModel.findById(req.userId).exec();
+        //handle if there is no user like that
+        if (user === null) {
+            res.status(400).json({
+                error: 'Bad request',
+                message: "User not found"
+            });
+            return;
+        }
+        //convert tours to array of strings
+        let tours = user.toursAttending.map(id => id.toString());
+
+        if (req.body.joined) {
+            //if there already is the participant, we should not add him again
+            if (!participants.includes(req.userId)) {
+                participants.push(req.userId);
+            }
+            //same thing with tours array in user object
+            if (!tours.includes(req.params.id)) {
+                tours.push(req.params.id);
+            }
+        } else {
+            //removing user and tour or both objects
+            if (participants.includes(req.userId)) {
+                let idx = participants.indexOf(req.userId);
+                participants.splice(idx, 1);
+            }
+            if (tours.includes(req.params.id)) {
+                let idx = tours.indexOf(req.params.id);
+                tours.splice(idx, 1);
+            }
+        }
+        //seting the arrays to parent objects
+        tour.participants = participants;
+        user.toursAttending = tours;
+
+        //saving both to db
         tour.save((err) => {
             if (err)
                 res.status(500).json({
                     error: 'Internal server error',
                     message: err
                 });
-            else
-                res.status(200).json(tour);
+            else {
+                user.save(async (err) => {
+                    if (err)
+                        res.status(500).json({
+                            error: 'Internal server error',
+                            message: err
+                        });
+                    else {
+                        let tour = await TourModel.findById(req.params.id).populate('participants').exec();
+                        res.status(200).json(tour);
+                    }
+                });
+            }
         });
-    });
+    } catch (err) {
+        res.status(500).json({
+            error: 'Internal server error',
+            message: err
+        });
+    }
 };
 
 module.exports = {

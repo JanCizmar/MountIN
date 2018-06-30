@@ -19,8 +19,8 @@ class TourDetailPageView extends React.Component {
         this.props.dispatch(actions.joinTourToggle());
     }
 
-    onJoinConfirmed() {
-        this.props.dispatch(actions.joinConfirmed(this.props.match.params.id));
+    onJoinToggleConfirmed() {
+        this.props.dispatch(actions.joinToggleConfirmed(this.props.match.params.id, !this.props.state.joined));
     }
 
     onCloseModal() {
@@ -30,8 +30,11 @@ class TourDetailPageView extends React.Component {
     render() {
         return (
             !this.props.state.data || this.props.state.loading && <Loading/> ||
-            <TourDetailPage {...this.props.state.data} onJoinTourToggle={this.onJoinTourToggle.bind(this)}
-                            userId={UserService.getCurrentUser() && UserService.getCurrentUser().id}>
+            <TourDetailPage {...this.props.state.data}
+                            onJoinTourToggle={this.onJoinTourToggle.bind(this)}
+                            userId={UserService.getCurrentUser() && UserService.getCurrentUser().id}
+                            joined={this.props.state.joined}
+            >
                 <div className="static-modal">
                     <Modal
                         onHide={this.onCloseModal.bind(this)}
@@ -47,7 +50,25 @@ class TourDetailPageView extends React.Component {
                             place.
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.onJoinConfirmed.bind(this)}>Join</Button>
+                            <Button onClick={this.onJoinToggleConfirmed.bind(this)}>Join</Button>
+                            <Button onClick={this.onCloseModal.bind(this)}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
+
+                    <Modal
+                        onHide={this.onCloseModal.bind(this)}
+                        show={this.props.state.showLeaveDialog}
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>
+                                Leave tour
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Do you really want to leave this tour? :(
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.onJoinToggleConfirmed.bind(this)}>Leave</Button>
                             <Button onClick={this.onCloseModal.bind(this)}>Close</Button>
                         </Modal.Footer>
                     </Modal>

@@ -13,10 +13,10 @@ export function joinTourToggle() {
     }
 }
 
-export function joinConfirmed(id) {
+export function joinToggleConfirmed(id, state) {
     return {
-        type: 'TOUR_JOIN_CONFIRMED',
-        payload: TourService.joinTourToggle(id)
+        type: 'TOUR_JOIN_TOGGLE_CONFIRMED',
+        payload: TourService.joinTourToggle(id, state)
     }
 }
 

@@ -3,7 +3,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom'
 
-import UserService from '../services/UserService';
+import UserService from '../../services/UserService';
 import {MenuItem, NavDropdown, NavItem} from "react-bootstrap";
 
 

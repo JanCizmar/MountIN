@@ -59,9 +59,9 @@ export default class TourService {
         });
     }
 
-    static joinTourToggle(tour_id) {
+    static joinTourToggle(tour_id, state) {
         return new Promise((resolve, reject) => {
-            return HttpService.put(`${TourService.baseURL()}/join/` + tour_id, {}, resolve, reject)
+            return HttpService.put(`${TourService.baseURL()}/join/` + tour_id, {joined: state}, resolve, reject)
         });
     }
 

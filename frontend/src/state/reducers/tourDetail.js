@@ -13,7 +13,8 @@ export default function reducer(state = {
             return {...state, loading: true};
         }
         case ('TOUR_DETAIL_FETCH_DATA_FULFILLED'): {
-            let joined = !!action.payload.participants.find(participant => participant === UserService.getCurrentUser().id);
+
+            let joined = !!action.payload.participants.find(participant => participant._id === UserService.getCurrentUser().id);
             return {...state, loading: false, data: action.payload, joined};
         }
         case ('TOUR_DETAIL_FETCH_DATA_REJECTED'): {
@@ -25,12 +26,11 @@ export default function reducer(state = {
         case ('TOUR_JOIN_CLOSE_MODAL'): {
             return {...state, showJoinDialog: false, showLeaveDialog: false};
         }
-        case ('TOUR_JOIN_CONFIRMED_FULFILLED'): {
-            console.log(action.payload);
-            return {...state, showJoinDialog: false, showLeaveDialog: false};
+        case ('TOUR_JOIN_TOGGLE_CONFIRMED_FULFILLED'): {
+            let joined = !!action.payload.participants.find(participant => participant._id === UserService.getCurrentUser().id);
+            return {...state, showJoinDialog: false, showLeaveDialog: false, data: action.payload, joined};
         }
-
-        case ('TOUR_JOIN_CONFIRMED_REJECTED'): {
+        case ('TOUR_JOIN_TOGGLE_CONFIRMED_REJECTED'): {
             return {...state, error: action.payload};
         }
 
