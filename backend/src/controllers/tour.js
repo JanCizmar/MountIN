@@ -106,10 +106,25 @@ const list = (req, res) => {
 };
 
 const search = (req, res) => {
-
-    //res.send(JSON.stringify(req.query));
     let query = {$and: []};
+    let guideTypesArray = [];
 
+    // Filter for GuideTypes: Map them to boolean field user.professional
+    if (req.query.guideTypes !== undefined) {
+        let rawGuideTypes = req.query.guideTypes.split(',');
+        rawGuideTypes.map(type => {
+            if (type === '1') {
+                guideTypesArray.push(true);
+            } else if (type === '2'){
+                guideTypesArray.push(false);
+            }
+        })
+    } else {
+        guideTypesArray = [true, false];
+    }
+    console.log('GuideTypes', guideTypesArray);
+
+    // Filter for Difficulty
     if (req.query.difficulties !== undefined) {
         query.$and.push({
             $or: req.query.difficulties.split(',').map((diff) => {
@@ -118,12 +133,14 @@ const search = (req, res) => {
         });
     }
 
+    // Filter for Date from
     if (req.query.dateAfter !== undefined) {
         query.date = {
             $gte: req.query.dateAfter,
         }
     }
 
+    // Filter for Date to
     if (req.query.dateBefore !== undefined) {
         if (query.date === undefined) {
             query.date = {};
@@ -131,7 +148,7 @@ const search = (req, res) => {
         query.date.$lte = req.query.dateBefore;
     }
 
-
+    // Filter for Activity Types
     if (req.query.activityTypes !== undefined) {
         query.$and.push({
             $or: req.query.activityTypes.split(',').map((type) => {
@@ -140,22 +157,7 @@ const search = (req, res) => {
         });
     }
 
-    if (req.query.guideTypes !== undefined) {
-        let arrayGuideTypes = req.query.guideTypes.split(',');
-
-        if (arrayGuideTypes.length === 1) {
-            query.$and.push({
-                    $or: [
-                        {
-                            'creator.professional': arrayGuideTypes[0] === '1'
-                        }
-                    ]
-                }
-            )
-        }
-    }
-
-
+    // Location filter
     if (req.query.lat !== undefined && req.query.lng !== undefined) {
         query.route = {
             $nearSphere: {
@@ -170,6 +172,7 @@ const search = (req, res) => {
         }
     }
 
+    // Price filter
     if (req.query.price !== undefined && req.query.price.length > 2) {
         let arrayPrices = req.query.price.split(',');
         query.cost = {
@@ -178,27 +181,34 @@ const search = (req, res) => {
         }
     }
 
+    // Delete $and query if no filter was applied
     if (query.$and.length === 0) {
         delete query.$and;
     }
 
-    //console.log(query.route.$nearSphere);
-
-    TourModel.find(query).skip(parseInt(req.query.skip)).limit(28).exec()
-        .then(tours => res.status(200).json(tours.map(tour => {
-            //we dont need the type of GEO object, so the tour is just coordinates
-            if (tour.route && tour.route.coordinates) {
-                //it is not gonna change the route without this line
-                tour = JSON.parse(JSON.stringify(tour));
-                //swaping the order of coordinates because of mongoDB
-                tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
-            }
-            return tour;
-        })))
-        .catch(error => res.status(500).json({
-            error: 'Internal server error',
-            message: error.message
-        }));
+    // Custom join: Get all users with a specific professional field value and then use the _id to filter the tours
+    UserModel.find().where('professional').in(guideTypesArray).select('_id').exec()
+        .then(creators => {
+            console.log('Creators', creators);
+            TourModel.find(query).where('creator').in(creators)
+                .skip(parseInt(req.query.skip)).limit(28).exec()
+                .then(tours => {
+                    console.log(tours);
+                    res.status(200).json(tours.map(tour => {
+                        //we dont need the type of GEO object, so the tour is just coordinates
+                        if (tour.route && tour.route.coordinates) {
+                            //it is not gonna change the route without this line
+                            tour = JSON.parse(JSON.stringify(tour));
+                            //swaping the order of coordinates because of mongoDB
+                            tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
+                        }
+                        return tour;
+                    }))})
+                .catch(error => res.status(500).json({
+                    error: 'Internal server error',
+                    message: error.message
+                }));
+        })
 };
 
 const getParticipants = (req, res) => {
