@@ -8,7 +8,7 @@ import {TourPrice} from "./CreateTourInputs/TourPrice";
 import {Map} from './../Map';
 import {compose, withHandlers, lifecycle} from "recompose";
 import PropTypes from 'prop-types';
-import * as actions from "../../state/actions/createTour";
+import * as actions from "../../state/actions/tourEdit";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import Page from '../Page';
@@ -17,7 +17,6 @@ import ImageUpload from "../ImageUpload";
 
 
 export const TourEdit = compose(
-
     withHandlers(
         {
             onChange: props => property => val => {
@@ -32,19 +31,22 @@ export const TourEdit = compose(
                 props.dispatch(imageUploadActions.uploadImage(props.state.imageUpload.file));
             }
         }
-    ))(props => {
+    ),
+    lifecycle({
+        componentDidMount() {
+            //console.log(this.props.match.params.id)
+            this.props.dispatch(actions.fetchTour(this.props.match.params.id))
+            console.log(this.props)
+            //actions.fetchTour(this.props.match.id).then(tour => {
+            //    this.setState({ tour });
+            //})
+        }
+    })
+    )(props => {
     const getValidState = (inputName)=>
     {
         return getFormValidStates()[inputName];
     };
-
-    const TourData = lifecycle({
-        componentDidMount() {
-            fetchPosts().then(posts => {
-                this.setState({ posts });
-            })
-        }
-    })(PostsList);
 
     //Form checking: TODO when time - change feedback: https://react-bootstrap.github.io/components/forms/
     const getFormValidStates = () =>
@@ -145,6 +147,7 @@ export const TourEdit = compose(
                                        value={props.state.toursInput.cost = 0}/>}
                         </Col>
                     </Row>
+                    {console.log(props.state.toursInput.route)}
                     <Row>
                         <Col sm={12} md={4} lg={4}>
                             <div className="upload-head">Upload an Image for the Tour</div>
@@ -153,8 +156,9 @@ export const TourEdit = compose(
                         </Col>
                         <Col sm={12} md={8} lg={8}>
                             <div className="route-head">Specify the Route for the Tour</div>
-                            <Map waypoints={props.state.toursInput.route} draggable={true}
-                                 onDirectionsChanged={props.onChange('route')}/>
+                            <Map waypoints={props.state.toursInput.route} draggable={false}
+                                 //onDirectionsChanged={props.onChange('route')}/
+                            />
                         </Col>
                     </Row>
 
@@ -167,7 +171,7 @@ export const TourEdit = compose(
             </form>
         </Page>)
 });
-CreateTour.propTypes = {
+TourEdit.propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -183,7 +187,7 @@ CreateTour.propTypes = {
 
 export default connect(store => {
     return {
-        state: store.createTour
+        state: store.tourEdit
     }
 })(withRouter(TourEdit));
 
