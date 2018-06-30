@@ -22,6 +22,7 @@ export default function reducer(state = {
     loading: false,
     redirect: undefined,
     error: '',
+    professional: false,
     mapCenter: [48.150040, 11.545055]
 }, action) {
     switch (action.type) {
@@ -64,6 +65,11 @@ export default function reducer(state = {
         }
         case ('GET_CLIENT_LOCATION_FULFILLED'): {
             return {...state, mapCenter: [action.payload.location.lat, action.payload.location.lng]};
+        }
+        case ('USER_PROFESSIONAL_FULFILLED'):  {
+            return {
+                ...state,
+                professional: action.payload.professional}
         }
     }
 
