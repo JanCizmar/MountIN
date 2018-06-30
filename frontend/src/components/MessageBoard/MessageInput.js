@@ -1,9 +1,9 @@
 "use strict";
 
 import React from 'react';
-import {FormGroup, FormControl, Button} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import 'emoji-mart/css/emoji-mart.css';
-import {Picker, Emoji} from 'emoji-mart';
+import {Emoji, Picker} from 'emoji-mart';
 import ContentEditable from 'react-contenteditable';
 
 
