@@ -74,7 +74,7 @@ export default function reducer(state = defaultState, action) {
                 professional: action.payload.professional}
         }
         case ('RESTORE_INITIAL_STATE'): {
-            return defaultState;
+            return {...defaultState, toursInput: {...defaultState.toursInput, route: []}};
         }
     }
 
