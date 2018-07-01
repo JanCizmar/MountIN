@@ -12,6 +12,7 @@ import UserDetailView from "./views/UserDetailView";
 import ExampleView from "./views/ExampleView";
 import TourDetailPageView from "./views/TourDetailView";
 import {EditUserView} from "./views/EditUserView";
+import {EditTourView} from "./views/EditTourView";
 
 export default class App extends React.Component {
     routes = [
@@ -24,6 +25,7 @@ export default class App extends React.Component {
         {component: UserDetailView, path: '/profile/:id'},
         {component: ExampleView, path: '/example'},
         {component: TourDetailPageView, path: '/tours/detail/:id'},
+        {component: EditTourView, path: '/tours/edit/:id'},
         {component: LandingPageView, path: '/'}
     ];
 

@@ -9,8 +9,9 @@ router.put('/join/:id', middlewares.checkAuthentication, TourController.join); /
 router.post('/', middlewares.checkAuthentication, TourController.create); // Create a new tour
 router.get('/search', TourController.search);    // Search for a tour
 router.get('/:id', TourController.read); // Read a tour by Id
-router.put('/:id', TourController.update); // Update a tour by Id
-router.delete('/:id', TourController.remove); // Delete a tour by Id
+router.post('/update', TourController.update);
+//router.put('/:id', TourController.update); // Update a tour by Id todo: is put better suited? (Martin)
+//router.delete('/:id', TourController.remove); // Delete a tour by Id
 router.get('/:id/participants', TourController.getParticipants); // Get tour participants
 
 
