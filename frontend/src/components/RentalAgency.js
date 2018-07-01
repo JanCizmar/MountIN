@@ -1,7 +1,6 @@
 "use strict";
 
 import React from 'react';
-import {withRouter} from 'react-router-dom';
 
 import {connect} from "react-redux";
 import * as actions from "../state/actions/rentalAgency";
@@ -14,7 +13,7 @@ class RentalAgency extends React.Component {
         this.props.dispatch(actions.fetchRentalAgencies());
     }
     render() {
-        console.log(this.props.state.data)
+        console.log(this.props.state.data);
         let elements = this.props.state.data.map(agency => { return (
         <div className="agency" key={agency._id}>
             <div className="name">{agency.name}</div>
@@ -22,7 +21,7 @@ class RentalAgency extends React.Component {
             <div className="phone">Phone:&nbsp;{agency.contact.phone}</div>
             <div className="email">Email:&nbsp;{agency.contact.email}</div>
 
-            <div className="types">Equipments: {agency.equipmentTypes.map(eq => <span>{eq}&nbsp;</span>)}</div>
+            <div className="types">Equipments: {agency.equipmentTypes.map(eq => <span key={eq}>{eq}&nbsp;</span>)}</div>
         </div>)
         });
         return (

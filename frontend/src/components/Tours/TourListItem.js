@@ -5,6 +5,8 @@ import {Col} from "react-bootstrap";
 import Rating from "../Rating";
 import {withRouter} from 'react-router-dom';
 import ImageUploadService from "../../services/ImageUploadService";
+import {ActivityType} from "../../constantLists/ActivityType";
+import {Difficulities} from "../../constantLists/Difficulities";
 
 function TourListItem(props) {
     return (
@@ -33,27 +35,27 @@ function TourListItem(props) {
                 <div className="price">{props.cost > 0 ? props.cost + " €" : "Free"}</div>
 
                 <div className="type">
-                    {props.type === 1 &&
+                    {props.type === ActivityType.OTHER &&
                     <div className="other">Other</div>
                     }
-                    {props.type ===2 &&
+                    {props.type === ActivityType.HIKING &&
                     <div className="hiking">Hiking</div>
                     }
-                    {props.type ===3 &&
+                    {props.type === ActivityType.SKIING &&
                     <div className="skiing">Skiing</div>
                     }
-                    {props.type === 4 &&
+                    {props.type === ActivityType.BIKING &&
                     <div className="biking">Biking</div>
                     }
                 </div>
                 <div className="difficulty">
-                    {props.difficulty === 1 &&
+                    {props.difficulty === Difficulities.NOVICE &&
                     <div className="easy">Easy</div>
                     }
-                    {props.difficulty === 2 &&
+                    {props.difficulty === Difficulities.INTERMEDIATE &&
                     <div className="med">Intermediate</div>
                     }
-                    {props.difficulty ===3 &&
+                    {props.difficulty === Difficulities.DIFFICULT &&
                     <div className="hard">Expert</div>
                     }
                 </div>

@@ -5,7 +5,7 @@ import {TourActivityType} from "./CreateTourInputs/TourActivityType";
 import {TourDifficulty} from "./CreateTourInputs/TourDifficulty";
 import {TourPrice} from "./CreateTourInputs/TourPrice";
 import {Map} from './../Map';
-import {compose, withHandlers, lifecycle} from "recompose";
+import {compose, lifecycle, withHandlers} from "recompose";
 import PropTypes from 'prop-types';
 import * as actions from "../../state/actions/tourEdit";
 import {withRouter} from "react-router-dom";
@@ -152,7 +152,8 @@ export const TourEdit = compose(
                     <Row>
                         <Col sm={12} md={4} lg={4}>
                             {props.state.toursInput.image && props.state.imageUpload.uploadedUrl === '' &&
-                            <img src={ImageUploadService.getImageURL(props.state.toursInput.image.large)} />}
+                            <img style={{width: '100%'}}
+                                 src={ImageUploadService.getImageURL(props.state.toursInput.image.large)}/>}
                             <div className="upload-head">Change the image for the Tour</div>
                             <ImageUpload {...props.state.imageUpload} onSubmit={props.onFileUploadSubmit}
                                          onChange={(val) => props.dispatch(imageUploadActions.changeImage(val))}/>
