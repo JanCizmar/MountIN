@@ -8,8 +8,9 @@ import {Button, Col, Row} from "react-bootstrap";
 import Sticky from 'react-sticky-el';
 import MessageBoard from "../MessageBoard/MessageBoard";
 import ImageUploadService from "../../services/ImageUploadService";
+import {withRouter} from 'react-router-dom';
 
-export const TourDetailPage = props => {
+function TourDetailPage (props)  {
     let messageBoardElements;
     let participantsId = props.participants.map(participant => participant._id);
 
@@ -98,8 +99,17 @@ export const TourDetailPage = props => {
                 <Col xs={12} md={6} lg={6}>
                     <Sticky mode="top">
                         <Map waypoints={props.route} draggable={false} center={props.mapCenter}/>
+                        {props.userId!==props.creator._id &&
                         <Button className="join-button"
-                                onClick={props.onJoinTourToggle}>{!props.joined ? 'JOIN' : 'LEAVE TOUR'}</Button>
+                                onClick={props.onJoinTourToggle}>{!props.joined ? 'JOIN' : 'LEAVE TOUR'}</Button>}
+                        {props.userId===props.creator._id &&
+                        <Button className="delete-button"
+                               onClick={props.onDeleteTourToggle} >DELETE TOUR</Button>
+                        }
+                        {props.userId===props.creator._id &&
+                        <Button className="edit-button"
+                                onClick={() => props.history.push('/tours/edit/'+props._id)}>EDIT TOUR</Button>
+                        }
                     </Sticky>
                 </Col>
             </Row>
@@ -109,5 +119,7 @@ export const TourDetailPage = props => {
 
 TourDetailPage.propTypes = {
     userId: propTypes.string,
-    onJoinTourToggle: propTypes.func.isRequired
+    onJoinTourToggle: propTypes.func.isRequired,
+    onDeleteTourToggle: propTypes.func.isRequired
 };
+export default withRouter(TourDetailPage);

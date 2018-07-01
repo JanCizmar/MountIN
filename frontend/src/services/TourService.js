@@ -65,5 +65,10 @@ export default class TourService {
             return HttpService.put(`${TourService.baseURL()}/join/` + tour_id, {joined: state}, resolve, reject)
         });
     }
+    static deleteTour(tour_id) {
+        return new Promise((resolve, reject) => {
+            return HttpService.remove(`${TourService.baseURL()}/` + tour_id, resolve, reject)
+        });
+    }
 
 }
