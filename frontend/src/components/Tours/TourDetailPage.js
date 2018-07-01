@@ -9,6 +9,8 @@ import Sticky from 'react-sticky-el';
 import MessageBoard from "../MessageBoard/MessageBoard";
 import ImageUploadService from "../../services/ImageUploadService";
 import {withRouter} from 'react-router-dom';
+import {ActivityType} from "../../constantLists/ActivityType";
+import {Difficulities} from "../../constantLists/Difficulities";
 
 function TourDetailPage (props)  {
     let messageBoardElements;
@@ -49,28 +51,28 @@ function TourDetailPage (props)  {
                                     second: '2-digit'
                                 }).format(new Date(props.date))} </div>
                             <div className="difficulty head detail-head">
-                                Level ofDifficulty: {props.difficulty === 0 &&
+                                Level ofDifficulty: {props.difficulty === Difficulities.NOVICE &&
                                 <div className="easy">EASY</div>
                                 }
-                                {props.difficulty === 1 &&
+                                {props.difficulty === Difficulities.INTERMEDIATE &&
                                 <div className="med">INTERMEDIATE</div>
                                 }
-                                {props.difficulty ===2 &&
+                                {props.difficulty === Difficulities.DIFFICULT &&
                                 <div className="hard">EXPERT</div>
                                 }
                             </div>
                             <div className="head detail-head">
                                 Tour Type:
-                                {props.type === 0 &&
+                                {props.type === ActivityType.OTHER &&
                                 <div className="other">OTHER</div>
                                 }
-                                {props.type ===1 &&
+                                {props.type === ActivityType.HIKING &&
                                 <div className="hiking">HIKING</div>
                                 }
-                                {props.type ===2 &&
+                                {props.type === ActivityType.SKIING &&
                                 <div className="skiing">SKIING</div>
                                 }
-                                {props.type === 3 &&
+                                {props.type === ActivityType.BIKING &&
                                 <div className="biking">BIKING</div>
                                 }
                             </div>

@@ -44,7 +44,7 @@ export default function reducer(state = defaultState, action) {
         case ('UPDATE_TOUR_REJECTED'): {
             return {...state, loading: false, error: action.payload}
         }
-        case ('UPDATE_TOUR_INPUTS_CHANGED'):{
+        case ('EDIT_TOUR_INPUTS_CHANGED'):{
             return {...state, toursInput: action.payload}
         }
         case ('IMAGE_UPLOAD_CHANGED'): {
