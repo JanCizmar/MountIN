@@ -1,26 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<UserLogin /> User login renders correctly 1`] = `
-<Page>
+<Page
+  className="login-page"
+>
   <Row
     bsClass="row"
     componentClass="div"
   >
     <Col
       bsClass="col"
+      className="login-container"
       componentClass="div"
+      lg={4}
+      lgOffset={4}
       md={4}
       mdOffset={4}
       sm={6}
       smOffset={3}
+      xs={10}
+      xsOffset={1}
     >
+      <div
+        className="login-heading"
+      >
+        LOGIN
+      </div>
       <form
         onSubmit={[Function]}
       >
         <FormGroup
           bsClass="form-group"
           controlId="username"
-          validationState="error"
+          validationState={null}
         >
           <ControlLabel
             bsClass="control-label"
@@ -41,13 +53,13 @@ exports[`<UserLogin /> User login renders correctly 1`] = `
         <FormGroup
           bsClass="form-group"
           controlId="password"
-          validationState="error"
+          validationState={null}
         >
           <ControlLabel
             bsClass="control-label"
             srOnly={false}
           >
-            Passowrd
+            Password
           </ControlLabel>
           <FormControl
             bsClass="form-control"
@@ -64,49 +76,69 @@ exports[`<UserLogin /> User login renders correctly 1`] = `
           block={false}
           bsClass="btn"
           bsStyle="default"
+          className="login-button"
           disabled={true}
           id="submit"
           type="submit"
         >
           Login
         </Button>
-        <Link
-          className="md-cell"
-          replace={false}
-          to="/register"
-        >
-          Not registered yet?
-        </Link>
         <styled.div
           className="md-row md-full-width"
         />
       </form>
+      <div
+        className="register-link"
+      >
+        Not registered yet?
+        <br />
+        <Link
+          className=""
+          replace={false}
+          to="/register"
+        >
+            Click Here 
+        </Link>
+         to Register!
+      </div>
     </Col>
   </Row>
 </Page>
 `;
 
 exports[`<UserSignup /> User signup renders correctly 1`] = `
-<Page>
+<Page
+  className="login-page"
+>
   <Row
     bsClass="row"
     componentClass="div"
   >
     <Col
       bsClass="col"
+      className="login-container"
       componentClass="div"
+      lg={4}
+      lgOffset={4}
       md={4}
       mdOffset={4}
       sm={6}
       smOffset={3}
+      xs={10}
+      xsOffset={1}
     >
+      <div
+        className="login-heading"
+      >
+        LOGIN
+      </div>
       <form
         onSubmit={[Function]}
       >
         <FormGroup
           bsClass="form-group"
           controlId="username"
-          validationState="error"
+          validationState={null}
         >
           <ControlLabel
             bsClass="control-label"
@@ -127,13 +159,13 @@ exports[`<UserSignup /> User signup renders correctly 1`] = `
         <FormGroup
           bsClass="form-group"
           controlId="password"
-          validationState="error"
+          validationState={null}
         >
           <ControlLabel
             bsClass="control-label"
             srOnly={false}
           >
-            Passowrd
+            Password
           </ControlLabel>
           <FormControl
             bsClass="form-control"
@@ -150,23 +182,31 @@ exports[`<UserSignup /> User signup renders correctly 1`] = `
           block={false}
           bsClass="btn"
           bsStyle="default"
+          className="login-button"
           disabled={true}
           id="submit"
           type="submit"
         >
           Login
         </Button>
-        <Link
-          className="md-cell"
-          replace={false}
-          to="/register"
-        >
-          Not registered yet?
-        </Link>
         <styled.div
           className="md-row md-full-width"
         />
       </form>
+      <div
+        className="register-link"
+      >
+        Not registered yet?
+        <br />
+        <Link
+          className=""
+          replace={false}
+          to="/register"
+        >
+            Click Here 
+        </Link>
+         to Register!
+      </div>
     </Col>
   </Row>
 </Page>

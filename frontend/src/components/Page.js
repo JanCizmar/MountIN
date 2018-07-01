@@ -3,7 +3,6 @@
 import React from 'react';
 
 import Header from './Header';
-import {Footer} from './Footer';
 import {Grid} from "react-bootstrap";
 
 
@@ -24,7 +23,6 @@ export default class Page extends React.Component {
                 <Grid>
                     {this.props.children}
                 </Grid>
-                <Footer/>
             </section>
         );
     }

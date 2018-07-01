@@ -1,5 +1,5 @@
 $white:#ffffff;
-$grey: rgba(132, 133, 137, 0.53);
+$grey: rgba(132, 133, 137, 0.80);
 
 .customNavbar{
   background-color: $grey;
@@ -27,4 +27,13 @@ $grey: rgba(132, 133, 137, 0.53);
   max-width: 130px;
 }
 
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #f5f5f5;
+}
+.navbar-toggle:hover {
+  background-color: $grey;
+  .navbar-default .navbar-toggle .icon-bar {
+    background-color: #f5f5f5;
+  }
 }

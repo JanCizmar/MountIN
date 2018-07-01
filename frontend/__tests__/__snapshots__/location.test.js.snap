@@ -19,6 +19,7 @@ exports[`renders correctly 1`] = `
       placeholder="Location"
       role="combobox"
       type="text"
+      value=""
     />
     <div
       className={0}

@@ -1,4 +1,10 @@
 .profile-page {
+  div.row {
+    div.row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
   .container {
   margin: 0;
   width: 100%;

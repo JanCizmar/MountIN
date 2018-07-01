@@ -155,12 +155,12 @@ export const CreateTour = compose(
                     </Row>
                     <Row>
                         <Col sm={12} md={4} lg={4}>
-                            <div className="upload-head">Upload an Image for the Tour</div>
+                            <div className="upload-head">Upload an Image for the Tour (Optional)</div>
                             <ImageUpload {...props.state.imageUpload} onSubmit={props.onFileUploadSubmit}
                                          onChange={(val) => props.dispatch(imageUploadActions.changeImage(val))}/>
                         </Col>
                         <Col sm={12} md={8} lg={8}>
-                            <div className="route-head">Specify the Route for the Tour</div>
+                            <div className="route-head">Specify the Route for the Tour (Right Click to Select a Point)</div>
                             <Map waypoints={props.state.toursInput.route} draggable={true}
                                  onDirectionsChanged={props.onChange('route')}
                                  center={props.state.mapCenter}

@@ -3,7 +3,7 @@
 
 const TourModel = require('../models/tour');
 const UserModel = require('../models/user');
-
+const MessageModel = require('../models/message');
 
 const create = (req, res) => {
     if (Object.keys(req.body).length === 0) return res.status(400).json({
@@ -19,15 +19,12 @@ const create = (req, res) => {
         };
     }
 
-    console.log(req.userId);
     req.body.creator = req.userId;
     UserModel.findById(req.body.creator).then(creator => {
         if (creator !== null) {
             TourModel.create(req.body)
                 .then(tour => {
-                    console.log('Tour created', tour);
                     creator.tours.push(tour._id);
-                    console.log('User', creator);
                     creator.save(err => {
                         if (err) {
                             // Attempt a rollback of the tour creation
@@ -97,10 +94,10 @@ const update = (req, res) => {
     // });
 
     if (req.body.route !== undefined && req.body.route.length > 1) {
-       req.body.route = {
-           "type": "MultiPoint",
-           "coordinates": req.body.route.map(point => [point[1], point[0]])
-       };
+        req.body.route = {
+            "type": "MultiPoint",
+            "coordinates": req.body.route.map(point => [point[1], point[0]])
+        };
     }
 
     TourModel.findByIdAndUpdate(req.body._id, req.body, {new: true, runValidators: true}).exec()
@@ -111,17 +108,21 @@ const update = (req, res) => {
         }));
 };
 
-const remove = (req, res) => {
-    TourModel.findByIdAndRemove(req.params.id).exec()
-        .then(() => res.status(200).json({message: `Tour with id${req.params.id} was deleted`}))
-        .catch(error => res.status(500).json({
+const remove = async (req, res) => {
+    try {
+        let tour = await TourModel.findByIdAndRemove(req.params.id).exec();
+        await MessageModel.remove({tourId: tour._id}).exec();
+        res.status(200).json({message: `Tour with id${req.params.id} was deleted`});
+    } catch (error) {
+        res.status(500).json({
             error: 'Internal server error',
             message: error.message
-        }));
+        })
+    }
 };
 
 const list = (req, res) => {
-    TourModel.find({}).exec()
+    TourModel.find.sort({date: 1}).exec()
         .then(tours => {
 
             return res.status(200).json(tours)
@@ -161,9 +162,16 @@ const search = (req, res) => {
     }
 
     // Filter for Date from
-    if (req.query.dateAfter !== undefined) {
+    if (req.query.dateAfter === undefined) {
         query.date = {
-            $gte: req.query.dateAfter,
+            $gte: new Date().setHours(0, 0, 0),
+        }
+    }
+
+    if (req.query.dateAfter !== undefined) {
+        let d = new Date(req.query.dateAfter);
+        query.date = {
+            $gte: d.setHours(0, 0, 0),
         }
     }
 
@@ -172,7 +180,8 @@ const search = (req, res) => {
         if (query.date === undefined) {
             query.date = {};
         }
-        query.date.$lte = req.query.dateBefore;
+        let d = new Date(req.query.dateBefore);
+        query.date.$lte = d.setHours(23, 59, 59);
     }
 
     // Filter for Activity Types
@@ -216,11 +225,10 @@ const search = (req, res) => {
     // Custom join: Get all users with a specific professional field value and then use the _id to filter the tours
     UserModel.find().where('professional').in(guideTypesArray).select('_id').exec()
         .then(creators => {
-            console.log('Creators', creators);
             TourModel.find(query).where('creator').in(creators)
+                .sort({date: 1})
                 .skip(parseInt(req.query.skip)).limit(28).exec()
                 .then(tours => {
-                    console.log(tours);
                     res.status(200).json(tours.map(tour => {
                         //we dont need the type of GEO object, so the tour is just coordinates
                         if (tour.route && tour.route.coordinates) {
@@ -333,6 +341,9 @@ const join = async (req, res) => {
                         tour = JSON.parse(JSON.stringify(tour));
                         tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
                         res.status(200).json(tour);
+                        if (req.body.joined)
+                            sendEmail(tour, user.email);
+
                     }
                 });
             }
@@ -343,6 +354,35 @@ const join = async (req, res) => {
             message: err
         });
     }
+};
+
+const sendEmail = (tour, to) => {
+    let mailer = require("nodemailer");
+
+// Use Smtp Protocol to send Email
+    let smtpTransport = mailer.createTransport({
+        service: "Gmail",
+        host: "smtp.gmail.com",
+        auth: {
+            user: "mountin@chlupac.com",
+            pass: "dlkjfsdlkjfsda876kJSH!2627@"
+        }
+    });
+
+
+    let mail = {
+        from: "MountIN service <mountin@chlupac.com>",
+        to: to,
+        subject: "Joined tour " + tour.name,
+        html: "<b>Congratulations! You just joined the tour. Tour takes place at " + tour.date + ".</b>"
+    };
+
+    smtpTransport.sendMail(mail, function (error) {
+        if (error) {
+            console.log(error);
+        }
+        smtpTransport.close();
+    });
 };
 
 module.exports = {
