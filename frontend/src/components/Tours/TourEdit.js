@@ -152,8 +152,7 @@ export const TourEdit = compose(
                     <Row>
                         <Col sm={12} md={4} lg={4}>
                             {props.state.toursInput.image && props.state.imageUpload.uploadedUrl === '' &&
-                            <img style={{width: '100%'}}
-                                 src={ImageUploadService.getImageURL(props.state.toursInput.image.large)}/>}
+                            <img style={{width: '100%'}} src={ImageUploadService.getImageURL(props.state.toursInput.image.large)} />}
                             <div className="upload-head">Change the image for the Tour</div>
                             <ImageUpload {...props.state.imageUpload} onSubmit={props.onFileUploadSubmit}
                                          onChange={(val) => props.dispatch(imageUploadActions.changeImage(val))}/>

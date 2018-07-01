@@ -16,7 +16,7 @@ function UserDetail(props) {
     });
     return (
         <Page className="profile-page">
-            <Row className="testtt">
+            <Row>
                 <Col className="user-details-column text-center" xs={12} sm={4} md={4} lg={3}>
                     <Col sm={12} md={12} lg={12}>
                         <img className="profile-image" width={164} height={164}
@@ -59,9 +59,9 @@ function UserDetail(props) {
                         <Col className="tour-heading" xs={12} sm={12} md={12} lg={12}>
                             TOURS ATTENDING:
                         </Col>
-                        {toursAttending.length === 0 &&
-                        <div style={{marginLeft: 20, marginBottom: 30}}>You are not attending any tours. &nbsp;
-                            <a onClick={() => props.history.push('/list')}>Search for Tours</a>
+                        { toursAttending.length===0 &&
+                        <div style={{marginLeft:20,marginBottom:30}}>You are not attending any tours. &nbsp;
+                            <a  onClick={() => props.history.push('/list')}>Search for Tours</a>
                         </div>}
                         {toursAttending}
                     </Row>
@@ -69,9 +69,9 @@ function UserDetail(props) {
                         <Col className="tour-heading" xs={12} sm={12} md={12} lg={12}>
                             TOURS CREATED:
                         </Col>
-                        {tours.length === 0 &&
-                        <div style={{marginLeft: 20, marginBottom: 30}}>You have not created any tours. &nbsp;
-                            <a onClick={() => props.history.push('/createTour')}>Create a Tour</a>
+                        { tours.length===0 &&
+                        <div style={{marginLeft:20,marginBottom:30}}>You have not created any tours. &nbsp;
+                            <a  onClick={() => props.history.push('/createTour')}>Create a Tour</a>
                         </div>}
                         {tours}
                     </Row>
