@@ -21,7 +21,7 @@ function TourDetailPage (props)  {
                 <div className="head detail-head">
                     MESSAGE BOARD:
                 </div>
-            <MessageBoard userId={props.userId} tourId={props._id} username={props.username}/>
+                <MessageBoard userId={props.userId} tourId={props._id} username={props.username}/>
             </Col>
     }
 
@@ -75,7 +75,7 @@ function TourDetailPage (props)  {
                                 }
                             </div>
                             <div className="head detail-head">
-                                Tour Cost:{props.cost === 0 &&
+                                TourCost:{props.cost === 0 &&
                                 <div className="free">FREE</div>
                             } {!props.cost === 0 &&
                                 <div className="cost">{props.cost} €</div>
@@ -86,7 +86,7 @@ function TourDetailPage (props)  {
                                 <div className="creator"> {props.creator && props.creator.username}</div>
                             </div>
                             <div className="head detail-head">
-                                Number of Participants:
+                                Number ofParticipants:
                                 <div className="creator">{props.participants && props.participants.length} </div>
                             </div>
                         </Col>
@@ -115,8 +115,7 @@ function TourDetailPage (props)  {
             </Row>
             {props.children}
         </Page>);
-};
-
+}
 TourDetailPage.propTypes = {
     userId: propTypes.string,
     onJoinTourToggle: propTypes.func.isRequired,
