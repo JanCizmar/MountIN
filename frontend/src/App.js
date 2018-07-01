@@ -13,7 +13,7 @@ import ExampleView from "./views/ExampleView";
 import TourDetailPageView from "./views/TourDetailView";
 import {EditUserView} from "./views/EditUserView";
 import {EditTourView} from "./views/EditTourView";
-import favicon from "./images/favicon.ico"
+import favicon from "./images/logo.ico"
 import Favicon from "react-favicon"
 
 export default class App extends React.Component {
