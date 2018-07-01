@@ -118,7 +118,7 @@ const remove = (req, res) => {
 };
 
 const list = (req, res) => {
-    TourModel.find.sort({date:1}).exec()
+    TourModel.find.sort({date: 1}).exec()
         .then(tours => {
 
             return res.status(200).json(tours)
@@ -160,14 +160,14 @@ const search = (req, res) => {
     // Filter for Date from
     if (req.query.dateAfter === undefined) {
         query.date = {
-            $gte: new Date().setHours(0,0,0),
+            $gte: new Date().setHours(0, 0, 0),
         }
     }
 
     if (req.query.dateAfter !== undefined) {
-        let d=new Date( req.query.dateAfter);
+        let d = new Date(req.query.dateAfter);
         query.date = {
-            $gte: d.setHours(0,0,0),
+            $gte: d.setHours(0, 0, 0),
         }
     }
 
@@ -176,8 +176,8 @@ const search = (req, res) => {
         if (query.date === undefined) {
             query.date = {};
         }
-        let d=new Date( req.query.dateBefore);
-        query.date.$lte = d.setHours(23,59,59);
+        let d = new Date(req.query.dateBefore);
+        query.date.$lte = d.setHours(23, 59, 59);
     }
 
     // Filter for Activity Types
@@ -222,7 +222,7 @@ const search = (req, res) => {
     UserModel.find().where('professional').in(guideTypesArray).select('_id').exec()
         .then(creators => {
             TourModel.find(query).where('creator').in(creators)
-                .sort({date:1})
+                .sort({date: 1})
                 .skip(parseInt(req.query.skip)).limit(28).exec()
                 .then(tours => {
                     res.status(200).json(tours.map(tour => {
@@ -337,8 +337,8 @@ const join = async (req, res) => {
                         tour = JSON.parse(JSON.stringify(tour));
                         tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
                         res.status(200).json(tour);
-
-                        sendEmail(tour, user.email);
+                        if (req.body.joined)
+                            sendEmail(tour, user.email);
 
                     }
                 });
@@ -354,7 +354,6 @@ const join = async (req, res) => {
 
 const sendEmail = (tour, to) => {
     let mailer = require("nodemailer");
-    let xoauth2 = require('xoauth2');
 
 // Use Smtp Protocol to send Email
     let smtpTransport = mailer.createTransport({
@@ -374,7 +373,7 @@ const sendEmail = (tour, to) => {
         html: "<b>Congratulations! You just joined the tour. Tour takes place at " + tour.date + ".</b>"
     };
 
-    smtpTransport.sendMail(mail, function (error, response) {
+    smtpTransport.sendMail(mail, function (error) {
         if (error) {
             console.log(error);
         }

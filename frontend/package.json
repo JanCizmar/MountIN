@@ -1,18 +1,18 @@
 {
-  "name": "sebamaster-movie-frontend",
+  "name": "MountIN-frontend",
   "version": "0.0.1",
-  "description": "SEBAMaster MountiIN Frontend",
+  "description": "MountIn frontend",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/sebischair/sebamaster-movie-frontend"
+    "url": "https://github.com/JanCizmar/MountIN/tree/master/frontend"
   },
-  "author": "sebis",
+  "author": "Team43-2018",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sebischair/sebamaster-movie-frontend/issues"
+    "url": "https://github.com/JanCizmar/MountIN/issues"
   },
-  "homepage": "https://github.com/sebischair/sebamaster-movie-frontend#readme",
+  "homepage": "https://github.com/JanCizmar/MountIN/",
   "engines": {
     "node": ">=4.3"
   },

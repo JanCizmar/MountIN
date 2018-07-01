@@ -1,21 +1,21 @@
 {
-  "name": "sebamaster-movie-backend",
+  "name": "MountIN-backend",
   "version": "1.0.0",
-  "description": "EBAMaster movie backend as a service",
+  "description": "MountIN",
   "main": "index.js",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/sebischair/sebamaster-movie-backend.git"
+    "url": "https://github.com/JanCizmar/MountIN/tree/master/backend"
   },
-  "author": "sebischair",
+  "author": "Team43-2018",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sebischair/sebamaster-movie-backend/issues"
+    "url": "https://github.com/JanCizmar/MountIN/tree/master/backend"
   },
-  "homepage": "ttps://github.com/sebischair/sebamaster-movie-backend.git#readme",
+  "homepage": "https://github.com/JanCizmar/MountIN/",
   "scripts": {
-    "test": "NODE_ENV=test && mocha --timeout 100000 --exit",
+    "test": "set NODE_ENV=test&& mocha --timeout 100000 --exit",
     "start": "node ./index.js",
     "devstart": "nodemon ./index.js",
     "fake-tours": "node ./fakeTours.js"

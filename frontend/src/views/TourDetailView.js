@@ -39,8 +39,8 @@ class TourDetailPageView extends React.Component {
         this.props.dispatch(actions.closeDeleteTourModal());
     }
 
-    shouldComponentUpdate (props) {
-        if(props.state.redirect !=="") {
+    shouldComponentUpdate(props) {
+        if (props.state.redirect !== "") {
             this.props.dispatch(actions.clearState());
             props.history.push(props.state.redirect);
             return false
@@ -113,24 +113,6 @@ class TourDetailPageView extends React.Component {
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.onDeleteToggleConfirmed.bind(this)}>Delete</Button>
-                            <Button onClick={this.onCloseDeleteTourModal.bind(this)}>Close</Button>
-                        </Modal.Footer>
-                    </Modal>
-
-                    <Modal
-                        onHide={this.onCloseDeleteTourModal.bind(this)}
-                        show={this.props.state.showLeaveDialog}
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title>
-                                Leave tour
-                            </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            Do you really want to leave this tour? :(
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={this.onDeleteToggleConfirmed.bind(this)}>Leave</Button>
                             <Button onClick={this.onCloseDeleteTourModal.bind(this)}>Close</Button>
                         </Modal.Footer>
                     </Modal>
