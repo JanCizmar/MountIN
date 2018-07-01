@@ -10,12 +10,13 @@ export const CLEAR_CURRENT_MESSAGE = "CLEAR_CURRENT_MESSAGE";
 export const UPDATE_CURRENT_MESSAGE = "UPDATE_CURRENT_MESSAGE";
 export const ADD_EMOJI = "ADD_EMOTE";
 export const TOGGLE_EMOJI_PICKER = "TOGGLE_EMOJI_PICKER";
+export const RESET_SCROLL_DOWN = "RESET_SCROLL_DOWN";
 
 
-export function sendMessage(socket, message) {
+export function sendMessage(socket, message, userId) {
     return (dispatch) => {
         SocketService.sendMessage(socket, message);
-        dispatch(updateMessages(message));
+        dispatch(updateMessages(message, userId));
         dispatch(clearCurrentMessage());
     }
 }
@@ -58,10 +59,11 @@ function fetchHistoryError() {
     }
 }
 
-export function updateMessages(message) {
+export function updateMessages(message, userId) {
     return {
         type: UPDATE_MESSAGES,
-        message: message
+        message: message,
+        userId: userId
     }
 }
 
@@ -94,5 +96,11 @@ export function addEmoji(emoji) {
 export function toggleEmojiPicker() {
     return {
         type: TOGGLE_EMOJI_PICKER
+    }
+}
+
+export function resetScrollDown() {
+    return {
+        type: RESET_SCROLL_DOWN
     }
 }
