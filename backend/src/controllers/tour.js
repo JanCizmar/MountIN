@@ -97,10 +97,10 @@ const update = (req, res) => {
     // });
 
     if (req.body.route !== undefined && req.body.route.length > 1) {
-       req.body.route = {
-           "type": "MultiPoint",
-           "coordinates": req.body.route.map(point => [point[1], point[0]])
-       };
+        req.body.route = {
+            "type": "MultiPoint",
+            "coordinates": req.body.route.map(point => [point[1], point[0]])
+        };
     }
 
     TourModel.findByIdAndUpdate(req.body._id, req.body, {new: true, runValidators: true}).exec()
@@ -333,6 +333,9 @@ const join = async (req, res) => {
                         tour = JSON.parse(JSON.stringify(tour));
                         tour.route = tour.route.coordinates.map(point => [point[1], point[0]]);
                         res.status(200).json(tour);
+
+                        sendEmail(tour, user.email);
+
                     }
                 });
             }
@@ -343,6 +346,36 @@ const join = async (req, res) => {
             message: err
         });
     }
+};
+
+const sendEmail = (tour, to) => {
+    let mailer = require("nodemailer");
+    let xoauth2 = require('xoauth2');
+
+// Use Smtp Protocol to send Email
+    let smtpTransport = mailer.createTransport({
+        service: "Gmail",
+        host: "smtp.gmail.com",
+        auth: {
+            user: "mountin@chlupac.com",
+            pass: "dlkjfsdlkjfsda876kJSH!2627@"
+        }
+    });
+
+
+    let mail = {
+        from: "MountIN service <mountin@chlupac.com>",
+        to: to,
+        subject: "Joined tour " + tour.name,
+        html: "<b>Congratulations! You just joined the tour. Tour takes place at " + tour.date + ".</b>"
+    };
+
+    smtpTransport.sendMail(mail, function (error, response) {
+        if (error) {
+            console.log(error);
+        }
+        smtpTransport.close();
+    });
 };
 
 module.exports = {
