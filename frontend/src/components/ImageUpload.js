@@ -27,7 +27,7 @@ export const ImageUpload = (props) => {
                 {props.uploading && <Loading/> ||
                 <input className="fileInput"
                        type="file"
-                       accept="image/!*"
+                       accept="image/x-png,image/gif,image/jpeg"
                        onChange={handleImageChange}/>}
                 <div className="imgPreview">
                     {imagePreview}

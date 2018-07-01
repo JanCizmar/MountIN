@@ -28,7 +28,10 @@ class LandingPage extends React.Component {
         return (
             <Page className="landing-page">
                 <Grid>
-                    <div className="testt">
+                    <div className="landing-head">FIND YOUR PERFECT TOUR</div>
+                    <hr/>
+                    <div className="landing-container">
+
                         <form className="landing-form" onSubmit={this.handleSubmit}
                               onReset={() => this.props.history.goBack()}>
                             <FormGroup>
