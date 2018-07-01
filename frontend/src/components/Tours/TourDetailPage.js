@@ -75,7 +75,7 @@ function TourDetailPage (props)  {
                                 }
                             </div>
                             <div className="head detail-head">
-                                TourCost:{props.cost === 0 &&
+                                Tour Cost:{props.cost === 0 &&
                                 <div className="free">FREE</div>
                             } {!props.cost === 0 &&
                                 <div className="cost">{props.cost} €</div>
@@ -86,7 +86,7 @@ function TourDetailPage (props)  {
                                 <div className="creator"> {props.creator && props.creator.username}</div>
                             </div>
                             <div className="head detail-head">
-                                Number ofParticipants:
+                                Number of Participants:
                                 <div className="creator">{props.participants && props.participants.length} </div>
                             </div>
                         </Col>
