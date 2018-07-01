@@ -19,15 +19,12 @@ const create = (req, res) => {
         };
     }
 
-    console.log(req.userId);
     req.body.creator = req.userId;
     UserModel.findById(req.body.creator).then(creator => {
         if (creator !== null) {
             TourModel.create(req.body)
                 .then(tour => {
-                    console.log('Tour created', tour);
                     creator.tours.push(tour._id);
-                    console.log('User', creator);
                     creator.save(err => {
                         if (err) {
                             // Attempt a rollback of the tour creation
@@ -121,7 +118,7 @@ const remove = (req, res) => {
 };
 
 const list = (req, res) => {
-    TourModel.find({}).exec()
+    TourModel.find.sort({date:1}).exec()
         .then(tours => {
 
             return res.status(200).json(tours)
@@ -161,9 +158,16 @@ const search = (req, res) => {
     }
 
     // Filter for Date from
-    if (req.query.dateAfter !== undefined) {
+    if (req.query.dateAfter === undefined) {
         query.date = {
-            $gte: req.query.dateAfter,
+            $gte: new Date().setHours(0,0,0),
+        }
+    }
+
+    if (req.query.dateAfter !== undefined) {
+        let d=new Date( req.query.dateAfter);
+        query.date = {
+            $gte: d.setHours(0,0,0),
         }
     }
 
@@ -172,7 +176,8 @@ const search = (req, res) => {
         if (query.date === undefined) {
             query.date = {};
         }
-        query.date.$lte = req.query.dateBefore;
+        let d=new Date( req.query.dateBefore);
+        query.date.$lte = d.setHours(23,59,59);
     }
 
     // Filter for Activity Types
@@ -216,11 +221,10 @@ const search = (req, res) => {
     // Custom join: Get all users with a specific professional field value and then use the _id to filter the tours
     UserModel.find().where('professional').in(guideTypesArray).select('_id').exec()
         .then(creators => {
-            console.log('Creators', creators);
             TourModel.find(query).where('creator').in(creators)
+                .sort({date:1})
                 .skip(parseInt(req.query.skip)).limit(28).exec()
                 .then(tours => {
-                    console.log(tours);
                     res.status(200).json(tours.map(tour => {
                         //we dont need the type of GEO object, so the tour is just coordinates
                         if (tour.route && tour.route.coordinates) {
