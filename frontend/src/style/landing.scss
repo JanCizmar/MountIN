@@ -6,7 +6,7 @@ $gray: #a2a3a8;
 
 .landing-page {
   padding-bottom: 4em;
-  background: url("../images/landing.jpg") 50% no-repeat, #adb5c4 fixed;
+  background: url("../images/landing.jpg") 50% no-repeat fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -38,13 +38,13 @@ $gray: #a2a3a8;
   }
 
 }
-.testt{
+.landing-container{
 
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  height: 80vh;
+  height: 25vh;
 
 }
 .landing-form {
@@ -52,19 +52,19 @@ $gray: #a2a3a8;
   .form-control {
     width: 100%;
     height: 36px;
-    border-radius: 0px;
+    border-radius: 0;
   }
 }
 
 .searchButton {
   background: $black;
   border: none;
-  border-radius: 0px;
+  border-radius: 0;
   margin-left: -30px;
   &:hover {
     background: $black;
     border: none;
-    border-radius: 0px;
+    border-radius: 0;
     margin-left: -30px;}
   .search-glyphicon{
     font-size: 20px;
@@ -73,15 +73,30 @@ $gray: #a2a3a8;
   &.btn-default[disabled]:hover{
     background-color: $black !important;
     border: none !important;
-    border-radius: 0px !important;
+    border-radius: 0 !important;
     margin-left: -30px!important;
   }
 }
 
 @media only screen and (max-width: 320px) {
   .landing-page{
-    background: url("../images/landing.jpg") 50% no-repeat, #adb5c4;
+    background: url("../images/landing.jpg") 50% no-repeat;
     height: 100%;
     text-align: center;
   }
+}
+.landing-head{
+  margin-top: 25vh;
+  color: white;
+  font-size: 33px;
+  text-shadow: 6px 3px 5px blue;
+  font-weight: bold;
+}
+hr{
+  width: 25%;
+  color: white;
+  margin-bottom: 0;
+  margin-top: 1px;
+  border-top: 1px solid white;
+  box-shadow: 6px 3px 5px blue;
 }
