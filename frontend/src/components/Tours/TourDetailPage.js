@@ -9,9 +9,11 @@ import Sticky from 'react-sticky-el';
 import MessageBoard from "../MessageBoard/MessageBoard";
 import ImageUploadService from "../../services/ImageUploadService";
 import {withRouter} from 'react-router-dom';
+import RentalAgency from '../RentalAgency'
 
 function TourDetailPage (props)  {
     let messageBoardElements;
+    let rentalAgencyElements;
     let participantsId = props.participants.map(participant => participant._id);
 
     // Only show the messageBoard if the current user is a participant or the creator
@@ -22,6 +24,16 @@ function TourDetailPage (props)  {
                     MESSAGE BOARD:
                 </div>
                 <MessageBoard userId={props.userId} tourId={props._id} username={props.username}/>
+            </Col>
+    }
+
+    if (props.userId !== undefined && (props.userId === props.creator._id || participantsId.includes(props.userId))) {
+       rentalAgencyElements =
+            <Col className="margin-20 text-justify" xs={12} md={12} lg={12}>
+                <div className="head detail-head">
+                    RENTAL AGENCIES NEARBY :
+                </div>
+               <RentalAgency/>
             </Col>
     }
 
@@ -94,6 +106,8 @@ function TourDetailPage (props)  {
                             {props.description}
                         </Col>
                         {messageBoardElements}
+                        {rentalAgencyElements}
+
                     </Col>
 
                 <Col xs={12} md={6} lg={6}>
