@@ -13,6 +13,8 @@ import ExampleView from "./views/ExampleView";
 import TourDetailPageView from "./views/TourDetailView";
 import {EditUserView} from "./views/EditUserView";
 import {EditTourView} from "./views/EditTourView";
+import favicon from "./images/favicon.ico"
+import Favicon from "react-favicon"
 
 export default class App extends React.Component {
     routes = [
@@ -36,6 +38,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
+                <Favicon url={favicon}/>
                 <Router>
                     <Switch>
                         {this.routes.map((route, i) => (<Route key={i} {...route}/>))}
