@@ -3,12 +3,13 @@ $grey: rgba(132, 133, 137, 0.53);
 
 .customNavbar{
   background-color: $grey;
-  border:0px;
-  border-radius: 0px;
-
+  border:0;
+  border-radius: 0;
     .customNavbarHeading {
       .customNavbarBrand {
         color: $white;
+        padding-top: 4px;
+
       }
     }
     .navbar-nav>li>a
@@ -21,6 +22,9 @@ $grey: rgba(132, 133, 137, 0.53);
   .navbar-default .navbar-toggle .icon-bar {
     background-color: $white;
   }
-
+.logo{
+  width: 130px;
+  max-width: 130px;
+}
 
 }

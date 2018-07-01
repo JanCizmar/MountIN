@@ -1,11 +1,17 @@
 .profile-page {
+  .container {
+  margin: 0;
+  width: 100%;
+}
   .customNavbar {
     margin-bottom: 1px;
-  }
-  .container {
-    margin: 0;
-    width: 100%;
-  }
+      .container{
+        padding-left: 8.3%;
+        padding-right: 8.3%;
+      }
+    }
+
+
   .user-details-column {
     background: papayawhip;
     height: 100%;
