@@ -114,10 +114,9 @@ export const Map = compose(
                 props.onDirectionsChanged(waypts);
             }
         }
-
         return <GoogleMap
             defaultZoom={9}
-            center={new google.maps.LatLng(props.center[0], props.center[1])}
+            defaultCenter={new google.maps.LatLng(props.center[0], props.center[1])}
             onRightClick={handleOnClick}
         >
 
