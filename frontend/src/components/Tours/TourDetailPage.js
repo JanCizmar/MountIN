@@ -49,28 +49,28 @@ function TourDetailPage (props)  {
                                     second: '2-digit'
                                 }).format(new Date(props.date))} </div>
                             <div className="difficulty head detail-head">
-                                Level ofDifficulty: {props.difficulty === 1 &&
+                                Level ofDifficulty: {props.difficulty === 0 &&
                                 <div className="easy">EASY</div>
                                 }
-                                {props.difficulty === 2 &&
+                                {props.difficulty === 1 &&
                                 <div className="med">INTERMEDIATE</div>
                                 }
-                                {props.difficulty ===3 &&
+                                {props.difficulty ===2 &&
                                 <div className="hard">EXPERT</div>
                                 }
                             </div>
                             <div className="head detail-head">
                                 Tour Type:
-                                {props.type === 1 &&
+                                {props.type === 0 &&
                                 <div className="other">OTHER</div>
                                 }
-                                {props.type ===2 &&
+                                {props.type ===1 &&
                                 <div className="hiking">HIKING</div>
                                 }
-                                {props.type ===3 &&
+                                {props.type ===2 &&
                                 <div className="skiing">SKIING</div>
                                 }
-                                {props.type === 4 &&
+                                {props.type === 3 &&
                                 <div className="biking">BIKING</div>
                                 }
                             </div>

@@ -22,7 +22,7 @@ export const ImageUpload = (props) => {
         <div className="previewText">Please select an Image for Preview</div>;
 
     return (
-        props.uploadedUrl !== '' ? <img src={props.uploadedUrl} alt="Uploaded image"/> :
+        props.uploadedUrl !== '' ? <img style={{width: '100%'}} src={props.uploadedUrl} alt="Uploaded image"/> :
             <div className="imageUpload">
                 {props.uploading && <Loading/> ||
                 <input className="fileInput"
