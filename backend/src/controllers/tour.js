@@ -3,7 +3,7 @@
 
 const TourModel = require('../models/tour');
 const UserModel = require('../models/user');
-
+const MessageModel = require('../models/message');
 
 const create = (req, res) => {
     if (Object.keys(req.body).length === 0) return res.status(400).json({
@@ -108,13 +108,17 @@ const update = (req, res) => {
         }));
 };
 
-const remove = (req, res) => {
-    TourModel.findByIdAndRemove(req.params.id).exec()
-        .then(() => res.status(200).json({message: `Tour with id${req.params.id} was deleted`}))
-        .catch(error => res.status(500).json({
+const remove = async (req, res) => {
+    try {
+        let tour = await TourModel.findByIdAndRemove(req.params.id).exec();
+        await MessageModel.remove({tourId: tour._id}).exec();
+        res.status(200).json({message: `Tour with id${req.params.id} was deleted`});
+    } catch (error) {
+        res.status(500).json({
             error: 'Internal server error',
             message: error.message
-        }));
+        })
+    }
 };
 
 const list = (req, res) => {

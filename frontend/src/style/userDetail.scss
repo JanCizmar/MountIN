@@ -1,4 +1,10 @@
 .profile-page {
+  div.row {
+    div.row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
   .customNavbar {
     margin-bottom: 1px;
   }
