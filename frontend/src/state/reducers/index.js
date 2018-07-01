@@ -6,6 +6,7 @@ import userDetail from "./userDetail";
 import tourDetail from "./tourDetail";
 import tourEdit from "./tourEdit";
 import userSignUp from "./userSignup";
+import rentalAgencies from "./rentalAgency"
 
 export default combineReducers({
     tourList,
@@ -14,6 +15,6 @@ export default combineReducers({
     userDetail,
     tourDetail,
     tourEdit,
-    tourDetail,
-    userSignUp
+    userSignUp,
+    rentalAgencies
 });

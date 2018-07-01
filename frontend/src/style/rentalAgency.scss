@@ -1,0 +1,14 @@
+.agency{
+  padding:4px;
+  box-shadow: 2px 2px 11px #888888;
+  max-width: 200px;
+  margin-bottom: 20px;
+  text-align: center;
+  .name{
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  .website,.phone,.email,.types{
+    font-size: 14px;
+  }
+}

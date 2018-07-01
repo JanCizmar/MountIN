@@ -19,7 +19,8 @@ class Header extends React.Component {
             <Navbar className="customNavbar">
                 <Navbar.Header className="customNavbarHeading">
                     <Navbar.Brand className="customNavbarBrand">
-                        <a href="#" onClick={() => this.props.history.push('/')}><img className="logo" src={headerImage} /></a>
+                        <a href="#" onClick={() => this.props.history.push('/')}><img className="logo"
+                                                                                      src={headerImage}/></a>
                     </Navbar.Brand>
                     <Navbar.Toggle className="burger-menu"/>
                 </Navbar.Header>

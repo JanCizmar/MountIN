@@ -1,7 +1,7 @@
 "use strict";
 
 const RentalAgencyModel = require('../models/rentalAgency');
-const defaultDistanceKilometer = 20;
+const defaultDistanceKilometer = 150;
 
 
 const findNearbyAgencies = (req, res) => {
@@ -24,11 +24,24 @@ const findNearbyAgencies = (req, res) => {
         maxDistance: distance * 1000,
         spherical: true}
     ).exec()
-        .then(agencies => res.status(200).json(agencies))
+        .then(agencies => {
+            console.log("Agencies", agencies)
+            res.status(200).json(agencies)
+        })
         .catch(error => res.status(500).json({
             error: 'Internal server error',
             message: error.message
         }));
 };
 
-module.exports = {findNearbyAgencies};
+const create = (req,res) => {
+    RentalAgencyModel.create(req.body)
+        .then(agency => {
+            console.log("just created", agency)
+            res.status(200).json(agency);
+        })
+        .catch(error => {
+            console.log("cant create agenc", error)
+        });
+}
+module.exports = {findNearbyAgencies, create};

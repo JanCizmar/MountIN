@@ -38,10 +38,10 @@ function TourListItem(props) {
                     {props.type === ActivityType.OTHER &&
                     <div className="other">Other</div>
                     }
-                    {props.type ===ActivityType.HIKING &&
+                    {props.type === ActivityType.HIKING &&
                     <div className="hiking">Hiking</div>
                     }
-                    {props.type ===ActivityType.SKIING &&
+                    {props.type === ActivityType.SKIING &&
                     <div className="skiing">Skiing</div>
                     }
                     {props.type === ActivityType.BIKING &&

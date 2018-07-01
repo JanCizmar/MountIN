@@ -16,7 +16,7 @@ function UserDetail(props) {
     });
     return (
         <Page className="profile-page">
-            <Row className="testtt">
+            <Row>
                 <Col className="user-details-column text-center" xs={12} sm={4} md={4} lg={3}>
                     <Col sm={12} md={12} lg={12}>
                         <img className="profile-image" width={164} height={164}

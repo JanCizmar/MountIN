@@ -5,7 +5,7 @@ import {TourActivityType} from "./CreateTourInputs/TourActivityType";
 import {TourDifficulty} from "./CreateTourInputs/TourDifficulty";
 import {TourPrice} from "./CreateTourInputs/TourPrice";
 import {Map} from './../Map';
-import {compose, withHandlers, lifecycle} from "recompose";
+import {compose, lifecycle, withHandlers} from "recompose";
 import PropTypes from 'prop-types';
 import * as actions from "../../state/actions/tourEdit";
 import {withRouter} from "react-router-dom";

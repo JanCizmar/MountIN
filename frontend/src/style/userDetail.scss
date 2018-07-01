@@ -6,16 +6,16 @@
     }
   }
   .container {
-  margin: 0;
-  width: 100%;
-}
+    margin: 0;
+    width: 100%;
+  }
   .customNavbar {
     margin-bottom: 1px;
-      .container{
-        padding-left: 8.3%;
-        padding-right: 8.3%;
-      }
+    .container {
+      padding-left: 8.3%;
+      padding-right: 8.3%;
     }
+  }
 
 
   .user-details-column {
@@ -75,8 +75,7 @@
       .user-email {
         font-size: 18px;
         max-width: fit-content;
-        word-break: break-word;
-
+        word-break: break-all;
       }
     }
   }
