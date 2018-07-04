@@ -91,9 +91,7 @@ function TourDetailPage (props)  {
                             <div className="head detail-head">
                                 TourCost:{props.cost === 0 &&
                                 <div className="free">FREE</div>
-                            } {!props.cost === 0 &&
-                                <div className="cost">{props.cost} €</div>
-                                }
+                            } {props.cost !== 0 && <div className="cost">{props.cost} €</div>}
                             </div>
                             <div className="head detail-head">
                                 Tour Created By:
